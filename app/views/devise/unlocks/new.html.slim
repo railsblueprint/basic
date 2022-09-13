@@ -1,0 +1,8 @@
+h5.card-title.text-center.pb-0.fs-4
+  = t('.resend_unlock_instructions')
+= bootstrap_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post , class: "row g-3 needs-validation" }) do |f|
+  / = render "devise/shared/error_messages", resource: resource
+  = f.email_field :email, autofocus: true, autocomplete: "email"
+  .actions
+    = f.submit t('.resend_unlock_instructions'), class: "btn btn-primary w-100"
+  = render "devise/shared/links"

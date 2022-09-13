@@ -1,0 +1,349 @@
+---
+en:
+  actions:
+    cancel: Cancel
+    cancel_change: Cancel change
+    change_password: Change password
+    close: Close
+    copy_to_clipboard: Copy to clipboard
+    create: Create
+    delete: Delete
+    details: Details
+    disavow: Disavow
+    edit: Edit
+    login: Login
+    login_as_user: Login as user
+    my_profile: My Profile
+    need_help_q: Need Help?
+    new: New
+    next_page: Next page >
+    open_link_in_new_tab: Open link in new tab
+    please_confirm: Please confirm
+    preview: Preview
+    resend_confirmation_email: Resend confirmation email
+    save: Save
+    search: Search
+    send_message: Send Message
+    sign_out: Sign Out
+    sign_up: Sign up
+    'true': 'Yes'
+    update_profile: Update profile
+    'yes': 'Yes'
+  activemodel:
+    attributes:
+      setting:
+        types:
+          boolean: Boolean
+          integer: Integer
+          json: JSON
+          set: Set
+          string: String
+      user:
+        first_name: Name first
+        unconfirmed_email: Unconfirmed email
+  admin:
+    common:
+      failed_to_create_item: Failed to create %{record}
+      failed_to_delete_item: Failed to delete %{record}
+      failed_to_update_item: Failed to update %{record}
+      item_create_unauthorized: You are not authorized to create %{record}
+      item_delete_unauthorized: You are not authorized to delete this %{record}
+      item_deleted_ok: Successfully deleted
+      item_update_unauthorized: You are not authorized to update this %{record}
+      'no': 'No'
+      not_authorized: You are not authorized to perform this action
+      search_btn: Search
+      successfully_created: Successfully created %{record}
+      successfully_updated: Successfully updated %{record}
+      'yes': true
+    controller:
+      page_title: Page title
+    crud:
+      header:
+        search_placeholder: Type for search
+      search_field:
+        search_placeholder: Type for search
+    design_system:
+      charts:
+        apexcharts:
+          page_title: ApexCharts
+        chartjs:
+          page_title: Chart.JS
+        echarts:
+          page_title: ECharts
+      components:
+        accordion:
+          page_title: Accordion
+        alert:
+          page_title: Alert
+        badges:
+          page_title: Badges
+        breadcrumbs:
+          page_title: Breadcrumbs
+        buttons:
+          page_title: Buttons
+        cards:
+          page_title: Cards
+        carousel:
+          page_title: Carousel
+        list_group:
+          page_title: List group
+        modal:
+          page_title: Modals
+        pagination:
+          page_title: Pagination
+        progress:
+          page_title: Progress bars
+        spinners:
+          page_title: Spinners
+        tabs:
+          page_title: Tabs
+        tooltips:
+          page_title: Tooltips
+      forms:
+        editors:
+          page_title: Editors
+        elements:
+          page_title: Form elements
+        layouts:
+          page_title: Form layouts
+        validation:
+          page_title: Validation
+      icons:
+        bootstrap:
+          page_title: Bootstrap icons
+        boxicons:
+          page_title: Boxicons
+        remix:
+          page_title: Remix icons
+      tables:
+        data:
+          page_title: Data tables
+        general:
+          page_title: General tables
+    global_search:
+      name: Name
+      type: Type
+    mail_templates:
+      alias: Alias
+      edit:
+        page_title: Edit template
+      header:
+        you_have_unsaved_changes: You have unsaved changes. Don't forget to run 'rake mail_templates:generate' to generate data migration
+      index:
+        page_title: Mail templates
+      new:
+        page_title: New template
+      subject: Subject
+    nav:
+      admin: Admin
+      components: Components
+      configuration: Configuration
+      dashboard: Dashboard
+      demos: Demos
+      design_system:
+        accordion: Accordion
+        alerts: Alerts
+        apexcharts: ApexCharts
+        badges: Badges
+        bootstrap: Bootstrap Icons
+        boxicons: Boxicons
+        breadcrumbs: Breadcrumbs
+        buttons: Buttons
+        cards: Cards
+        carousel: Carousel
+        chartjs: Chart.js
+        charts: Charts
+        color_system: Color system
+        components: Components
+        design_system: Design system
+        echarts: ECharts
+        fontawesome: FontAwesome icons
+        form_editors: Form Editors
+        form_elements: Form Elements
+        form_layouts: Form Layouts
+        form_validation: Form Validation
+        forms: Forms
+        icons: Icons
+        list_group: List group
+        modal: Modal
+        pagination: Pagination
+        progress: Progress
+        remix: Remix Icons
+        spinners: Spinners
+        tables: Tables
+        tables_data: Data Tables
+        tables_general: General Tables
+        tabs: Tabs
+        toasts: Toasts
+        tooltips: Tooltips
+      global_search: Global search
+      good_job: Good Job
+      home: Home
+      mail_templates: Mail templates
+      maintenance: Maintenance
+      pages: Pages
+      pg_hero: Pg Hero
+      posts: Posts
+      settings: Settings
+      users: Users
+    pages:
+      active: Active
+      page_title: Pages
+      sidebar: Sidebar
+      title: Title
+      url: Url
+    posts:
+      author: Author
+      created_at: Created at
+      page_title: Posts
+      title: Title
+    settings:
+      index:
+        create_setting: Create setting
+        page_title: System settings
+      page_title: System settings
+    users:
+      company: Company
+      email: E-mail
+      form:
+        overview: Overview
+        password: Password
+        roles: Roles
+        social: Social
+      job: Job
+      name: Name
+      page_title: Users
+      registered: Registered
+      roles: Roles
+      show:
+        overview: Overview
+        posts_count:
+          one: 1 post
+          other: "%{count} posts"
+        social: Social
+  common:
+    no_access_to_page: You cannot access this page
+    unknown: Unknown
+  company:
+    address_1: A108 Adam Street,
+    address_2: New York, NY 535022
+    email_1: info@example.com
+    email_2: contact@example.com
+    phone_1: "+1 5589 55488 55"
+    phone_2: "+1 6678 254445 41"
+    workdays: Monday - Friday
+    workhours: 9:00AM - 05:00PM
+  contacts:
+    form:
+      message: Message
+      subject: Subject
+      your_email: Your email
+      your_name: Your name
+    new:
+      contact_us: Contact us
+    success:
+      your_message_was_successfully: Your message was successfully sent
+  devise:
+    sessions:
+      new:
+        login_to_your_account: Login to your account
+  errors:
+    messages:
+      restrict_dependent_destroy:
+        has_many: Cannot delete record because dependent %{record} exist
+        has_one: Cannot delete record because a dependent %{record} exists
+  helpers:
+    page_entries_info:
+      entry:
+        one: entry
+        other: entries
+        zero: entries
+      more_pages:
+        display_entries: Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total
+      one_page:
+        display_entries:
+          one: Displaying <b>1</b> %{entry_name}
+          other: Displaying <b>all %{count}</b> %{entry_name}
+          zero: No %{entry_name} found
+  locales:
+    en:
+      full: English
+      short: EN
+    ru:
+      full: Russian
+      short: RU
+  mail_templates:
+    names:
+      clean: Empty inky template
+      clean_html: Empty plain html template
+      mailer: Fixed-width inky template
+  messages:
+    built_with: Built with
+    confirmationl_resent: Confirmation email resent to %{email}
+    copied_successfully: Copied successfully
+    delete_confirmation: Are you sure you want to delete this %{resource}?
+    details: Details
+    email_change_cancelled: Email change cancelled
+    failed_to_copy: Failed to copy
+    failed_to_update_password: Failed to update password.
+    failed_to_update_profile: Failed to update profile
+    password_changed: Your password has been changed.
+    profile_updated: Your profile has been updated
+    successfully_updated: Successfully updated  %{resource}
+    you_cannot_access_this_page: You cannot access this page
+    you_cannot_peform_this_action: You cannot peform this action
+    you_must_be_signed_in_to_edit_your_profile: You must be signed in to edit your profile.
+  nav:
+    blog: Blog
+    contacts: Contacts
+    faq: F.A.Q
+    home: Home
+  pages:
+    contacts:
+      address: Address
+      call_us: Call us
+      email_us: Email us
+      open_hours: Open hours
+  posts:
+    edit:
+      editing_post: Editing post
+    index:
+      nothing_found: Nothing found
+      page_title: Blog
+      search_results: Search results for '%{q}'
+    new:
+      back_to_posts: Back to posts
+      new_post: New post
+  search:
+    any: "-- Any --"
+  users:
+    form:
+      overview: Overview
+      password: Password
+      social: Social
+    show:
+      about: About
+      address: Address
+      company: Company
+      country: Country
+      edit_profile: Edit profile
+      email: Email
+      facebook: Facebook
+      full_name: Full Name
+      instagram: Instagram
+      job: Job
+      linkedin: Linkedin
+      overview: Overview
+      phone: Phone
+      posts: Posts
+      social: Social
+      twitter: Twitter
+  views:
+    pagination:
+      first: "&laquo;&nbsp;First"
+      last: Last&nbsp;&raquo;
+      next: Next&nbsp;&rsaquo;
+      previous: "&lsaquo;&nbsp;Prev"
+      truncate: "&hellip;"
+  you_have_unsaved_changes: You have unsaved changes. Don't forget to run 'rake settings:generate' to generate data migration

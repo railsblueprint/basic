@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = favicon_link_tag "favicon.png"
+    = display_meta_tags site: t("platform.name")
+    link[href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"]
+    = stylesheet_link_tag "frontend", "data-turbo-track": "reload", "data-stylesheet": "frontend.css"
+    = javascript_importmap_tags "application_frontend"
+    = hotwire_livereload_tags
+  body class=body_class
+    = render "layouts/public/header"
+    = render "layouts/public/sidebar"
+    main#main.main
+      = component :toastr_flash
+      = component :breadcrumbs, _breadcrumbs
+      = yield
+    = render "layouts/public/footer"
+    = component :confirmation

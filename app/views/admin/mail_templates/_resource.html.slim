@@ -1,0 +1,6 @@
+li class="item item-container"
+  .attribute data-name=t("admin.mail_templates.alias") = resource.alias
+  .attribute data-name=t("admin.mail_templates.subject") = resource.subject
+  .actions
+    = edit_button(resource, stretched: true, small: true)
+    = delete_button(resource, small: true)

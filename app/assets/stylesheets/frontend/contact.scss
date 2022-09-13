@@ -1,0 +1,28 @@
+.contact .info-box {
+  padding: 28px 30px;
+}
+.contact .info-box i {
+  font-size: 38px;
+  line-height: 0;
+  color: var(--bs-primary);
+}
+.contact .info-box h3 {
+  font-size: 20px;
+  color: var(--bs-emphasis-color);
+  font-weight: 700;
+  margin: 20px 0 10px 0;
+}
+.contact .info-box p {
+  padding: 0;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+
+.contact_us.success {
+  margin-bottom: 70px;
+  h2 {
+    margin: 100px 0;
+  }
+}

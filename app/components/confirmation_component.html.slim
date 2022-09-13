@@ -1,0 +1,16 @@
+.modal#dataConfirmModal tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title
+          = t('actions.please_confirm')
+        button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button"
+      .modal-body
+        p
+          = t('actions.please_confirm')
+      .modal-footer
+        button.btn.btn-secondary data-bs-dismiss="modal" type="button"
+          = t('actions.cancel')
+        button.btn.btn-primary.action-confirm type="button"
+          = t('actions.yes')
+

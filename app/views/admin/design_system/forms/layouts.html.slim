@@ -1,0 +1,213 @@
+section.section
+  .row
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Horizontal Form
+          form
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputEmail3"]
+                | Your Name
+              .col-sm-10
+                input#inputText.form-control[type="text"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputEmail3"]
+                | Email
+              .col-sm-10
+                input#inputEmail.form-control[type="email"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputPassword3"]
+                | Password
+              .col-sm-10
+                input#inputPassword.form-control[type="password"]
+            .row.mb-3
+              legend.col-form-label.col-sm-2.pt-0
+                | Radios
+              .col-sm-10
+                .form-check
+                  input#gridRadios1.form-check-input[type="radio" name="gridRadios" value="option1" checked]
+                  label.form-check-label[for="gridRadios1"]
+                    |  First radio
+                .form-check
+                  input#gridRadios2.form-check-input[type="radio" name="gridRadios" value="option2"]
+                  label.form-check-label[for="gridRadios2"]
+                    |  Second radio
+                .form-check.disabled
+                  input#gridRadios3.form-check-input[type="radio" name="gridRadios" value="option3" disabled]
+                  label.form-check-label[for="gridRadios3"]
+                    |  Third disabled radio
+            .row.mb-3
+              .col-sm-10.offset-sm-2
+                .form-check
+                  input#gridCheck1.form-check-input[type="checkbox"]
+                  label.form-check-label[for="gridCheck1"]
+                    |  Example checkbox
+            .row
+              .col-sm-10.offset-sm-2
+                .actions
+                  button.btn.btn-primary[type="submit"]
+                    | Submit
+                  button.btn.btn-secondary[type="reset"]
+                    | Reset
+      .card
+        .card-body
+          h5.card-title
+            | Multi Columns Form
+          form.row.g-3
+            .col-md-12
+              label.form-label[for="inputName5"]
+                | Your Name
+              input#inputName5.form-control[type="text"]
+            .col-md-6
+              label.form-label[for="inputEmail5"]
+                | Email
+              input#inputEmail5.form-control[type="email"]
+            .col-md-6
+              label.form-label[for="inputPassword5"]
+                | Password
+              input#inputPassword5.form-control[type="password"]
+            .col-12
+              label.form-label[for="inputAddress5"]
+                | Address
+              input#inputAddres5s.form-control[type="text" placeholder="1234 Main St"]
+            .col-12
+              label.form-label[for="inputAddress2"]
+                | Address 2
+              input#inputAddress2.form-control[type="text" placeholder="Apartment, studio, or floor"]
+            .col-md-6
+              label.form-label[for="inputCity"]
+                | City
+              input#inputCity.form-control[type="text"]
+            .col-md-4
+              label.form-label[for="inputState"]
+                | State
+              select#inputState.form-select
+                option[selected]
+                  | Choose...
+                option
+                  | ...
+            .col-md-2
+              label.form-label[for="inputZip"]
+                | Zip
+              input#inputZip.form-control[type="text"]
+            .col-12
+              .form-check
+                input#gridCheck.form-check-input[type="checkbox"]
+                label.form-check-label[for="gridCheck"]
+                  |  Check me out
+            .col-12
+              .actions
+                button.btn.btn-primary[type="submit"]
+                  | Submit
+                button.btn.btn-secondary[type="reset"]
+                  | Reset
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Vertical Form
+          form.row.g-3
+            .col-12
+              label.form-label[for="inputNanme4"]
+                | Your Name
+              input#inputNanme4.form-control[type="text"]
+            .col-12
+
+              label.form-label[for="inputEmail4"]
+                | Email
+              input#inputEmail4.form-control[type="email"]
+            .col-12
+
+              label.form-label[for="inputPassword4"]
+                | Password
+              input#inputPassword4.form-control[type="password"]
+            .col-12
+
+              label.form-label[for="inputAddress"]
+                | Address
+              input#inputAddress.form-control[type="text" placeholder="1234 Main St"]
+            .actions
+              button.btn.btn-primary[type="submit"]
+                | Submit
+              button.btn.btn-secondary[type="reset"]
+                | Reset
+      .card
+        .card-body
+          h5.card-title
+            | No Labels / Placeholders as labels Form
+          form.row.g-3
+            .col-md-12
+              input.form-control[type="text" placeholder="Your Name"]
+            .col-md-6
+              input.form-control[type="email" placeholder="Email"]
+            .col-md-6
+              input.form-control[type="password" placeholder="Password"]
+            .col-12
+              input.form-control[type="text" placeholder="Address"]
+            .col-md-6
+              input.form-control[type="text" placeholder="City"]
+            .col-md-4
+              select#inputState2.form-select
+                option[selected]
+                  | Choose...
+                option
+                  | ...
+            .col-md-2
+              input.form-control[type="text" placeholder="Zip"]
+            .actions
+              button.btn.btn-primary[type="submit"]
+                | Submit
+              button.btn.btn-secondary[type="reset"]
+                | Reset
+      .card
+        .card-body
+          h5.card-title
+            | Floating labels Form
+          form.row.g-3
+            .col-md-12
+              .form-floating
+                input#floatingName.form-control[type="text" placeholder="Your Name"]
+                label[for="floatingName"]
+                  | Your Name
+            .col-md-6
+              .form-floating
+                input#floatingEmail.form-control[type="email" placeholder="Your Email"]
+                label[for="floatingEmail"]
+                  | Your Email
+            .col-md-6
+              .form-floating
+                input#floatingPassword.form-control[type="password" placeholder="Password"]
+                label[for="floatingPassword"]
+                  | Password
+            .col-12
+              .form-floating
+                textarea#floatingTextarea.form-control[placeholder="Address" style="height: 100px;"]
+                label[for="floatingTextarea"]
+                  | Address
+            .col-md-6
+              .form-floating
+                input#floatingCity.form-control[type="text" placeholder="City"]
+                label[for="floatingCity"]
+                  | City
+            .col-md-4
+              .form-floating.mb-3
+                select#floatingSelect.form-select[aria-label="State"]
+                  option[selected]
+                    | New York
+                  option[value="1"]
+                    | Oregon
+                  option[value="2"]
+                    | DC
+                label[for="floatingSelect"]
+                  | State
+            .col-md-2
+              .form-floating
+                input#floatingZip.form-control[type="text" placeholder="Zip"]
+                label[for="floatingZip"]
+                  | Zip
+          .actions
+            button.btn.btn-primary[type="submit"]
+              | Submit
+            button.btn.btn-secondary[type="reset"]
+              | Reset

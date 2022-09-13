@@ -1,0 +1,15 @@
+footer#footer.footer
+  .copyright
+    strong
+      span
+        = link_to t("platform.name"), "https://railsblueprint.com"
+    '  |
+    = t("platform.slogan")
+    ' |
+    span.no-wrap
+      = t('messages.built_with')
+      strong
+        a href="https://railsblueprint.com" target="_blank"
+          | Rails Blueprint
+  a.back-to-top data-controller="back-to-top" data-action="scroll@window->back-to-top#refresh click->back-to-top#click"
+    i.bi.bi-arrow-up-short

@@ -1,0 +1,14 @@
+turbo-frame id="frame_#{dom_id(@command)}"
+  = bootstrap_form_for @command, url: contacts_path, method: "POST" do |f|
+    .row.gy-4
+      .col-md-6
+        = f.text_field :name, hide_label: true, placeholder: t('.your_name')
+      .col-md-6
+        = f.text_field :email, hide_label: true, placeholder: t('.your_email')
+      .col-md-12
+        = f.text_field :subject, hide_label: true, placeholder: t('.subject')
+      .col-md-12
+        = f.text_area :message, hide_label: true, placeholder: t('.message'), rows: 6
+      .col-md-12.text-center
+        button type="submit" class="btn btn-primary"
+          = t('actions.send_message')

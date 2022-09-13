@@ -1,0 +1,12 @@
+= bootstrap_form_for @command, url: {action: :update}, method: :put, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-8' do |f|
+  .card
+    .card-body.pt-3
+      = render "form", f: f
+    .card-footer.p-3
+      = f.form_group class: "pb-0" do
+        .d-flex.justify-content-between
+          .actions
+            = f.submit t("actions.save"), class: "btn btn-primary", "data-controller": "save-submit"
+            = link_to t("actions.cancel"), params[:return_to] || search_url || { action: :index }, class: "btn btn-outline-secondary"
+          .actions
+            = delete_button(@resource)

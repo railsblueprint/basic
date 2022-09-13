@@ -1,0 +1,12 @@
+li.item.item-container
+  .attribute =t("admin.pages.title")
+  .attribute =t("admin.pages.url")
+  .attribute =t("admin.pages.active")
+  .attribute =t("admin.pages.sidebar")
+  div
+li.item.item-container
+  .attribute.hidden-md
+  .attribute.hidden-md
+  .attribute.boolean data-name=t("admin.pages.active") = filter_by_active
+  .attribute.boolean data-name=t("admin.pages.sidebar") = filter_by_binary(:show_in_sidebar)
+  div.hidden-md

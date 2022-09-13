@@ -1,0 +1,219 @@
+section.section
+  .row
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Default List Group
+          ul.list-group
+            li.list-group-item
+              | An item
+            li.list-group-item
+              | A second item
+            li.list-group-item
+              | A third item
+            li.list-group-item
+              | A fourth item
+            li.list-group-item
+              | And a fifth one
+      .card
+        .card-body
+          h5.card-title
+            | Links and buttons
+          .list-group
+
+          button.list-group-item.list-group-item-action.active[type="button" aria-current="true"]
+            |  The current button
+          button.list-group-item.list-group-item-action[type="button"]
+            | A second item
+          button.list-group-item.list-group-item-action[type="button"]
+            | A third button item
+          button.list-group-item.list-group-item-action[type="button"]
+            | A fourth button item
+          button.list-group-item.list-group-item-action[type="button" disabled]
+            | A disabled button item
+      .card
+        .card-body
+          h5.card-title
+            | With Icons
+          ul.list-group
+            li.list-group-item
+              i.bi.bi-star.me-1.text-success
+              |  An item
+            li.list-group-item
+              i.bi.bi-collection.me-1.text-primary
+              |  A second item
+            li.list-group-item
+              i.bi.bi-check-circle.me-1.text-danger
+              |  A third item
+            li.list-group-item
+              i.bi.bi-exclamation-octagon.me-1.text-warning
+              |  A fourth item
+      .card
+        .card-body
+          h5.card-title
+            | Numbered
+          ol.list-group.list-group-numbered
+            li.list-group-item
+              | Cras justo odio
+            li.list-group-item
+              | Cras justo odio
+            li.list-group-item
+              | Cras justo odio
+      .card
+        .card-body
+          h5.card-title
+            | With badges
+          ul.list-group
+            li.list-group-item.d-flex.justify-content-between.align-items-center
+              |  A list item
+              span.badge.bg-primary.rounded-pill
+                | 14
+            li.list-group-item.d-flex.justify-content-between.align-items-center
+              |  A second list item
+              span.badge.bg-primary.rounded-pill
+                | 2
+            li.list-group-item.d-flex.justify-content-between.align-items-center
+              |  A third list item
+              span.badge.bg-primary.rounded-pill
+                | 1
+      .card
+        .card-body
+          h5.card-title
+            | With Contextual Classes
+          ul.list-group
+            li.list-group-item
+              | A simple default list group item
+            li.list-group-item.list-group-item-primary
+              | A simple primary list group item
+            li.list-group-item.list-group-item-secondary
+              | A simple secondary list group item
+            li.list-group-item.list-group-item-success
+              | A simple success list group item
+            li.list-group-item.list-group-item-danger
+              | A simple danger list group item
+            li.list-group-item.list-group-item-warning
+              | A simple warning list group item
+            li.list-group-item.list-group-item-info
+              | A simple info list group item
+            li.list-group-item.list-group-item-light
+              | A simple light list group item
+            li.list-group-item.list-group-item-dark
+              | A simple dark list group item
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | With active and disabled items
+          ul.list-group
+            li.list-group-item.active[aria-current="true"]
+              | An active item
+            li.list-group-item
+              | A second item
+            li.list-group-item
+              | A third item
+            li.list-group-item
+              | A fourth item
+            li.list-group-item.disabled[aria-disabled="true"]
+              | A disabled item
+      .card
+        .card-body
+          h5.card-title
+            | Clean list group
+          p
+            | Add
+            code
+              |  .list-group-flush
+            |  to remove some borders and rounded corners to render list group items edge-to-edge in a parent container (e.g., cards).
+          ul.list-group.list-group-flush
+            li.list-group-item
+              | An item
+            li.list-group-item
+              | A second item
+            li.list-group-item
+              | A third item
+            li.list-group-item
+              | A fourth item
+            li.list-group-item.disabled[aria-disabled="true"]
+              | A disabled item
+      .card
+        .card-body
+          h5.card-title
+            | With custom content
+          ol.list-group.list-group-numbered
+            li.list-group-item.d-flex.justify-content-between.align-items-start
+              .ms-2.me-auto
+                .fw-bold
+                  | Subheading
+                |  Cras justo odio
+              span.badge.bg-primary.rounded-pill
+                | 14
+            li.list-group-item.d-flex.justify-content-between.align-items-start
+              .ms-2.me-auto
+                .fw-bold
+                  | Subheading
+                |  Cras justo odio
+              span.badge.bg-primary.rounded-pill
+                | 14
+            li.list-group-item.d-flex.justify-content-between.align-items-start
+              .ms-2.me-auto
+                .fw-bold
+                  | Subheading
+                |  Cras justo odio
+              span.badge.bg-primary.rounded-pill
+                | 14
+      .card
+        .card-body
+          h5.card-title
+            | Advanced Content
+          .list-group
+            a.list-group-item.list-group-item-action.active[href="#" aria-current="true"]
+              .d-flex.w-100.justify-content-between
+                h5.mb-1
+                  | List group item heading
+                small
+                  | 3 days ago
+                p.mb-1
+                  | Some placeholder content in a paragraph.
+                small
+                  | And some small print.
+            a.list-group-item.list-group-item-action[href="#"]
+              .d-flex.w-100.justify-content-between
+                h5.mb-1
+                  | List group item heading
+                small.text-muted
+                  | 3 days ago
+                p.mb-1
+                  | Some placeholder content in a paragraph.
+                small.text-muted
+                  | And some muted small print.
+            a.list-group-item.list-group-item-action[href="#"]
+              .d-flex.w-100.justify-content-between
+                h5.mb-1
+                  | List group item heading
+                small.text-muted
+                  | 3 days ago
+                p.mb-1
+                  | Some placeholder content in a paragraph.
+                small.text-muted
+                  | And some muted small print.
+      .card
+        .card-body
+          h5.card-title
+            | With Checkboxes and radios
+          ul.list-group
+            li.list-group-item
+              input.form-check-input.me-1[type="checkbox" value="" aria-label="..."]
+              |  First checkbox
+            li.list-group-item
+              input.form-check-input.me-1[type="checkbox" value="" aria-label="..."]
+              |  Second checkbox
+            li.list-group-item
+              input.form-check-input.me-1[type="checkbox" value="" aria-label="..."]
+              |  Third checkbox
+            li.list-group-item
+              input.form-check-input.me-1[type="checkbox" value="" aria-label="..."]
+              |  Fourth checkbox
+            li.list-group-item
+              input.form-check-input.me-1[type="checkbox" value="" aria-label="..."]
+              |  Fifth checkbox

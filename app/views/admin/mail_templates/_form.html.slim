@@ -1,0 +1,10 @@
+= f.text_field :alias
+= f.select :layout , options_for_select(mail_template_layouts, @command.layout)
+= f.text_field :subject
+= f.text_area :body, id: "editor", "data-controller": "editors--codemirror"
+- if @command.persisted?
+  = f.form_group class: "pb-0" do
+    = link_to url_for(action: :preview), class: "btn btn-outline-primary", target: "_blank", data: {"turbo-method": :post} do
+      = t "actions.preview"
+
+

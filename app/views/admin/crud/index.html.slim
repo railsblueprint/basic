@@ -1,0 +1,10 @@
+= render partial: "header"
+= turbo_frame_tag "resources" do
+  = turbo_stream_action_tag("replace", target: "flash", template: component(:toastr_flash))
+  = turbo_stream_action_tag("replace", target: "breadcrumbs", template: component(:breadcrumbs, _breadcrumbs))
+
+  ol class="collection collection-container"
+    = render partial: "table_header"
+    = render partial: "resource", collection: @resources, as: :resource
+
+  = paginator @resources

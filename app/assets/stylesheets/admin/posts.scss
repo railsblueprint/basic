@@ -1,0 +1,9 @@
+.controller-admin-posts {
+  &.action-index {
+    @include media-breakpoint-up(md) {
+      .item-container {
+        grid-template-columns: 150px 6fr 2fr 2fr;
+      }
+    }
+  }
+}

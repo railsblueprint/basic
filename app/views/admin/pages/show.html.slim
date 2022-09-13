@@ -1,0 +1,17 @@
+.card
+  .card-body
+    h1.card-title
+      i.bi class="bi-#{@resource.icon.presence || 'file'}"
+      '
+      = @resource.title
+      '  |
+      - if @resource.active
+        = link_to "/#{@resource.url}", "/#{@resource.url}", target: "_blank", class: "text-decoration-dashed"
+      - else
+        = @resource.url
+    .card-text
+      == @resource.body
+  .card-footer.d-flex.justify-content-end
+    .actions
+      = edit_button(@resource)
+      = delete_button(@resource)

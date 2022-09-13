@@ -1,0 +1,55 @@
+@import 'variables';
+
+@import 'bootstrap/scss/bootstrap';
+@import "blueadmin/all";
+
+
+@import "bootstrap-icons";
+@import 'remixicon';
+@import 'quill.snow';
+@import 'quill.bubble';
+@import "boxicons";
+@import "simple-datatables/dist/style";
+@import "actiontext";
+@import 'https://ga.jspm.io/npm:codemirror@5.52.2/lib/codemirror.css';
+@import 'suneditor/src/assets/css/suneditor';
+
+@import "select2/src/scss/core";
+//Next line fixes incompatibility with bootstrap 5.2.3 and later
+$s2bs5-clear-icon: str-replace($btn-close-bg, #{$btn-close-color}, #{shade-color(red, 50%)}) !default;
+@import "select2-bootstrap-5-theme/src/include-all";
+
+@import "avatars";
+
+@import "admin/mail_templates";
+@import "admin/pages";
+@import "admin/posts";
+@import "admin/users";
+
+@import "frontend/profile";
+
+@import "theme";
+
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.css";
+
+
+.toast-container {
+  z-index: 10000;
+}
+
+.toast-body.details {
+  border-top: 1px solid white;
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+.cm-editor{
+  background-color: white;
+  min-height: 20em;
+  max-height: 20em;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

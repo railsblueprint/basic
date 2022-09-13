@@ -1,0 +1,15 @@
+.controller-admin-users {
+  &.action-index {
+    @include media-breakpoint-up(md) {
+      .item-container {
+        grid-template-columns: 5fr 3fr 2fr 2fr 2fr;
+      }
+    }
+    .contact {
+      --column-width-min: 10em;
+    }
+    .work {
+      --column-width-min: 10em;
+    }
+  }
+}

@@ -1,0 +1,116 @@
+html {
+  min-height: 100vh;
+}
+
+body {
+  min-height: calc(100vh - $navbar-height - $main-section-margin-top - $footer-height);
+  min-width: 320px;
+
+  &.sidebar-shown {
+    overflow: hidden;
+  }
+}
+
+main#main {
+  margin-top: calc($navbar-height + $main-section-margin-top);
+  min-height: calc(100vh - $navbar-height - $main-section-margin-top - $footer-height);
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.2s ease-in-out;
+
+  > *:last-child {
+    flex-grow: 1
+  }
+
+  padding: 20px $main-section-padding-x;
+
+  @include media-breakpoint-down(xl) {
+    margin-left: 0 !important;
+  }
+  @include media-breakpoint-down(sm) {
+    padding-left: $main-section-sm-padding-x;
+    padding-right: $main-section-sm-padding-x;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  main#main, footer {
+    margin-left: calc($sidebar-width + $main-section-margin-x);
+    width: calc(100% - $sidebar-width - $main-section-margin-x * 2);
+    margin-right: 0 !important;
+  }
+}
+
+.sidebar-hidden {
+  main#main, footer {
+    margin-left: calc($sidebar-hidden-width + $main-section-margin-x)!important;
+    width: calc(100% - $sidebar-hidden-width - $main-section-margin-x * 2);
+  }
+}
+
+.sidebar-shown {
+  main#main {
+    pointer-events: none;
+    height: calc(100vh - $navbar-height - $main-section-margin-top - $footer-height);
+
+    &::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      z-index: $main-backdrop-z-index;
+    }
+  }
+}
+
+
+[dir=rtl] {
+  @include media-breakpoint-up(xl) {
+    main#main {
+      margin-right: calc($sidebar-width + 12px) !important;
+      width: calc(100% - $sidebar-width - 24px);
+      margin-left: 0 !important;
+    }
+  }
+}
+
+
+.footer {
+  padding: 20px 0;
+  font-size: 14px;
+  transition: all 0.3s;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.footer .copyright {
+  text-align: center;
+}
+
+.footer .credits {
+  padding-top: 5px;
+  text-align: center;
+  font-size: 13px;
+}
+
+
+.toolbar {
+  margin-bottom: 20px;
+}
+
+.content-filters {
+   margin-bottom: 20px;
+ }
+
+.login-window {
+  max-width: 600px;
+  position: absolute;
+  top: 50vh;
+  transform: translate(0, -50%);
+}

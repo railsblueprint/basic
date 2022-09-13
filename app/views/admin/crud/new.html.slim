@@ -1,0 +1,8 @@
+= bootstrap_form_for @command, url: {action: :create}, method: :post, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-8' do |f|
+  .card
+    .card-body.pt-3
+      = render "form", f: f
+    .card-footer.p-3
+      = f.form_group do
+        = f.submit t("actions.create"), class: "btn btn-primary me-2"
+        = link_to t("actions.cancel"), params[:return_to] || search_url || { action: :index }, class: "btn btn-outline-secondary"

@@ -1,0 +1,128 @@
+section.section
+  .row
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Default Tabs
+          ul#myTab.nav.nav-tabs[role="tablist"]
+            li.nav-item[role="presentation"]
+              button#home-tab.nav-link.active[data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"]
+                | Home
+            li.nav-item[role="presentation"]
+              button#profile-tab.nav-link[data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"]
+                | Profile
+            li.nav-item[role="presentation"]
+              button#contact-tab.nav-link[data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false"]
+                | Contact
+          #myTabContent.tab-content.pt-2
+            #home.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
+              |  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+            #profile.tab-pane.fade[role="tabpanel" aria-labelledby="profile-tab"]
+              |  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+            #contact.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+              |  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+      .card
+        .card-body
+          h5.card-title
+            | Bordered Tabs
+          ul#borderedTab.nav.nav-tabs.nav-tabs-bordered[role="tablist"]
+            li.nav-item[role="presentation"]
+              button#home-tab.nav-link.active[data-bs-toggle="tab" data-bs-target="#bordered-home" type="button" role="tab" aria-controls="home" aria-selected="true"]
+                | Home
+            li.nav-item[role="presentation"]
+              button#profile-tab.nav-link[data-bs-toggle="tab" data-bs-target="#bordered-profile" type="button" role="tab" aria-controls="profile" aria-selected="false"]
+                | Profile
+            li.nav-item[role="presentation"]
+              button#contact-tab.nav-link[data-bs-toggle="tab" data-bs-target="#bordered-contact" type="button" role="tab" aria-controls="contact" aria-selected="false"]
+                | Contact
+          #borderedTabContent.tab-content.pt-2
+            #bordered-home.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
+              |  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+            #bordered-profile.tab-pane.fade[role="tabpanel" aria-labelledby="profile-tab"]
+              |  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+            #bordered-contact.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+              |  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+      .card
+        .card-body
+          h5.card-title
+            | Pills Tabs
+          ul#pills-tab.nav.nav-pills.mb-3[role="tablist"]
+            li.nav-item[role="presentation"]
+              button#pills-home-tab.nav-link.active[data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true"]
+                | Home
+            li.nav-item[role="presentation"]
+              button#pills-profile-tab.nav-link[data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false"]
+                | Profile
+            li.nav-item[role="presentation"]
+              button#pills-contact-tab.nav-link[data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false"]
+                | Contact
+          #myTabContent.tab-content.pt-2
+            #pills-home.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
+              |  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+            #pills-profile.tab-pane.fade[role="tabpanel" aria-labelledby="profile-tab"]
+              |  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+            #pills-contact.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+              |  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Default Tabs Justified
+          ul#myTabjustified.nav.nav-tabs.d-flex[role="tablist"]
+            li.nav-item.flex-fill[role="presentation"]
+              button#home-tab.nav-link.w-100.active[data-bs-toggle="tab" data-bs-target="#home-justified" type="button" role="tab" aria-controls="home" aria-selected="true"]
+                | Home
+            li.nav-item.flex-fill[role="presentation"]
+              button#profile-tab.nav-link.w-100[data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false"]
+                | Profile
+            li.nav-item.flex-fill[role="presentation"]
+              button#contact-tab.nav-link.w-100[data-bs-toggle="tab" data-bs-target="#contact-justified" type="button" role="tab" aria-controls="contact" aria-selected="false"]
+                | Contact
+          #myTabjustifiedContent.tab-content.pt-2
+            #home-justified.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
+              |  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+            #profile-justified.tab-pane.fade[role="tabpanel" aria-labelledby="profile-tab"]
+              |  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+            #contact-justified.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+              |  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+      .card
+        .card-body
+          h5.card-title
+            | Bordered Tabs Justified
+          ul#borderedTabJustified.nav.nav-tabs.nav-tabs-bordered.d-flex[role="tablist"]
+            li.nav-item.flex-fill[role="presentation"]
+              button#home-tab.nav-link.w-100.active[data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="true"]
+                | Home
+            li.nav-item.flex-fill[role="presentation"]
+              button#profile-tab.nav-link.w-100[data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="false"]
+                | Profile
+            li.nav-item.flex-fill[role="presentation"]
+              button#contact-tab.nav-link.w-100[data-bs-toggle="tab" data-bs-target="#bordered-justified-contact" type="button" role="tab" aria-controls="contact" aria-selected="false"]
+                | Contact
+          #borderedTabJustifiedContent.tab-content.pt-2
+            #bordered-justified-home.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
+              |  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+            #bordered-justified-profile.tab-pane.fade[role="tabpanel" aria-labelledby="profile-tab"]
+              |  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+            #bordered-justified-contact.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+              |  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+      .card
+        .card-body
+          h5.card-title
+            | Vertical Pills Tabs
+          .d-flex.align-items-start
+            #v-pills-tab.nav.flex-column.nav-pills.me-3[role="tablist" aria-orientation="vertical"]
+              button#v-pills-home-tab.nav-link.active[data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"]
+                | Home
+              button#v-pills-profile-tab.nav-link[data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"]
+                | Profile
+              button#v-pills-messages-tab.nav-link[data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"]
+                | Messages
+            #v-pills-tabContent.tab-content
+              #v-pills-home.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="v-pills-home-tab"]
+                |  Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+              #v-pills-profile.tab-pane.fade[role="tabpanel" aria-labelledby="v-pills-profile-tab"]
+                |  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+              #v-pills-messages.tab-pane.fade[role="tabpanel" aria-labelledby="v-pills-messages-tab"]
+                |  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.

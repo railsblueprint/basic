@@ -1,0 +1,17 @@
+li class="item item-container"
+  .attribute data-name=t("admin.pages.title")
+    span
+      i.bi class="bi-#{resource.icon.presence || 'file'}"
+      '
+      = resource.title
+  .attribute data-name=t("admin.pages.url")
+    - if resource.active
+      = link_to "/#{resource.url}", "/#{resource.url}", target: "_blank", class: "text-decoration-dashed"
+    - else
+      = "/#{resource.url}"
+  .attribute.boolean data-name=t("admin.pages.active") = toggle_bool resource, :active
+  .attribute.boolean data-name=t("admin.pages.sidebar") = toggle_bool resource, :show_in_sidebar
+  .actions
+    = edit_button(resource, stretched: true, small: true)
+    = view_button(resource, stretched: true, small: true, fallback_from: :edit)
+    = delete_button(resource, small: true)

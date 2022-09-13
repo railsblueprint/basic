@@ -1,0 +1,13 @@
+li class="item item-container"
+  .attribute-container.contact
+    .attribute data-name=t("admin.users.email") = resource.email
+    .attribute data-name=t("admin.users.name") = resource.full_name
+  .attribute-container.work
+    .attribute data-name=t("admin.users.job") = resource.job
+    .attribute data-name=t("admin.users.company") = resource.company
+  .attribute data-name=t("admin.users.roles") = resource.roles.map(&:name).compact.join(", ")
+  .attribute data-name=t("admin.users.registered") = resource.created_at.strftime("%d-%m-%Y %H:%M")
+  .actions
+    = edit_button(resource, stretched: true, small: true)
+    = view_button(resource, stretched: true, small: true, fallback_from: :edit)
+    = delete_button(resource, small: true)

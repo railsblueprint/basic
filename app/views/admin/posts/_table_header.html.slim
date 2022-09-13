@@ -1,0 +1,10 @@
+li.item.item-container
+  .attribute =t("admin.posts.created_at")
+  .attribute =t("admin.posts.title")
+  .attribute =t("admin.posts.author")
+  div
+li.item.item-container
+  .attribute.hidden-md
+  .attribute.hidden-md
+  .attribute data-name=t("admin.posts.author") = filter_by_user selected: @selected_user
+  div.hidden-md

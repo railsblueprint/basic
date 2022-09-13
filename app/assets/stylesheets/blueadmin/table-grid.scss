@@ -1,0 +1,121 @@
+ol.collection {
+  margin: 0;
+  padding: 0 0 20px;
+  display: grid;
+
+  a, .btn {
+    &:not(.stretched-link) {
+      z-index: 2;
+      position: relative;
+    }
+  }
+}
+
+li {
+  list-style: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+.item-container{
+  position: relative;
+  background-color: var(--bs-body-bg);
+}
+.actions {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  gap: 5px 5px;
+  .btn {
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .collection >  .item-container:first-child {
+    font-weight: bold;
+  }
+
+  .item-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    padding: 10px 0;
+
+    border-bottom: 1px solid var(--bs-secondary-bg);
+
+    &:nth-of-type(even) {
+      background-color: var(--bs-tertiary-bg);
+    }
+
+    > div {
+      margin: auto 10px;
+    }
+    .actions {
+      justify-content: end;
+    }
+  }
+
+  .attribute-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--column-width-min), 1fr));
+    > * {
+      margin-bottom: 10px;
+    }
+  }
+  .attribute {
+    &.boolean {
+      text-align: center;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .collection-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+
+  .item {
+    border: 1px solid gray;
+    border-radius: 2px;
+    padding: 10px;
+  }
+
+  /* Don't display the first item, since it is used to display the header for tabular layouts*/
+  .collection-container>li:first-child {
+    display: none;
+  }
+
+  .attribute::before {
+    content: attr(data-name);
+    font-weight: bold;
+  }
+
+  .hidden-small {
+    display: none !important;
+  }
+
+  /* Attribute name for first column, and attribute value for second column. */
+  .attribute {
+    padding: 5px;
+    display: grid;
+    grid-template-columns: minmax(9em, 30%) 1fr ;
+  }
+  .actions {
+    justify-content: start;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .attribute {
+    grid-template-columns: 1fr;
+  }
+}
+
+.attribute {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

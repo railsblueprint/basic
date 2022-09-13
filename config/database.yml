@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: blueprint_development
+
+staging:
+  <<: *default
+  database: blueprint_basic_staging
+  user: <%= Rails.application.credentials.database&.dig(:user) %>
+
+production:
+  <<: *default
+  database: blueprint_basic_production
+ # user: <%= Rails.application.credentials.database&.dig(:user) %>
+
+test:
+  <<: *default
+  database: blueprint_basic_test
+

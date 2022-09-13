@@ -1,0 +1,479 @@
+.card data-controller="css-variables"
+  .card-body
+    table.table.table-swatches
+      thead
+        tr
+          th[style="width: 340px;"]
+            | Description
+          th.ps-0[style="width: 200px;"]
+            | Swatch
+          th
+            | Variables
+          th
+            | Values
+      tbody
+        tr
+          td[rowspan="2"]
+            strong
+              | Body —
+            |  Default foreground (color) and background, including components.
+          td.ps-0
+            .p-3.rounded-2[style="background-color: var(--bs-body-color);"]
+              |  
+          td
+            code
+              | --bs-body-color
+            br
+            code
+              | --bs-body-color-rgb
+          td
+            code data-variable="--bs-body-color"
+            br
+            code data-variable="--bs-body-color-rgb"
+        tr
+          td
+            .p-3.rounded-2.border[style="background-color: var(--bs-body-bg);"]
+              |  
+          td
+            code
+              | --bs-body-bg
+            br
+            code
+              | --bs-body-bg-rgb
+          td
+            code data-variable="--bs-body-bg"
+            br
+            code data-variable="--bs-body-bg-rgb"
+        tr
+          td[rowspan="2"]
+            strong
+              | Secondary —
+            |  Use the
+            code
+              |  color
+            |  option for lighter text. Use the
+            code
+              |  bg
+            |  option for dividers and to indicate disabled component states.
+          td.ps-0
+            .p-3.rounded-2[style="background-color: var(--bs-secondary-color);"]
+              |  
+          td
+            code
+              | --bs-secondary-color
+            br
+            code
+              | --bs-secondary-color-rgb
+          td
+            code data-variable="--bs-secondary-color"
+            br
+            code data-variable="--bs-secondary-color-rgb"
+        tr
+          td
+            .p-3.rounded-2.border[style="background-color: var(--bs-secondary-bg);"]
+              |  
+          td
+            code
+              | --bs-secondary-bg
+            br
+            code
+              | --bs-secondary-bg-rgb
+          td
+            code data-variable="--bs-secondary-bg"
+            br
+            code data-variable="--bs-secondary-bg-rgb"
+        tr
+          td[rowspan="2"]
+            strong
+              | Tertiary —
+            |  Use the
+            code
+              |  color
+            |  option for even lighter text. Use the
+            code
+              |  bg
+            |  option to style backgrounds for hover states, accents, and wells.
+          td.ps-0
+            .p-3.rounded-2[style="background-color: var(--bs-tertiary-color);"]
+              |  
+          td
+            code
+              | --bs-tertiary-color
+            br
+            code
+              | --bs-tertiary-color-rgb
+          td
+            code data-variable="--bs-tertiary-color"
+            br
+            code data-variable="--bs-tertiary-color-rgb"
+        tr
+          td
+            .p-3.rounded-2.border[style="background-color: var(--bs-tertiary-bg);"]
+              |  
+          td
+            code
+              | --bs-tertiary-bg
+            br
+            code
+              | --bs-tertiary-bg-rgb
+          td
+            code data-variable="--bs-tertiary-bg"
+            br
+            code data-variable="--bs-tertiary-bg-rgb"
+        tr
+          td
+            strong
+              | Emphasis —
+            |  For higher contrast text. Not applicable for backgrounds.
+          td.ps-0
+            .p-3.rounded-2[style="background-color: var(--bs-emphasis-color);"]
+              |  
+          td
+            code
+              | --bs-emphasis-color
+            br
+            code
+              | --bs-emphasis-color-rgb
+          td
+            code data-variable="--bs-emphasis-color"
+            br
+            code data-variable="--bs-emphasis-color-rgb"
+        tr
+          td
+            strong
+              | Border —
+            |  For component borders, dividers, and rules. Use
+            code
+              |  --bs-border-color-translucent
+            |  to blend with backgrounds with an
+            code
+              |  rgba()
+            |  value.
+          td.ps-0
+            .p-3.rounded-2[style="background-color: var(--bs-border-color);"]
+              |  
+          td
+            code
+              | --bs-border-color
+            br
+            code
+              | --bs-border-color-rgb
+          td
+            code data-variable="--bs-border-color"
+            br
+            code data-variable="--bs-border-color-rgb"
+        tr
+          td[rowspan="4"]
+            strong
+              | Primary —
+            |  Main theme color, used for hyperlinks, focus styles, and component and form active states.
+          td.ps-0
+            .p-3.rounded-2.text-bg-primary
+              | Primary
+          td
+            code
+              | --bs-primary
+            br
+            code
+              | --bs-primary-rgb
+          td
+            code data-variable="--bs-primary"
+            br
+            code data-variable="--bs-primary-rgb"
+        tr
+          td
+            .px-3.py-2.rounded-2.border[style="background-color: var(--bs-primary-bg-subtle); --bs-border-color: var(--bs-primary-border-subtle); color: var(--bs-primary-text);"]
+              | Background subtle
+          td
+            code
+              | --bs-primary-bg-subtle
+          td
+            code data-variable="--bs-primary-bg-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="background-color: var(--bs-primary-border-subtle); color: var(--bs-primary-text);"]
+              | Border subtle
+          td
+            code
+              | --bs-primary-border-subtle
+          td
+            code data-variable="--bs-primary-border-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="color: var(--bs-primary-text-emphasis);"]
+              h1 Text
+          td
+            code
+              | --bs-primary-text-emphasis
+          td
+            code data-variable="--bs-primary-text-emphasis"
+        tr
+          td[rowspan="4"]
+            strong
+              | Success —
+            |  Theme color used for positive or successful actions and information.
+          td.ps-0
+            .p-3.rounded-2.text-bg-success
+              | Success
+          td
+            code
+              | --bs-success
+            br
+            code
+              | --bs-success-rgb
+          td
+            code data-variable="--bs-success"
+            br
+            code data-variable="--bs-success-rgb"
+        tr
+          td
+            .px-3.py-2.rounded-2.border[style="background-color: var(--bs-success-bg-subtle); --bs-border-color: var(--bs-success-border-subtle); color: var(--bs-success-text);"]
+              | Background subtle
+          td
+            code
+              | --bs-success-bg-subtle
+          td
+            code data-variable="--bs-success-bg-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="background-color: var(--bs-success-border-subtle); color: var(--bs-success-text);"]
+              | Border subtle
+          td
+            code
+              | --bs-success-border-subtle
+          td
+            code data-variable="--bs-success-border-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="color: var(--bs-success-text-emphasis);"]
+              h1 Text
+          td
+            code
+              | --bs-success-text-emphasis
+          td
+            code data-variable="--bs-success-text-emphasis"
+        tr
+          td[rowspan="4"]
+            strong
+              | Danger —
+            |  Theme color used for errors and dangerous actions.
+          td.ps-0
+            .p-3.rounded-2.text-bg-danger
+              | Danger
+          td
+            code
+              | --bs-danger
+            br
+            code
+              | --bs-danger-rgb
+          td
+            code data-variable="--bs-danger"
+            br
+            code data-variable="--bs-danger-rgb"
+        tr
+          td
+            .px-3.py-2.rounded-2.border[style="background-color: var(--bs-danger-bg-subtle); --bs-border-color: var(--bs-danger-border-subtle); color: var(--bs-danger-text);"]
+              | Background subtle
+          td
+            code
+              | --bs-danger-bg-subtle
+          td
+            code data-variable="--bs-danger-bg-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="background-color: var(--bs-danger-border-subtle); color: var(--bs-danger-text);"]
+              | Border subtle
+          td
+            code
+              | --bs-danger-border-subtle
+          td
+            code data-variable="--bs-danger-border-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="color: var(--bs-danger-text-emphasis);"]
+              h1 Text
+          td
+            code
+              | --bs-danger-text-emphasis
+          td
+            code data-variable="--bs-danger-text-emphasis"
+        tr
+          td[rowspan="4"]
+            strong
+              | Warning —
+            |  Theme color used for non-destructive warning messages.
+          td.ps-0
+            .p-3.rounded-2.text-bg-warning
+              | Warning
+          td
+            code
+              | --bs-warning
+            br
+            code
+              | --bs-warning-rgb
+          td
+            code data-variable="--bs-warning"
+            br
+            code data-variable="--bs-warning-rgb"
+        tr
+          td
+            .px-3.py-2.rounded-2.border[style="background-color: var(--bs-warning-bg-subtle); --bs-border-color: var(--bs-warning-border-subtle); color: var(--bs-warning-text);"]
+              | Background subtle
+          td
+            code
+              | --bs-warning-bg-subtle
+          td
+            code data-variable="--bs-warning-bg-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="background-color: var(--bs-warning-border-subtle); color: var(--bs-warning-text);"]
+              | Border subtle
+          td
+            code
+              | --bs-warning-border-subtle
+          td
+            code data-variable="--bs-warning-border-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="color: var(--bs-warning-text-emphasis);"]
+              h1 Text
+          td
+            code
+              | --bs-warning-text-emphasis
+          td
+            code data-variable="--bs-warning-text-emphasis"
+        tr
+          td[rowspan="4"]
+            strong
+              | Info —
+            |  Theme color used for neutral and informative content.
+          td.ps-0
+            .p-3.rounded-2.text-bg-info
+              | Info
+          td
+            code
+              | --bs-info
+            br
+            code
+              | --bs-info-rgb
+          td
+            code data-variable="--bs-info"
+            br
+            code data-variable="--bs-info-rgb"
+        tr
+          td
+            .px-3.py-2.rounded-2.border[style="background-color: var(--bs-info-bg-subtle); --bs-border-color: var(--bs-info-border-subtle); color: var(--bs-info-text);"]
+              | Background subtle
+          td
+            code
+              | --bs-info-bg-subtle
+          td
+            code data-variable="--bs-info-bg-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="background-color: var(--bs-info-border-subtle); color: var(--bs-info-text);"]
+              | Border subtle
+          td
+            code
+              | --bs-info-border-subtle
+          td
+            code data-variable="--bs-info-border-subtle"
+        tr
+          td
+            .px-3.py-2.h-100.rounded-2[style="color: var(--bs-info-text-emphasis);"]
+              h1 Text
+          td
+            code
+              | --bs-info-text-emphasis
+          td
+            code data-variable="--bs-info-text-emphasis"
+        tr
+          td[rowspan="4"]
+            strong
+              | Light —
+            |  Additional theme option for less contrasting colors.
+          td.ps-0
+            .p-3.rounded-2.text-bg-light.border
+              | Light
+          td
+            code
+              | --bs-light
+            br
+            code
+              | --bs-light-rgb
+          td
+            code data-variable="--bs-light"
+            br
+            code data-variable="--bs-light-rgb"
+        tr
+          td
+            .px-3.py-2.rounded-2.border[style="background-color: var(--bs-light-bg-subtle); --bs-border-color: var(--bs-light-border-subtle); color: var(--bs-light-text);"]
+              | Background subtle
+          td
+            code
+              | --bs-light-bg-subtle
+          td
+            code data-variable="--bs-light-bg-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="background-color: var(--bs-light-border-subtle); color: var(--bs-light-text);"]
+              | Border subtle
+          td
+            code
+              | --bs-light-border-subtle
+          td
+            code data-variable="--bs-light-border-subtle"
+        tr
+          td
+            .px-3.py-2.h-100.rounded-2[style="color: var(--bs-light-text-emphasis);"]
+              h1 Text
+          td
+            code
+              | --bs-light-text-emphasis
+          td
+            code data-variable="--bs-light-text-emphasis"
+        tr
+          td[rowspan="4"]
+            strong
+              | Dark —
+            |  Additional theme option for higher contrasting colors.
+          td.ps-0
+            .p-3.rounded-2.text-bg-dark.border
+              | Dark
+          td
+            code
+              | --bs-dark
+            br
+            code
+              | --bs-dark-rgb
+          td
+            code data-variable="--bs-dark"
+            br
+            code data-variable="--bs-dark-rgb"
+        tr
+          td
+            .px-3.py-2.rounded-2.border[style="background-color: var(--bs-dark-bg-subtle); --bs-border-color: var(--bs-dark-border-subtle); color: var(--bs-dark-text);"]
+              | Background subtle
+          td
+            code
+              | --bs-dark-bg-subtle
+          td
+            code data-variable="--bs-dark-bg-subtle"
+        tr
+          td
+            .px-3.py-2.rounded-2[style="background-color: var(--bs-dark-border-subtle); color: var(--bs-dark-text);"]
+              | Border subtle
+          td
+            code
+              | --bs-dark-border-subtle
+          td
+            code data-variable="--bs-dark-border-subtle"
+        tr
+          td
+            .px-3.py-2.h-100.rounded-2[style="color: var(--bs-dark-text-emphasis);"]
+              h1 Text
+          td
+            code
+              | --bs-dark-text-emphasis
+          td
+            code data-variable="--bs-dark-text-emphasis"

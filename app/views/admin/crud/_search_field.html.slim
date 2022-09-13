@@ -1,0 +1,6 @@
+= bootstrap_form_with method: :get, html: { data: { controller: "autosearch", "turbo-frame": "resources" } } do |f|
+  .row
+    .col
+      = f.text_field :q, value: params[:q], placeholder: (local_assigns[:placeholder] || t(".search_placeholder")), "data-action": "autosearch#change", hide_label: true, autocomplete: "off"
+    .col-sm-auto
+      = f.submit I18n.t("admin.common.search_btn"), class: "btn btn-primary"

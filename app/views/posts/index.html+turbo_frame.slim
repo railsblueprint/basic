@@ -1,0 +1,3 @@
+= turbo_frame_tag "page_handler" do
+  = turbo_stream_action_tag("append", target: "posts", template: %(#{render @resources}))
+  = turbo_stream_action_tag("replace", target: "pager", template: %(#{render "pager", pagy: @pagy}))

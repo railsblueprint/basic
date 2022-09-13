@@ -1,0 +1,4 @@
+//Theme selector
+[data-controller="theme"] .active .d-none {
+  display: block !important;
+}

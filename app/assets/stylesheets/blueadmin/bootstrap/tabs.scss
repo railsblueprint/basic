@@ -1,0 +1,17 @@
+.nav-tabs-bordered {
+  .nav-link {
+    margin-bottom: -2px;
+    border: none;
+    color: var(--bs-nav-link-color);
+  }
+  .nav-link:hover,
+  .nav-link:focus {
+    color: var(--bs-nav-link-hover-color);
+    border-bottom: 2px solid var(--bs-primary);
+  }
+  .nav-link.active {
+    background-color: var(--bs-primary-bg);
+    color: var(--bs-primary-text);
+    border-bottom: 2px solid var(--bs-primary);
+  }
+}

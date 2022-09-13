@@ -1,0 +1,8 @@
+.row.mb-3
+  .col-sm-3
+    = create_button(model)
+  .col-md-9.col-sm-9
+    = render AdminFilteredSearchComponent.new
+- if @unsaved
+  .text-danger.text-bold.text-center.m-3
+    = t(".you_have_unsaved_changes")

@@ -1,0 +1,60 @@
+@import 'variables';
+@import "bootstrap/scss/bootstrap";
+
+@import "actiontext";
+@import "blueadmin/all";
+@import "bootstrap-icons";
+@import "avatars";
+@import "blueadmin/layout";
+
+@import "frontend/contact";
+@import "frontend/devise";
+@import "frontend/faq";
+@import "frontend/profile";
+@import "frontend/static_pages";
+@import "frontend/spinner";
+
+@import "theme";
+
+.toast-container {
+  z-index: 10000;
+}
+
+.card.post {
+  .card-header {
+    border: none;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+}
+
+
+body.devise {
+  min-height: 100vh;
+
+  .logo-128 img{
+    height: 120px;
+    margin-bottom: 1em;
+  }
+  .main,.register {
+    min-height: calc(100vh - 4em)
+  }
+}
+
+
+.credits {
+  height: 4rem;
+  padding: 2rem 0;
+  color: #fff;
+  text-align: center;
+}
+.credits a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.no-wrap {
+  white-space: nowrap;
+}

@@ -1,0 +1,49 @@
+div data-controller='admin--demo-icons'
+  section.section
+    p
+      |  Use the following pattern to add the FontAwesome icons to anywhere in your project.
+    p
+      code.display-inline
+        | i.fa.fa-
+        strong
+          | angry
+      |  or with a helper
+      code
+        |  = fa '
+        strong
+          | angry
+        |'
+    p For brand icons use fab class:
+    p
+      code.display-inline
+        | i.fab.fa-
+        strong
+          | youtube
+      |  or with a helper
+      code
+        |  = fab '
+        strong
+          | youtube
+        |'
+
+    p
+      '  Replace the bold part with the below icon names. Check the
+      a[href="https://fontawesome.com/" target="_blank"]
+        | Official website
+      |  for more info.
+    .input-group
+      .input-group-text
+        i.i.bi.bi-search
+      input.form-control autocomplete="off" name="q" type="search" data-action="input->admin--demo-icons#search"
+
+    .iconslist
+      - @icons.each do |icon|
+        .icon
+          = fa icon
+          .label
+            = icon
+      - @brands.each do |icon|
+        .icon
+          = fab icon
+          .label
+            = icon

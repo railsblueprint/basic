@@ -1,0 +1,39 @@
+a.nav-link.nav-profile.d-flex.align-items-center.pe-0.ps-2 href="#" data-bs-toggle="dropdown"
+  .profile-image.icon.d-md-none
+    .rounded-circle.circle-border.m-auto class="color-#{current_user.avatar_color}"
+      span = current_user.initials
+  span.d-none.d-md-block.dropdown-toggle
+    = current_user.short_name
+ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.profile
+  li.dropdown-header
+    .profile-image
+      .rounded-circle.circle-border.mb-3.m-auto class="color-#{current_user.avatar_color}"
+        span = current_user.initials
+    h6
+      = current_user.short_name
+    span
+      = current_user.job
+  li
+    hr.dropdown-divider
+  - if current_user.has_role?(:admin)
+    li
+      = link_to "/admin", class: "dropdown-item d-flex align-items-center" do
+        i.bi.bi-briefcase
+        span = t("admin.nav.admin")
+    li
+      hr.dropdown-divider
+  = link_to profile_path, class: "dropdown-item d-flex align-items-center" do
+    i.bi.bi-person
+    span = t('actions.my_profile')
+  li
+    hr.dropdown-divider
+  li
+    = link_to faq_path, class: "dropdown-item d-flex align-items-center" do
+      i.bi.bi-question-circle
+      span = t('actions.need_help_q')
+  li
+    hr.dropdown-divider
+  li
+    = link_to destroy_user_session_path, class: "dropdown-item d-flex align-items-center", "data-turbo-method": "DELETE" do
+      i.bi.bi-box-arrow-right
+      span = t('actions.sign_out')

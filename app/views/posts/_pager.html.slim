@@ -1,0 +1,5 @@
+-if @pagy.next
+  #pager.infinite-scroll-wrapper data-controller="autoclick"
+    .text-center.mt-3
+      = link_to t('actions.next_page'), url_for(page: @pagy.next, q: params[:q]), class: "btn btn-outline-primary", "data-turbo-frame": "page_handler", "data-autoclick-target": "button"
+      = component :infinite_loader, visible: true

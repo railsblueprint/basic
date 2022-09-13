@@ -1,0 +1,7 @@
+.card
+  .card-body
+    = bootstrap_form_with(model: @command) do |form|
+      = form.text_field :title
+      = form.rich_text_area :body
+      div
+        = form.submit class: "btn btn-primary"

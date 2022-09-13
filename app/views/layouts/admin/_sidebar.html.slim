@@ -1,0 +1,244 @@
+aside#sidebar.sidebar
+  .open-handle data-controller="sidebar" data-action="click->sidebar#hide"
+    = bi "caret-left-fill"
+  .sidebar-wrapper
+    ul#sidebar-nav.sidebar-nav data-turbo-keep-scroll=true
+      li.nav-item
+        = active_link_to [:admin, :root], class: "nav-link nav-link-main", active: :exclusive do
+          i.bi.bi-grid
+          span = t('admin.nav.dashboard')
+      - if policy(User).index?
+        li.nav-item
+          = active_link_to [:admin, :users], class: "nav-link nav-link-main" do
+            i.bi.bi-people-fill
+            span = t('admin.nav.users')
+      - if policy(Post).index?
+        li.nav-item
+          = active_link_to [:admin, :posts], class: "nav-link nav-link-main" do
+            i.bi.bi-newspaper
+            span = t('admin.nav.posts')
+      - if policy(Page).index?
+        li.nav-item
+          = active_link_to [:admin, :pages], class: "nav-link nav-link-main" do
+            i.bi.bi-file
+            span = t('admin.nav.pages')
+      - if policy(Setting).index? || policy(MailTemplate).index?
+        li.nav-item
+          a.nav-link.nav-group.collapsed[data-bs-target="#configuration-nav" data-bs-toggle="collapse" href="#"]
+            i.bi.bi-gear
+            span
+              = t('admin.nav.configuration')
+            i.bi.bi-chevron-down.ms-auto
+          ul#configuration-nav class="nav-content collapse #{class_names(show: config?)}" data-bs-parent="#sidebar-nav"
+            - if policy(Setting).index?
+              li
+                = active_link_to [:admin, :settings], class: "nav-link" do
+                  i.bi.bi-circle
+                  span
+                    = t('admin.nav.settings')
+            - if policy(MailTemplate).index?
+              li
+                = active_link_to [:admin, :mail_templates], class: "nav-link" do
+                  i.bi.bi-circle
+                  span
+                    = t('admin.nav.mail_templates')
+      - if current_user.superadmin?
+        li.nav-item
+          a.nav-link.nav-group.collapsed[data-bs-target="#maintenance-nav" data-bs-toggle="collapse" href="#"]
+            i.bi.bi-wrench
+            span
+              = t('admin.nav.maintenance')
+            i.bi.bi-chevron-down.ms-auto
+          ul#maintenance-nav class="nav-content collapse #{class_names(show: maintenance?)}" data-bs-parent="#sidebar-nav"
+            li
+              = nav_link [:admin, :pg_hero] do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.pg_hero')
+            li
+              = nav_link [:admin, :good_job] do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.good_job')
+      - unless Setting.hide_demo_elements
+        li.nav-heading
+          = t('admin.nav.design_system.design_system')
+        li.nav-item
+          = nav_link admin_design_system_colors_path do
+            i.bi.bi-palette
+            span
+              = t('admin.nav.design_system.color_system')
+          a.nav-link.nav-group data-bs-target="#components-nav" data-bs-toggle="collapse" href="#" class=class_names(collapsed: !components?)
+            i.bi.bi-menu-button-wide
+            span
+              = t('admin.nav.components')
+            i.bi.bi-chevron-down.ms-auto
+          ul#components-nav class="nav-content collapse #{class_names(show: components?)}" data-bs-parent="#sidebar-nav"
+            li
+              = nav_link admin_design_system_components_alerts_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.alerts')
+            li
+              = nav_link admin_design_system_components_accordion_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.accordion')
+            li
+              = nav_link admin_design_system_components_badges_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.badges')
+            li
+              = nav_link admin_design_system_components_breadcrumbs_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.breadcrumbs')
+            li
+              = nav_link admin_design_system_components_buttons_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.buttons')
+            li
+              = nav_link admin_design_system_components_cards_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.cards')
+            li
+              = nav_link admin_design_system_components_carousel_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.carousel')
+            li
+              = nav_link admin_design_system_components_list_group_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.list_group')
+            li
+              = nav_link admin_design_system_components_modal_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.modal')
+            li
+              = nav_link admin_design_system_components_tabs_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.tabs')
+            li
+              = nav_link admin_design_system_components_pagination_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.pagination')
+            li
+              = nav_link admin_design_system_components_progress_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.progress')
+            li
+              = nav_link admin_design_system_components_spinners_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.spinners')
+            li
+              = nav_link admin_design_system_components_toasts_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.toasts')
+            li
+              = nav_link admin_design_system_components_tooltips_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.tooltips')
+        li.nav-item
+          a.nav-link.nav-group data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#" class=class_names(collapsed: !forms?)
+            i.bi.bi-journal-text
+            span
+              = t('admin.nav.design_system.forms')
+            i.bi.bi-chevron-down.ms-auto
+          ul id="forms-nav" class="nav-content collapse #{class_names(show: forms?)}" data-bs-parent="#sidebar-nav"
+            li
+              = nav_link admin_design_system_forms_elements_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.form_elements')
+            li
+              = nav_link admin_design_system_forms_layouts_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.form_layouts')
+            li
+              = nav_link admin_design_system_forms_editors_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.form_editors')
+            li
+              = nav_link admin_design_system_forms_validation_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.form_validation')
+        li.nav-item
+          a.nav-link.nav-group data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#" class=class_names(collapsed: !tables?)
+            i.bi.bi-layout-text-window-reverse
+            span
+              = t('admin.nav.design_system.tables')
+            i.bi.bi-chevron-down.ms-auto
+          ul id="tables-nav" class="nav-content collapse #{class_names(show: tables?)}" data-bs-parent="#sidebar-nav"
+            li
+              = nav_link admin_design_system_tables_general_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.tables_general')
+            li
+              = nav_link admin_design_system_tables_data_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.tables_data')
+        li.nav-item
+          a.nav-link.nav-group data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" class=class_names(collapsed: !charts?)
+            i.bi.bi-bar-chart
+            span
+              = t('admin.nav.design_system.charts')
+            i.bi.bi-chevron-down.ms-auto
+          ul id="charts-nav" class="nav-content collapse #{class_names(show: charts?)}" data-bs-parent="#sidebar-nav"
+            li
+              = nav_link admin_design_system_charts_chartjs_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.chartjs')
+            li
+              = nav_link admin_design_system_charts_apexcharts_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.apexcharts')
+            li
+              = nav_link admin_design_system_charts_echarts_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.echarts')
+        li.nav-item
+          a.nav-link.nav-group data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#"  class=class_names(collapsed: !icons?)
+            i.bi.bi-gem
+            span
+              = t('admin.nav.design_system.icons')
+            i.bi.bi-chevron-down.ms-auto
+          ul id="icons-nav" class="nav-content collapse #{class_names(show: icons?)}" data-bs-parent="#sidebar-nav"
+            li
+              = nav_link admin_design_system_icons_bootstrap_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.bootstrap')
+            li
+              = nav_link admin_design_system_icons_fontawesome_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.fontawesome')
+            li
+              = nav_link admin_design_system_icons_boxicons_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.boxicons')
+            li
+              = nav_link admin_design_system_icons_remix_path do
+                i.bi.bi-circle
+                span
+                  = t('admin.nav.design_system.remix')

@@ -1,0 +1,112 @@
+section.section.profile
+  .row
+    .col-xl-4
+      .card
+        .card-body.profile-card.pt-4.d-flex.flex-column.align-items-center
+          .profile-image
+            .rounded-circle.circle-border.m-b-md class="color-#{@resource.avatar_color}"
+              span = @resource.initials
+          h2.text-center
+            = @resource.full_name
+          h3
+            = @resource.job
+          .social-links.mt-2
+            - if @resource.twitter_profile.present?
+              = link_to @resource.twitter_profile, target: "_blank" do
+                i.bi.bi-twitter
+            - if @resource.facebook_profile.present?
+              = link_to @resource.facebook_profile, target: "_blank" do
+                i.bi.bi-facebook
+            - if @resource.instagram_profile.present?
+              = link_to @resource.instagram_profile, target: "_blank" do
+                i.bi.bi-instagram
+            - if @resource.linkedin_profile.present?
+              = link_to @resource.linkedin_profile, target: "_blank" do
+                i.bi.bi-linkedin
+        .text-center
+          = @resource.roles.map(&:name).join(", ").presence
+        .text-center
+          - if @resource.posts.count > 0
+            = link_to [:admin, :posts, user_id: @resource.id] do
+              = t(".posts_count", count: @resource.posts.count)
+
+        .text-center.p-4
+          .actions.justify-content-center
+            = edit_button(@resource)
+            = delete_button(@resource)
+    .col-xl-8
+      .card
+        .card-body.pt-3
+          = tabs nav_class: "nav-tabs-bordered" do |tab|
+            - tab.add title: t(".overview") do
+              .profile-overview.pt-4
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Id
+                  .col-lg-9.col-md-8
+                    = @resource.id
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Email
+                  .col-lg-9.col-md-8
+                    = link_to @resource.email, "mailto:#{@resource.email}", class: "text-decoration-dashed"
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Full Name
+                  .col-lg-9.col-md-8
+                    = @resource.full_name
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Company
+                  .col-lg-9.col-md-8
+                    = @resource.company
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Job
+                  .col-lg-9.col-md-8
+                    = @resource.job
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Country
+                  .col-lg-9.col-md-8
+                    = @resource.country
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Address
+                  .col-lg-9.col-md-8
+                    = @resource.address
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Phone
+                  .col-lg-9.col-md-8
+                    = @resource.phone
+                h5.card-title
+                  | About
+                p.small.fst-italic
+                  = @resource.about
+            - tab.add title: t(".social") do
+              .profile-overview.pt-4
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Twitter
+                  .col-lg-9.col-md-8
+                    - if @resource.twitter_profile
+                      = link_to @resource.twitter_profile, @resource.twitter_profile, target: "_blank"
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Facebook
+                  .col-lg-9.col-md-8
+                    - if @resource.facebook_profile
+                      = link_to @resource.facebook_profile, @resource.facebook_profile, target: "_blank"
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Instagram
+                  .col-lg-9.col-md-8
+                    - if @resource.instagram_profile
+                      = link_to @resource.instagram_profile, @resource.instagram_profile, target: "_blank"
+                .row
+                  .col-lg-3.col-md-4.label
+                    | Linkedin
+                  .col-lg-9.col-md-8
+                    - if @resource.linkedin_profile
+                      = link_to @resource.linkedin_profile, @resource.linkedin_profile, target: "_blank"

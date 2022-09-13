@@ -1,0 +1,8 @@
+li class="item item-container"
+  .attribute data-name=t("admin.posts.created_at")
+    = resource.created_at.strftime("%d-%m-%Y %H:%M")
+  .attribute data-name=t("admin.posts.title") = resource.title
+  .attribute data-name=t("admin.posts.author") = resource.user&.full_name || t('common.unknown')
+  .actions
+    = view_button(resource, stretched: true, small: true)
+    = delete_button(resource, small: true)

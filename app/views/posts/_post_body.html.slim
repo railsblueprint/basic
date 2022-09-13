@@ -1,0 +1,4 @@
+div id="#{dom_id(post)}_body"
+  .card-title = link_to post.title, post
+  .card-text
+    == post.body

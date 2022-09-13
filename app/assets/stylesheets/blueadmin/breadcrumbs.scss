@@ -1,0 +1,23 @@
+.breadcrumb {
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  color: var(--bs-secondary-color);
+  font-weight: 600;
+}
+.breadcrumb a {
+  i {
+    margin-right: 0.25rem;
+  }
+  color: var(--bs-secondary-color);
+  transition: 0.3s;
+}
+.breadcrumb a:hover {
+  color: var(---bs-tertiary-color);
+}
+.breadcrumb .breadcrumb-item::before {
+  color: var(--bs-secondary-color);
+}
+.breadcrumb .active {
+  color: var(---bs-tertiary-color);
+  font-weight: 900;
+}

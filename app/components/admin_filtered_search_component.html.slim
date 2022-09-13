@@ -1,0 +1,8 @@
+= form_with method: :get, html: { data: { controller: "autosearch", "turbo-frame": "resources",  "turbo-action": "advance"} } do | f |
+  - request.query_parameters.reject{|k,v| v.blank? }.each do |key, value|
+    = f.hidden_field key, value: value
+  .input-group
+    .input-group-text
+      i.bi.bi-search
+    = f.text_field :q, value: params[:q], class: "form-control", type: "search", placeholder: t("admin.crud.header.search_placeholder"), "data-action": "autosearch#change search->autosearch#change", hide_label: true, autocomplete: "off"
+    = f.submit I18n.t("admin.common.search_btn"), class: "btn btn-outline-secondary"

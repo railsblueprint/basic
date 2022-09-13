@@ -1,0 +1,29 @@
+nav.navbar.navbar-dark.navbar-expand-xl.fixed-top.header
+  .d-flex.align-items-center.justify-content-center.logo-area
+    button.navbar-toggler aria-label="Toggle navigation" data-controller="sidebar" data-action="click->sidebar#show"
+      span.navbar-toggler-icon
+    = link_to "/admin", class: "logo d-none align-items-center justify-content-center d-xl-flex" do
+      = inline_svg_tag "admin/logo_no_border_no_color.svg"
+      span.d-none.d-sm-block
+        = t("platform.name")
+  = link_to "/admin", class: "logo d-flex align-items-center justify-content-center d-xl-none d-xxl-none" do
+    = inline_svg_tag "admin/logo_no_border_no_color.svg"
+    span.d-none.d-sm-block
+      = t("platform.name")
+  .search-bar
+    form.search-form.d-flex.align-items-center action="/admin/search"
+      input type="text" name="q" placeholder="Search" title="Enter search keyword"
+      button type="submit" title="Search"
+        i.bi.bi-search
+  nav.header-nav.end-icons
+    ul.d-flex.align-items-center
+      li.nav-item.d-block.pe-3
+        a.nav-link.nav-icon.search-bar-toggle data-controller="admin--search-bar" data-action="click->admin--search-bar#toggle" href="javascript:void(0)"
+          i.bi.bi-search
+      li.nav-item.dropdown
+        = render partial: "layouts/admin/user_menu"
+.search-bar-expandable
+  form.search-form.d-flex.align-items-center action="/admin/search"
+    input type="text" name="q" placeholder="Search" title="Enter search keyword"
+    button type="submit" title="Search"
+      i.bi.bi-search

@@ -1,0 +1,21 @@
+.card
+  .card-body
+    h1.card-title
+      = @resource.title
+    .card-text
+      == @resource.body
+  .card-footer.justify-content-between.actions
+    .actions
+      - if @resource.user
+        div.pt-1
+          i.bi.bi-person
+          '
+          = link_to @resource.user&.full_name, [:admin, @resource.user]
+      div.pt-1
+        i.bi.bi-clock
+        '
+        = @resource.created_at.strftime("%d %B, %Y %H:%M")
+    .actions.justify-content-end
+      = edit_button(@resource)
+      = delete_button(@resource)
+.filler

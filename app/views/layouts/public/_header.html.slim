@@ -1,0 +1,36 @@
+nav.navbar.navbar-dark.navbar-expand-xl.fixed-top.header
+  .d-flex.align-items-center.justify-content-center.logo-area
+    button.navbar-toggler aria-label="Toggle navigation" data-controller="sidebar" data-action="click->sidebar#show"
+      span.navbar-toggler-icon
+    = link_to "/", class: "logo d-flex align-items-center justify-content-center" do
+      = inline_svg_tag "admin/logo_no_border_no_color.svg"
+      span.d-none.d-sm-block
+        = t("platform.name")
+  .search-bar
+    form.search-form.d-flex.align-items-center action="/posts/" data-turbo-method="POST"
+      input type="text" name="q" placeholder=t("actions.search")
+      button type="submit" title=t("actions.search")
+        i.bi.bi-search
+
+  nav.header-nav.end-icons
+    ul.d-flex.align-items-center
+      li.nav-item.me-2
+        a.nav-link.nav-icon.search-bar-toggle data-controller="admin--search-bar" data-action="click->admin--search-bar#toggle" href="javascript:void(0)"
+          i.bi.bi-search
+      -if policy(Post).new?
+        li.nav-item
+          = link_to "New post", new_post_path, class: "btn btn-primary"
+      - if current_user.present?
+        = render partial: "layouts/admin/user_menu"
+      - else
+        li.nav-item.d-block.me-3
+          = link_to new_user_session_path, class: "btn btn-outline-primary"  do
+            = t('actions.login')
+        li.nav-item.d-block
+          = link_to new_user_registration_path, class: "btn btn-primary"  do
+            = t('actions.sign_up')
+.search-bar-expandable
+  form.search-form.d-flex.align-items-center action="/posts/" data-turbo-method="POST"
+    input type="text" name="q" placeholder=t("actions.search")
+    button type="submit" title=t("actions.search")
+      i.bi.bi-search

@@ -1,0 +1,5 @@
+turbo-frame id="frame_#{dom_id(@command)}"
+  .contact_us.success.text-center
+    h2= t('.your_message_was_successfully')
+    a class="btn btn-primary" href=url_for([:contacts])
+      = t('actions.close')

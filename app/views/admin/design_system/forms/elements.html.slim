@@ -1,0 +1,232 @@
+section.section
+  .row
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Bootstrap Form Builder
+          = bootstrap_form_tag(layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-9') do |f|
+            = f.text_field :text
+            = f.text_field :url, value: "https://railsblueprint.com/", prepend: link_field_button
+            = f.text_field :copy_field, value: SecureRandom.hex(32), prepend: copy_field_button
+            = f.select :select2, options_for_select(["One", "Two", "Three"]), {}, class: "select2"
+            = f.form_group
+              = f.submit t("actions.save")
+
+
+          h5.card-title
+            | General Form Elements
+          form
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputText"]
+                | Text
+              .col-sm-10
+                input.form-control[type="text"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputEmail"]
+                | Email
+              .col-sm-10
+                input.form-control[type="email"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputPassword"]
+                | Password
+              .col-sm-10
+                input.form-control[type="password"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputNumber"]
+                | Number
+              .col-sm-10
+                input.form-control[type="number"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputNumber"]
+                | File Upload
+              .col-sm-10
+                input#formFile.form-control[type="file"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputDate"]
+                | Date
+              .col-sm-10
+                input.form-control[type="date"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputTime"]
+                | Time
+              .col-sm-10
+                input.form-control[type="time"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputColor"]
+                | Color Picker
+              .col-sm-10
+                input#exampleColorInput.form-control.form-control-color[type="color" value="#4154f1" title="Choose your color"]
+            .row.mb-3
+              label.col-sm-2.col-form-label[for="inputPassword"]
+                | Textarea
+              .col-sm-10
+                textarea.form-control[style="height: 100px"]
+            .row.mb-3
+              legend.col-form-label.col-sm-2.pt-0
+                | Radios
+              .col-sm-10
+                .form-check
+                  input#gridRadios1.form-check-input[type="radio" name="gridRadios" value="option1" checked]
+                  label.form-check-label[for="gridRadios1"]
+                    |  First radio
+                .form-check
+                  input#gridRadios2.form-check-input[type="radio" name="gridRadios" value="option2"]
+                  label.form-check-label[for="gridRadios2"]
+                    |  Second radio
+                .form-check.disabled
+                  input#gridRadios.form-check-input[type="radio" name="gridRadios" value="option" disabled]
+                  label.form-check-label[for="gridRadios3"]
+                    |  Third disabled radio
+            .row.mb-3
+              legend.col-form-label.col-sm-2.pt-0
+                | Checkboxes
+              .col-sm-10
+                .form-check
+                  input#gridCheck1.form-check-input[type="checkbox"]
+                  label.form-check-label[for="gridCheck1"]
+                    |  Example checkbox
+                .form-check
+                  input#gridCheck2.form-check-input[type="checkbox" checked]
+                  label.form-check-label[for="gridCheck2"]
+                    |  Example checkbox 2
+            .row.mb-3
+              label.col-sm-2.col-form-label
+                | Disabled
+              .col-sm-10
+                input.form-control[type="text" value="Read only / Disabled" disabled]
+            .row.mb-3
+              label.col-sm-2.col-form-label
+                | Select
+              .col-sm-10
+                select.form-select[aria-label="Default select example"]
+                  option[selected]
+                    | Open this select menu
+                  option[value="1"]
+                    | One
+                  option[value="2"]
+                    | Two
+                  option[value="3"]
+                    | Three
+            .row.mb-3
+              label.col-sm-2.col-form-label
+                | Multi Select
+              .col-sm-10
+                select.form-select[multiple aria-label="multiple select example"]
+                  option[selected]
+                    | Open this select menu
+                  option[value="1"]
+                    | One
+                  option[value="2"]
+                    | Two
+                  option[value="3"]
+                    | Three
+            .row.mb-3
+              label.col-sm-2.col-form-label
+                | Submit Button
+              .col-sm-10
+                button.btn.btn-primary[type="submit"]
+                  | Submit Form
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Advanced Form Elements
+          form
+            .row.mb-5
+              label.col-sm-2.col-form-label
+                | Switches
+              .col-sm-10
+                .form-check.form-switch
+                  input#flexSwitchCheckDefault.form-check-input[type="checkbox"]
+                  label.form-check-label[for="flexSwitchCheckDefault"]
+                    | Default switch checkbox input
+                .form-check.form-switch
+                  input#flexSwitchCheckChecked.form-check-input[type="checkbox" checked]
+                  label.form-check-label[for="flexSwitchCheckChecked"]
+                    | Checked switch checkbox input
+                .form-check.form-switch
+                  input#flexSwitchCheckDisabled.form-check-input[type="checkbox" disabled]
+                  label.form-check-label[for="flexSwitchCheckDisabled"]
+                    | Disabled switch checkbox input
+                .form-check.form-switch
+                  input#flexSwitchCheckCheckedDisabled.form-check-input[type="checkbox" checked disabled]
+                  label.form-check-label[for="flexSwitchCheckCheckedDisabled"]
+                    | Disabled checked switch checkbox input
+            .row.mb-5
+              label.col-sm-2.col-form-label
+                | Ranges
+              .col-sm-10
+                div
+                  label.form-label[for="customRange1"]
+                    | Example range
+                  input#customRange1.form-range[type="range"]
+                div
+                  label.form-label[for="disabledRange"]
+                    | Disabled range
+                  input#disabledRange.form-range[type="range" disabled]
+                div
+                  label.form-label[for="customRange2"]
+                    | Min and max with steps
+                  input#customRange2.form-range[type="range" min="0" max="5" step="0.5"]
+            .row.mb-3
+              label.col-sm-2.col-form-label
+                | Floating labels
+              .col-sm-10
+                .form-floating.mb-3
+                  input#floatingInput.form-control[type="email" placeholder="name@example.com"]
+                  label[for="floatingInput"]
+                    | Email address
+                .form-floating.mb-3
+                  input#floatingPassword.form-control[type="password" placeholder="Password"]
+                  label[for="floatingPassword"]
+                    | Password
+                .form-floating.mb-3
+                  textarea#floatingTextarea.form-control[placeholder="Leave a comment here" style="height: 100px;"]
+                  label[for="floatingTextarea"]
+                    | Comments
+                .form-floating.mb-3
+                  select#floatingSelect.form-select[aria-label="Floating label select example"]
+                    option[selected]
+                      | Open this select menu
+                    option[value="1"]
+                      | One
+                    option[value="2"]
+                      | Two
+                    option[value="3"]
+                      | Three
+                  label[for="floatingSelect"]
+                    | Works with selects
+          .row.mb-5
+            label.col-sm-2.col-form-label
+              | Input groups
+            .col-sm-10
+              .input-group.mb-3
+                span#basic-addon1.input-group-text
+                  | @
+                input.form-control[type="text" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"]
+              .input-group.mb-3
+                input.form-control[type="text" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"]
+                span#basic-addon2.input-group-text
+                  | @example.com
+              label.form-label[for="basic-url"]
+                | Your vanity URL
+              .input-group.mb-3
+                span#basic-addon3.input-group-text
+                  | https://example.com/users/
+                input#basic-url.form-control[type="text" aria-describedby="basic-addon3"]
+              .input-group.mb-3
+                span.input-group-text
+                  | $
+                input.form-control[type="text" aria-label="Amount (to the nearest dollar)"]
+                span.input-group-text
+                  | .00
+              .input-group.mb-3
+                input.form-control[type="text" placeholder="Username" aria-label="Username"]
+                span.input-group-text
+                  | @
+                input.form-control[type="text" placeholder="Server" aria-label="Server"]
+              .input-group
+                span.input-group-text
+                  | With textarea
+                textarea.form-control[aria-label="With textarea"]

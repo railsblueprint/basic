@@ -1,0 +1,36 @@
+h1
+  = title "Welcome to Rails Blueprint"
+p
+  | This is a starter project that will help you quickly start development of your Rails application.
+p
+  ' For more information please visit
+  = link_to "project page", "https://railsblueprint.com"
+  | .
+p
+  | You can use one of the following test users to login:
+.scrollable-x
+  table.table
+    thead
+      tr
+        td Username
+        td Password
+        td Role
+    tbody
+      tr
+        td superadmin@localhost
+        td 12345678
+        td Superadministrator
+      tr
+        td admin@localhost
+        td 12345678
+        td Administrator
+      tr
+        td moderator@localhost
+        td 12345678
+        td Moderator
+p If you can't login with given credentials it's possible that somebody has changed password or has deleted users.
+p All data is restored to default values every day at 02:00 UTC time.
+p
+  'You can create your own users. For spam protection we don't send any actual emails. Emails are collected in
+  = link_to "mailcatcher", "https://mailcatcher.railsblueprint.com", target: "_blank"
+  | . Please check it when you are asked for any confirmation email or code.

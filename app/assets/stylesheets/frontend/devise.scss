@@ -1,0 +1,16 @@
+.controller-devise-sessions,
+.controller-devise-confirmations,
+.controller-devise-passwords,
+.controller-devise-unlocks,
+.controller-devise-registrations {
+  background-color: $primary;
+
+  h5 {
+    color: $primary;
+    text-decoration: none;
+  }
+  .logo-128 {
+    color: $white;
+    text-decoration: none;
+  }
+}

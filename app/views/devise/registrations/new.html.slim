@@ -1,0 +1,17 @@
+h5.card-title.text-center.pb-3.fs-4
+  = t('.sign_up')
+= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "row g-3 needs-validation" }) do |f|
+  / = render "devise/shared/error_messages", resource: resource
+  .col-6
+    = f.text_field :first_name, floating: true, autocomplete: "first_name", autofocus: true
+  .col-6
+    = f.text_field :last_name, floating: true, autocomplete: "last_name"
+  .col-12
+    = f.email_field :email, autocomplete: "email", floating: true
+  .col-12
+    = f.password_field :password, autocomplete: "new-password", floating: true
+  .col-12
+    = f.password_field :password_confirmation, autocomplete: "new-password", floating: true
+  .actions
+    = f.submit t('.sign_up'), class: "btn btn-primary w-100"
+  = render "devise/shared/links"

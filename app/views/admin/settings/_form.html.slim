@@ -1,0 +1,5 @@
+= f.text_field :alias
+= f.collection_select :set, @sets, :alias, :description, allow_blank: true
+= f.text_field :description
+= f.select :type, Setting.type_enum
+= f.text_field :value

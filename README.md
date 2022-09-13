@@ -1,0 +1,1 @@
+## Rails Blueprint. Basic edition.

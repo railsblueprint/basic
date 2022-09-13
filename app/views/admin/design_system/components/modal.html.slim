@@ -1,0 +1,266 @@
+section.section
+  .row
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Basic Modal
+          p
+            | Toggle a working modal demo by clicking the button below. It will slide down and fade in from the top of the page
+          button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#basicModal"]
+            |  Basic Modal
+          #basicModal.modal.fade[tabindex="-1"]
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  h5.modal-title
+                    | Basic Modal
+                  button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+                .modal-body
+                  |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+                .modal-footer
+                  button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                    | Close
+                  button.btn.btn-primary[type="button"]
+                    | Save changes
+      .card
+        .card-body
+          h5.card-title
+            | Disabled Backdrop
+          p
+            | You can disable the backdrop by adding
+            code
+              |  data-bs-backdrop="false"
+            |  to
+            code
+              |  .modal-dialog
+          button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#disablebackdrop"]
+            |  Launch Modal
+          #disablebackdrop.modal.fade[tabindex="-1" data-bs-backdrop="false"]
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  h5.modal-title
+                    | Disabled Backdrop
+                  button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+                .modal-body
+                  |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+                .modal-footer
+                  button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                    | Close
+                  button.btn.btn-primary[type="button"]
+                    | Save changes
+      .card
+        .card-body
+          h5.card-title
+            | Scrolling long content
+          p
+            | When modals become too long for the user’s viewport or device, they scroll independent of the page itself. You can also create a scrollable modal that allows scroll the modal body by adding
+            code
+              '  .modal-dialog-scrollable
+            |  to
+            code
+              |  .modal-dialog
+          button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#scrollingModal"]
+            |  Scrolling Modal
+          #scrollingModal.modal.fade[tabindex="-1"]
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  h5.modal-title
+                    | Scrolling Modal
+                  button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+                .modal-body[style="min-height: 1500px;"]
+                  |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+                .modal-footer
+                  button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                    | Close
+                  button.btn.btn-primary[type="button"]
+                    | Save changes
+                  button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable"]
+                    |  Modal Dialog Scrollable
+          #modalDialogScrollable.modal.fade[tabindex="-1"]
+            .modal-dialog.modal-dialog-scrollable
+              .modal-content
+                .modal-header
+                  h5.modal-title
+                    | Modal Dialog Scrollable
+                  button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+                .modal-body
+                  |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  br
+                  |  This content should appear at the bottom after you scroll.
+                .modal-footer
+                  button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                    | Close
+                  button.btn.btn-primary[type="button"]
+                    | Save changes
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Vertically Centered
+          p
+            | Add
+            code
+              | .modal-dialog-centered
+            |  to
+            code
+              | .modal-dialog
+            |  to vertically center the modal.
+          button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#verticalycentered"]
+            |  Vertically centered
+          #verticalycentered.modal.fade[tabindex="-1"]
+            .modal-dialog.modal-dialog-centered
+              .modal-content
+                .modal-header
+                  h5.modal-title
+                    | Vertically Centered
+                  button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+                .modal-body
+                  |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+                .modal-footer
+                  button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                    | Close
+                  button.btn.btn-primary[type="button"]
+                    | Save changes
+      .card
+        .card-body
+          h5.card-title
+            | Modal Sizes
+          p
+            | Modals have three optional sizes, available via modifier classes to be placed on a
+            code
+              | .modal-dialog
+            | . These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports..
+          button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#smallModal"]
+            |  Small Modal
+        #smallModal.modal.fade[tabindex="-1"]
+          .modal-dialog.modal-sm
+            .modal-content
+              .modal-header
+                h5.modal-title
+                  | Small Modal
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+              .modal-body
+                |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+              .modal-footer
+                button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                  | Close
+                button.btn.btn-primary[type="button"]
+                  | Save changes
+                button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#largeModal"]
+                  |  Large Modal
+        #largeModal.modal.fade[tabindex="-1"]
+          .modal-dialog.modal-lg
+            .modal-content
+              .modal-header
+                h5.modal-title
+                  | Large Modal
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+              .modal-body
+                |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+              .modal-footer
+                button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                  | Close
+                button.btn.btn-primary[type="button"]
+                  | Save changes
+                button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#ExtralargeModal"]
+                  |  Extra Large Modal
+        #ExtralargeModal.modal.fade[tabindex="-1"]
+          .modal-dialog.modal-xl
+            .modal-content
+              .modal-header
+                h5.modal-title
+                  | Extra Large Modal
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+              .modal-body
+                |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+              .modal-footer
+                button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                  | Close
+                button.btn.btn-primary[type="button"]
+                  | Save changes
+                button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#fullscreenModal"]
+                  |  Full Screen Modal
+        #fullscreenModal.modal.fade[tabindex="-1"]
+          .modal-dialog.modal-fullscreen
+            .modal-content
+              .modal-header
+                h5.modal-title
+                  | Full Screen Modal
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+              .modal-body
+                |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+              .modal-footer
+                button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                  | Close
+                button.btn.btn-primary[type="button"]
+                  | Save changes
+      .card
+        .card-body
+          h5.card-title
+            | Disabled Animation
+          p
+            | For modals that simply appear rather than fade in to view, remove the
+            code
+              | .fade
+            |  class from your
+            code
+              | .modal
+            |  element
+          button.btn.btn-primary[type="button" data-bs-toggle="modal" data-bs-target="#disabledAnimation"]
+            |  Disabled Animation Modal
+        #disabledAnimation.modal[tabindex="-1"]
+          .modal-dialog
+            .modal-content
+              .modal-header
+                h5.modal-title
+                  | Disabled Animation Modal
+                button.btn-close[type="button" data-bs-dismiss="modal" aria-label="Close"]
+              .modal-body
+                |  Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+              .modal-footer
+                button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+                  | Close
+                button.btn.btn-primary[type="button"]
+                  | Save changes

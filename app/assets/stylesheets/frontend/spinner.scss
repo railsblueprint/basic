@@ -1,0 +1,15 @@
+div {
+  .spinner-grow:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .spinner-grow:last-child {
+    animation-delay: 0.3s;
+  }
+}
+
+.infinite-scroll-wrapper {
+  padding-top: 200px;
+  position: relative;
+  top: -200px;
+}

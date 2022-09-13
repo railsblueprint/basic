@@ -1,0 +1,31 @@
+section.section
+  .row
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Toasts Examples
+          .text-center
+            - [:primary, :secondary, :success, :danger, :warning, :info, :light, :dark].each do |type|
+              .toast.m-auto.mb-3.align-items-center.text-white aria-atomic="true" aria-live="assertive" class="bg-#{type}" data-controller="toast" role="alert" data-bs-autohide="false"
+                .d-flex
+                  .toast-body.flex-grow-1
+                    | A simple #{type} toast — check it out!
+                  button.btn-close.btn-close-white.me-2.m-auto aria-label="Close" data-bs-dismiss="toast" type="button"
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Toasts with extra info
+          - [:primary, :secondary, :success, :danger, :warning, :info, :light, :dark].each do |type|
+            .toast.m-auto.mb-3.align-items-center.text-white aria-atomic="true" aria-live="assertive" class="bg-#{type}" data-controller="toast" role="alert" data-bs-autohide="false"
+              .d-flex
+                .toast-body.flex-grow-1
+                  .d-flex.justify-content-between
+                    | A simple #{type} toast — check it out!
+                    a.text-white type="button" data-bs-toggle="collapse" data-bs-target="#details_#{type}" aria-expanded="false" aria-controls="details_#{type}"
+                      | Details
+                button.btn-close.btn-close-white.me-2.m-auto aria-label="Close" data-bs-dismiss="toast" type="button"
+              .collapse id="details_#{type}"
+                .toast-body.details
+                  p.p-0 = "Extra info"

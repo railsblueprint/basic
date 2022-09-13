@@ -1,0 +1,109 @@
+section.section.profile
+  .row
+    .col-xl-4
+      .card
+        .card-body.profile-card.pt-4.d-flex.flex-column.align-items-center
+          .profile-image
+            .rounded-circle.circle-border.m-b-md class="color-#{@resource.avatar_color}"
+              span = @resource.initials
+          h2
+            = @resource.full_name
+          h3
+            = @resource.job
+          .social-links.mt-2
+            - if @resource.twitter_profile.present?
+              = link_to @resource.twitter_profile, target: "_blank" do
+                i.bi.bi-twitter
+            - if @resource.facebook_profile.present?
+              = link_to @resource.facebook_profile, target: "_blank" do
+                i.bi.bi-facebook
+            - if @resource.instagram_profile.present?
+              = link_to @resource.instagram_profile, target: "_blank" do
+                i.bi.bi-instagram
+            - if @resource.linkedin_profile.present?
+              = link_to @resource.linkedin_profile, target: "_blank" do
+                i.bi.bi-linkedin
+        .text-center.mb-3
+          - if @resource == current_user
+            = link_to [:edit_profile], class: "btn btn-primary" do
+              = t('.edit_profile')
+
+    .col-xl-8
+      .card
+        .card-body.pt-3
+          = tabs nav_class: "nav-tabs-bordered" do |tab|
+            - tab.add title: t(".overview") do
+              .profile-overview.pt-4
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.email')
+                  .col-lg-9.col-md-8
+                    = link_to @resource.email, "mailto:#{@resource.email}", class: "text-decoration-dashed"
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.full_name')
+                  .col-lg-9.col-md-8
+                    = @resource.full_name
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.company')
+                  .col-lg-9.col-md-8
+                    = @resource.company
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.job')
+                  .col-lg-9.col-md-8
+                    = @resource.job
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.country')
+                  .col-lg-9.col-md-8
+                    = @resource.country
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.address')
+                  .col-lg-9.col-md-8
+                    = @resource.address
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.phone')
+                  .col-lg-9.col-md-8
+                    = @resource.phone
+                h5.card-title
+                  = t('.about')
+                p.small.fst-italic
+                  = @resource.about
+            - tab.add title: t(".social") do
+              .profile-overview.pt-4
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.twitter')
+                  .col-lg-9.col-md-8
+                    - if @resource.twitter_profile
+                      = link_to @resource.twitter_profile, @resource.twitter_profile, target: "_blank"
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.facebook')
+                  .col-lg-9.col-md-8
+                    - if @resource.facebook_profile
+                      = link_to @resource.facebook_profile, @resource.facebook_profile, target: "_blank"
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.instagram')
+                  .col-lg-9.col-md-8
+                    - if @resource.instagram_profile
+                      = link_to @resource.instagram_profile, @resource.instagram_profile, target: "_blank"
+                .row
+                  .col-lg-3.col-md-4.label
+                    = t('.linkedin')
+                  .col-lg-9.col-md-8
+                    - if @resource.linkedin_profile
+                      = link_to @resource.linkedin_profile, @resource.linkedin_profile, target: "_blank"
+            - if @resource.posts.any?
+              - tab.add title: t(".posts") do
+                .profile-overview.pt-4
+                  - @resource.posts.each do |post|
+                    h6
+                      = post.created_at.strftime("%d-%m-%Y %H:%M")
+                      '
+                      = link_to post.title, [post, id: post.slug]

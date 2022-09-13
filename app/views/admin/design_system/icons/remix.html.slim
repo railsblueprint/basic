@@ -1,0 +1,40 @@
+div data-controller='admin--demo-icons'
+  section.section
+    p
+      |  Use the following pattern to add the Remix icons to anywhere in your project.
+    p
+      code
+        | i.
+        strong
+          | ri-add-line
+    p
+      '  Replace the bold part with the below icon names. Check the
+      a[href="https://remixicon.com/" target="_blank"]
+        | Official website
+      |  for more info.
+
+    .input-group
+      .input-group-text
+        i.i.bi.bi-search
+      input.form-control autocomplete="off" name="q" type="search" data-action="input->admin--demo-icons#search"
+
+    - @icons.each do |category, icons|
+      .icon-category
+        h3.mt-4.mb-0 = category
+        .iconslist
+          - if category == :Editor
+            - icons.each do |icon|
+              .icon
+                i class="ri-#{icon}"
+                .label
+                  | ri-#{icon}
+          - else
+            - icons.each do |icon|
+              .icon
+                i class="ri-#{icon}-line"
+                .label
+                  | ri-#{icon}-line
+              .icon
+                i class="ri-#{icon}-fill"
+                .label
+                  | ri-#{icon}-fill

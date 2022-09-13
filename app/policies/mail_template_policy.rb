@@ -1,0 +1,2 @@
+class MailTemplatePolicy < ApplicationPolicy
+end

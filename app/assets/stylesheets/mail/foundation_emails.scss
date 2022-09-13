@@ -1,0 +1,61 @@
+@import "../variables";
+
+
+$body-font-family: Verdana, Helvetica, Arial, sans-serif;
+$body-background: lighten($primary, 40%)!default;
+$anchor-color: $primary;
+$anchor-color-hover: darken($anchor-color, 10%) !default;
+$global-font-color: rgb(1,59,61);
+$button-background: #ffd600;
+$button-color: #000000;
+
+@import "foundation-emails";
+
+  .header {
+    background: $primary;
+    h1 {
+      color: #fff;
+    }
+  }
+  .header .columns {
+    padding-bottom: 0;
+  }
+  .header p {
+    color: #fff;
+    padding-top: 15px;
+  }
+  .header .wrapper-inner {
+    padding: 20px;
+  }
+  .header .container {
+    background: transparent;
+  }
+  table.button.facebook table td {
+    background: #3B5998 !important;
+    border-color: #3B5998;
+    a {
+     color: white !important;
+    }
+  }
+  table.button.twitter table td {
+    background: #1daced !important;
+    border-color: #1daced;
+    a {
+     color: white !important;
+    }
+  }
+  table.button.google table td {
+    background: #DB4A39 !important;
+    border-color: #DB4A39;
+    a {
+     color: white !important;
+    }
+  }
+
+
+  .wrapper.secondary{
+    background: $primary;
+    th, p, a {
+      color: $white;
+    }
+  }

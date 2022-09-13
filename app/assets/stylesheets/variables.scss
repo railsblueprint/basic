@@ -1,0 +1,43 @@
+$white: #ffffff;
+
+$primary: #1c75bc;
+$secondary: #2c5060;
+
+$success: #11a65d;
+$danger: #f50e06;
+$warning: #e4cb11;
+$info: #a6a737;
+$light: #d1eaf6;
+$dark: #070201;
+
+$navbar-height: 60px;
+$footer-height: 62px;
+
+$sidebar-width: 300px;
+$sidebar-hidden-width: 25px;
+
+$main-section-margin-top: 0px;
+$main-section-padding-x: 2rem;
+$main-section-sm-padding-x: 0.5rem;
+$main-section-margin-x: 12px;
+
+
+$main-backdrop-z-index: 10;
+$back-to-top-z-index: 2;
+
+
+$min-contrast-ratio: 3.1;
+
+$sidebar-bg: var(--bs-primary);
+//$sidebar-color: $white;
+$sidebar-color: var(--bs-body-bg);
+$sidebar-hover-bg: var(--bs-primary-bg-subtle);
+$sidebar-hover-color: var(--bs-primary);
+$sidebar-active-bg: var(--bs-body-bg);
+$sidebar-active-color: var(--bs-primary);
+
+$header-bg: var(--bs-body-bg);
+
+
+//$sidebar-bg-color: var(--bs-tertiary-bg);
+//$sidebar-color: var(--bs-primary);

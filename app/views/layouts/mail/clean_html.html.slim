@@ -1,0 +1,19 @@
+doctype Strict
+html xmlns="http://www.w3.org/1999/xhtml"
+  head
+    meta content=("text/html; charset=utf-8") http-equiv="Content-Type"
+    meta content="width=device-width" name="viewport"
+  body
+    = yield
+
+    p
+      = t("platform.name")
+      |  team
+    p
+      a href="https://railsblueprint.com"
+        | railsblueprint.com
+      '  |
+      a href="mailto:support@railsblueprint.com"
+        | support@railsblueprint.com
+      '  |
+      = t("platform.slogan")

@@ -1,0 +1,18 @@
+h1 Global search
+.row.mb-3
+  .col-sm-3
+  .col-md-9.col-sm-9
+    = render AdminFilteredSearchComponent.new
+
+= turbo_frame_tag "resources" do
+  = turbo_stream_action_tag("replace", target: "flash", template: component(:toastr_flash))
+  = turbo_stream_action_tag("replace", target: "breadcrumbs", template: component(:breadcrumbs, _breadcrumbs))
+  - if @results.present?
+    ol class="collection collection-container"
+      li.item.item-container
+        div.attribute =t("admin.global_search.type")
+        div.attribute =t("admin.global_search.name")
+        div.attribute
+      = render partial: "resource", collection: @results, as: :resource
+
+    = paginator @results

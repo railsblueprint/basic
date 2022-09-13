@@ -1,0 +1,8 @@
+li.item.item-container
+  .attribute data-name=t("admin.global_search.type")
+    = resource.searchable.class.model_name
+  .attribute data-name=t("admin.global_search.name")
+    = resource.searchable.try(:searchable_name) || resource.searchable.try(:name) || resource.searchable.try(:title)
+  .actions
+    = edit_button(resource.searchable, stretched: true, small: true) if resource.searchable
+    = delete_button(resource.searchable, small: true) if resource.searchable

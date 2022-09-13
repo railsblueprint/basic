@@ -1,0 +1,10 @@
+= turbo_frame_tag "breadcrumbs" do
+  - if breadcrumb_trail.any?
+    nav
+      ol.breadcrumb
+        - breadcrumb_trail({match: :exact}) do |crumb|
+          li class="breadcrumb-item #{"active" if crumb.current?}"
+            - if crumb.url.blank? || crumb.current?
+              = raw crumb.name
+            - else
+              = link_to raw(crumb.name), crumb.url, "data-turbo-frame": "_top", "aria-current": (crumb.current? ? "page" : "")

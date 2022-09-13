@@ -1,0 +1,13 @@
+h1
+  - if params[:q].present?
+    = t(".search_results", q: params[:q])
+  - else
+    = t(".page_title")
+- if params[:q].present? && @resources.blank?
+  h2= t('.nothing_found')
+- else
+  = turbo_frame_tag "page_handler"
+  .col-xxl-8.col-xl-10
+    #posts
+      = render partial: "post", collection: @resources, as: :post
+    = render partial: "pager"

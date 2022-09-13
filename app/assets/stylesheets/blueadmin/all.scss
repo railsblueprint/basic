@@ -1,0 +1,42 @@
+@import "back_to_top";
+@import "breadcrumbs";
+@import "header";
+@import "layout";
+@import "sidebar";
+@import "table-grid";
+@import "iconlist";
+
+@import "bootstrap/all";
+
+:root {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", sans-serif;
+}
+
+.text-decoration-dashed {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+
+}
+.scrollable-x {
+  overflow-x: scroll;
+}
+
+.paginator {
+  display: flex;
+  gap: 10px 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

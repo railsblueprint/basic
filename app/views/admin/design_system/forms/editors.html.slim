@@ -1,0 +1,86 @@
+section.section
+  .row
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Quill Editor Default
+          .quill-editor-default[data-controller="editors--quill" data-editors--quill-options-value='{"theme":"snow"}']
+            p
+              | Hello World!
+            p
+              | This is Quill
+              strong
+                |  default
+              |  editor
+      .card
+        .card-body
+          h5.card-title
+            | Quill Editor Bubble
+          p
+            | Select some text to display options in poppovers
+          .quill-editor-bubble[data-controller="editors--quill" data-editors--quill-options-value='{"theme":"bubble"}']
+            p
+              | Hello World!
+            p
+              | This is Quill
+              strong
+                |  bubble
+              |  editor
+      .card
+        .card-body
+          h5.card-title
+            | Quill Editor Full
+          p
+            | Quill editor with full toolset
+          .quill-editor-full[data-controller="editors--quill" data-editors--quill-options-value='{"modules":{"toolbar":[[{"font":[]},{"size":[]}],["bold","italic","underline","strike"],[{"color":[]},{"background":[]}],[{"script":"super"},{"script":"sub"}],[{"list":"ordered"},{"list":"bullet"},{"indent":"-1"},{"indent":"+1"}],["direction",{"align":[]}],["link","image","video"],["clean"]]},"theme":"snow"}']
+            p
+              | Hello World!
+            p
+              | This is Quill
+              strong
+                |  full
+              |  editor
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | TinyMCE Editor
+          textarea.tinymce data-controller="editors--tinymce"
+            p
+              | Hello World!
+            p
+              | This is TinyMCE
+              strong
+                |  full
+              |  editor
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Suneditor
+          textarea.w-100 data-controller="editors--suneditor"
+            p
+              | Hello World!
+            p
+              | This is Suneditor
+    .col-lg-6
+      .card
+        .card-body
+          h5.card-title
+            | Codemirror
+          textarea.w-100 data-controller="editors--codemirror"
+            p
+              | Hello World!
+            p
+              | This is CodeMirror
+      .card
+        .card-body
+          h5.card-title
+            | Trix
+          trix-editor input="x"
+          textarea.d-none id="x"
+            p
+              | Hello World!
+            p
+              | This is Trix editor

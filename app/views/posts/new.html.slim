@@ -1,0 +1,6 @@
+h1 = t(".new_post")
+.col-xxl-8.col-xl-10
+  = render "form", post: @post
+  br
+  div
+    = link_to t('.back_to_posts'), posts_path

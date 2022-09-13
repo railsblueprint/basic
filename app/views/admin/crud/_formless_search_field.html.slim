@@ -1,0 +1,1 @@
+= f.text_field :query, value: params[:query], skip_label: true, wrapper: false, placeholder: (local_assigns[:placeholder] || "Enter query"), append: submit_tag("Search", class: "btn btn-primary"), "data-action": "autosearch#change", autocomplete: "off"

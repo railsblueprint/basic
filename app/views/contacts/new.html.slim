@@ -1,0 +1,44 @@
+section.section.contact
+  .row.gy-4
+    .col-xl-6
+      .row
+        .col-lg-6
+          .info-box.card
+            i.bi.bi-geo-alt
+            h3
+              = t('pages.contacts.address')
+            p
+              = t('company.address_1')
+              br
+              = t('company.address_2')
+        .col-lg-6
+          .info-box.card
+            i.bi.bi-telephone
+            h3
+              = t('pages.contacts.call_us')
+            p
+              = t('company.phone_1')
+              br
+              = t('company.phone_2')
+        .col-lg-6
+          .info-box.card
+            i.bi.bi-envelope
+            h3
+              = t('pages.contacts.email_us')
+            p
+              = t('company.email_1')
+              br
+              = t('company.email_2')
+        .col-lg-6
+          .info-box.card
+            i.bi.bi-clock
+            h3
+              = t('pages.contacts.open_hours')
+            p
+              = t('company.workdays')
+              br
+              = t('company.workhours')
+    .col-xl-6
+      .card.p-4
+        h1.card-title= t('.contact_us')
+        =render partial: "form"

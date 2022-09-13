@@ -1,0 +1,43 @@
+#accordionExample.accordion
+  = bootstrap_form_for :settings, url: {action: :mass_update} do |f|
+    - @sets.sort_by(&:alias).each do |set|
+      .accordion-item
+        .accordion-header id="heading-#{set.alias}"
+          button.accordion-button.collapsed aria-controls="collapse-#{set.alias}" aria-expanded="false" data-bs-target="#collapse-#{set.alias}" data-bs-toggle="collapse" type="button"
+            h4.d-flex.justify-content-between style="width: 100%; margin: 0;"
+              strong  style="padding-top: 5px"
+                = set.description
+            - if policy(set).edit?
+              = link_to t("actions.edit"), [:edit, :admin, set], class: "btn btn-outline-primary action-edit-set", style: "margin-right: 20px;"
+        .accordion-collapse.collapse aria-labelledby="heading-#{set.alias}" data-bs-parent="#accordionExample"  id="collapse-#{set.alias}"
+          .accordion-body
+            - @resources.select{|n| n.set.presence == set.alias and not n.set?}.sort_by(&:alias).each do |n|
+              = f.fields_for "",n do |fn|
+                .row
+                  .col-md-6
+                    - if policy(n).edit?
+                      = link_to [:edit, :admin, n] do
+                        = n.alias
+                    - else
+                      strong
+                        = n.alias
+                    br
+                    = n.description
+                  .col-md-6
+                    - if n.boolean?
+                      .form-check.form-switch
+                        = fn.check_box_without_bootstrap :value, class: "form-check-input"
+                    -elsif n.json?
+                      = fn.text_area_without_bootstrap :value, class: "form-control"
+                    -else
+                      = fn.text_field_without_bootstrap :value, class: "form-control"
+    .mt-3
+      = f.form_group
+        = f.submit t('actions.save'), class: "btn btn-primary float-end"
+        - if policy(Setting).new?
+          = link_to [:new, :admin, :setting]  , class: "btn btn-outline-primary" do
+            = bi 'plus-lg'
+            = t(".create_setting")
+        - if @unsaved
+          span.m-3.text-danger= t('you_have_unsaved_changes')
+        .clearfix

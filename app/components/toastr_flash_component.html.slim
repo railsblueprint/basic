@@ -1,0 +1,30 @@
+- capture_to_local captured_content=:captured_content
+  - flash.each do |(type, message)|
+    - type = 'success' if type == 'notice'
+    - type = 'danger' if type == 'alert' || type == 'error'
+    .toast.align-items-center.text-white aria-atomic="true" aria-live="assertive" class="bg-#{type}" data-controller="toast" role="alert" data-turbo-temporary="true"
+      - if message.is_a? Hash
+        .d-flex
+          .toast-body.flex-grow-1
+            .d-flex.justify-content-between
+              = message[:message]
+              a.text-white type="button" data-bs-toggle="collapse" data-bs-target="#details_#{message.object_id}" aria-expanded="false" aria-controls="details_#{message.object_id}"
+                = t('messages.details')
+          button.btn-close.btn-close-white.me-2.m-auto aria-label="Close" data-bs-dismiss="toast" type="button"
+        .collapse id="details_#{message.object_id}"
+          .toast-body.details
+            - message[:details].each do |detail|
+              p.p-0 = detail
+      - else
+        .d-flex
+          .toast-body.flex-grow-1
+            = message
+          button.btn-close.btn-close-white.me-2.m-auto aria-label="Close" data-bs-dismiss="toast" type="button"
+
+- if append
+  = captured_content
+- else
+  turbo-frame id="flash"
+    .toast-container.position-fixed.p-3.top-0.start-50.translate-middle-x
+      turbo-frame id="flash_inner"
+        = captured_content

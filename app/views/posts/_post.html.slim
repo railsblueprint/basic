@@ -1,0 +1,23 @@
+div data-controller="post" data-post-id-value=post.id
+  .card.post id=dom_id(post)
+    .card-body
+      div id="#{dom_id(post)}_body"
+        .card-title = link_to post.title, post
+        .card-text
+          == post.body
+
+    .card-footer.justify-content-between.actions
+      .actions
+        - if post.user
+          div.pt-1
+            i.bi.bi-person
+            '
+            = link_to post.user&.full_name, post.user
+        div.pt-1
+          i.bi.bi-clock
+          '
+          = post.created_at.strftime("%d %B, %Y %H:%M")
+      - unless local_assigns[:no_controls].to_b
+        .actions.justify-content-end
+          = edit_button(post)
+          = delete_button(post)

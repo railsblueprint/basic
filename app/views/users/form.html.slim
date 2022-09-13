@@ -1,0 +1,50 @@
+.card
+  .card-body.pt-3
+    = tabs nav_class: "nav-tabs-bordered" do |tab|
+      - tab.add title: t(".overview") do
+        .pt-3
+          = turbo_frame_tag "profile" do
+            = render_turbo_flash
+            = bootstrap_form_for(@command, url: :edit_profile, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-8') do |f|
+              = f.text_field :first_name
+              = f.text_field :last_name
+              = f.text_field :job
+              = f.text_field :company
+              = f.text_field :phone
+              = f.text_field :email
+              - if @resource && @resource.unconfirmed_email.present?
+                = f.form_group :unconfirmed_email, label: {show: true}
+                  .actions.pt-1
+                    div.pt-1.ms-2
+                      = @resource.unconfirmed_email
+                    = link_to t('actions.resend_confirmation_email'), {action: :resend_confirmation_email}, class: "btn btn-sm btn-primary", "data-turbo-method": :post
+                    = link_to t('actions.cancel_change'), {action: :cancel_email_change}, class: "btn btn-sm btn-outline-primary", "data-turbo-method": :post
+
+              = f.text_field :country
+              = f.text_field :address
+              = f.text_area :about, rows: 4
+              = f.form_group
+                = f.submit t('actions.update_profile')
+      - tab.add title: t(".social") do
+        .pt-3
+          = turbo_frame_tag "social" do
+            = render_turbo_flash
+            = bootstrap_form_for(@command, url: :edit_profile, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-8') do |f|
+              = f.text_field :twitter_profile, prepend: link_field_button
+              = f.text_field :facebook_profile, prepend: link_field_button
+              = f.text_field :instagram_profile, prepend: link_field_button
+              = f.text_field :linkedin_profile, prepend: link_field_button
+              = f.form_group
+                = f.submit t('actions.update_profile')
+      - tab.add title: t(".password") do
+        .pt-3
+          = turbo_frame_tag "password" do
+            = render_turbo_flash
+            = bootstrap_form_for(@password_command, url: :update_password, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f|
+              = f.password_field :current_password
+              = f.password_field :password
+              = f.password_field :password_confirmation
+              = f.form_group
+                = f.submit t("actions.change_password")
+
+

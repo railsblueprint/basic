@@ -1,0 +1,29 @@
+aside#sidebar.sidebar
+  .sidebar-wrapper
+    ul#sidebar-nav.sidebar-nav data-turbo-keep-scroll=true
+      li.nav-item
+        = active_link_to "/", class: "nav-link nav-link-main", active: :exclusive do
+          i.bi.bi-house-fill
+          span
+            = t('nav.home')
+      li.nav-item
+        = active_link_to :posts, class: "nav-link nav-link-main" do
+          i.bi.bi-newspaper
+          span
+            = t('nav.blog')
+      li.nav-item
+        = active_link_to :contacts, class: "nav-link nav-link-main" do
+          i.bi.bi-envelope
+          span
+            = t('nav.contacts')
+      li.nav-item
+        = active_link_to faq_path, class: "nav-link nav-link-main" do
+          i.bi.bi-question-circle
+          span
+            = t('nav.faq')
+      - Page.sidebar.each do |page|
+        li.nav-item
+          = active_link_to "/#{page.url}", class: "nav-link nav-link-main" do
+            i.bi class="bi-#{page.icon.presence || 'file'}"
+            span
+              = page.title

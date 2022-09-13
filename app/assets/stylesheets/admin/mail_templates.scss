@@ -1,0 +1,9 @@
+.controller-admin-mail_templates {
+  &.action-index {
+    @include media-breakpoint-up(md) {
+      .item-container {
+        grid-template-columns: 3fr 4fr 2fr;
+      }
+    }
+  }
+}

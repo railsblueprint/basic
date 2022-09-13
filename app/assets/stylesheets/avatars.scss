@@ -1,0 +1,101 @@
+$avatar_color_1: #f9c422;
+$avatar_color_1_bg: #fef3d4;
+$avatar_color_2: #f99022;
+$avatar_color_2_bg: #fdd1b3;
+$avatar_color_3: #188afa;
+$avatar_color_3_bg: #b2dbff;
+$avatar_color_4: #e7938a;
+$avatar_color_4_bg: #fde9e7;
+$avatar_color_5: #6a1aa4;
+$avatar_color_5_bg: #d0aef6;
+$avatar_color_6: #16ce8f;
+$avatar_color_6_bg: #bcffe3;
+$avatar_color_7: #24b7a8;
+$avatar_color_7_bg: #a2fff6;
+$avatar_color_8: #4c4c4c;
+$avatar_color_8_bg: #d8d8d8;
+
+
+.profile-image img {
+  width: 96px;
+  height: 96px;
+}
+
+.profile-image {
+  div {
+    width: 96px;
+    height: 96px;
+    text-align: center;
+    padding-top: 13px;
+
+
+    span {
+      font-size: 45px !important;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.4);
+      font-weight: bold;
+    }
+
+    &.color-1 {
+      background: $avatar_color_1_bg;
+      span {
+        color: $avatar_color_1;
+      }
+    }
+    &.color-2 {
+      background: $avatar_color_2_bg;
+      span {
+        color: $avatar_color_2;
+      }
+    }
+    &.color-3 {
+      background: $avatar_color_3_bg;
+      span {
+        color: $avatar_color_3;
+      }
+    }
+    &.color-4 {
+      background: $avatar_color_4_bg;
+      span {
+        color: $avatar_color_4;
+      }
+    }
+    &.color-5 {
+      background: $avatar_color_5_bg;
+      span {
+        color: $avatar_color_5;
+      }
+    }
+    &.color-6 {
+      background: $avatar_color_6_bg;
+      span {
+        color: $avatar_color_6;
+      }
+    }
+    &.color-7 {
+      background: $avatar_color_7_bg;
+      span {
+        color: $avatar_color_7;
+      }
+    }
+    &.color-8 {
+      background: $avatar_color_8_bg;
+      span {
+        color: $avatar_color_8;
+      }
+    }
+
+  }
+  &.icon {
+    div {
+      width: 32px;
+      height: 32px;
+      padding-top: 4px;
+      span {
+        font-size: 15px !important;
+      }
+    }
+  }
+
+}
+
