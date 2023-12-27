@@ -1,0 +1,51 @@
+development: 
+  host: localhost
+  app_prefix: <%= app_prefix %>
+  active_storage:
+    service: :local
+  action_mailer:
+    delivery_method: :letter_opener
+    smtp_settings:
+      address: 127.0.0.1
+      port: 1025
+    default_url_options:
+       host: <%%= AppConfig.host %>
+       port: 3000
+  host: localhost
+
+test:
+  app_prefix: <%= app_prefix %>
+  active_storage:
+    service: :test
+  action_mailer:
+    delivery_method: :test
+    smtp_settings:
+    default_url_options:
+       host: <%%= AppConfig.host %>
+  host: 'example.com'
+
+staging:
+  app_prefix: <%= app_prefix %>
+  active_storage:
+    service: :local
+  action_mailer:
+    delivery_method: :smtp
+    smtp_settings:
+      address: 127.0.0.1
+      port: 1025
+    default_url_options:
+       host: <%%= AppConfig.host %>
+  host: 'example.com'
+
+production:
+  app_prefix: <%= app_prefix %>
+  active_storage:
+    service: :local
+  action_mailer:
+    delivery_method: :smtp
+    smtp_settings:
+      address: 127.0.0.1
+      port: 1025
+    default_url_options:
+       host: <%%= AppConfig.host %>
+  host: 'example.com'

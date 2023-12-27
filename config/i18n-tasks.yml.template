@@ -30,7 +30,7 @@ data:
   # This data is not considered unused and is never written to.
   external:
     ## Example (replace %#= with %=):
-    # - "<%#= %x[bundle info vagrant --path].chomp %>/templates/locales/%{locale}.yml"
+    # - "<%%#= %x[bundle info vagrant --path].chomp %>/templates/locales/%{locale}.yml"
 
   ## Specify the router (see Readme for details). Valid values: conservative_router, pattern_router, or a custom class.
   # router: conservative_router
@@ -152,11 +152,11 @@ ignore_unused:
 ## e.g. in case of a relative key defined in a helper method.
 ## In these cases you can use the built-in PatternMapper to map patterns to keys, e.g.:
 #
-# <%# I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
+# <%%# I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
 #       only: %w(*.html.haml *.html.slim),
 #       patterns: [['= title\b', '.page_title']] %>
 #
 # The PatternMapper can also match key literals via a special %{key} interpolation, e.g.:
 #
-# <%# I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
+# <%%# I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
 #       patterns: [['\bSpree\.t[( ]\s*%{key}', 'spree.%{key}']] %>

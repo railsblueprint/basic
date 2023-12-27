@@ -1,0 +1,4 @@
+set :nginx_server_name, "<%= app_prefix.dasherize %>.example.com"
+set :rails_env, "production"
+set :deploy_to, "/home/deploy/<%= app_prefix %>/production"
+set :hostname, "example.com"

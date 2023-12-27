@@ -30,7 +30,7 @@ class Setting < ApplicationRecord
   end
 
   # rubocop:disable Style/MissingRespondToMissing
-  def self.method_missing method
+  def self.method_missing method, *_args
     self[method]
   end
   # rubocop:enable Style/MissingRespondToMissing
@@ -43,6 +43,10 @@ class Setting < ApplicationRecord
     return s.parsed_json_value if s.json?
 
     s.value
+  end
+
+  def self.get(name)
+    self[name]
   end
 
   def self.to_liquid

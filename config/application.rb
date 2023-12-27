@@ -27,8 +27,14 @@ module Railsblueprint
 
     config.i18n.fallbacks = true
 
+    config.before_configuration do |app|
+      require "#{root}/lib/app_config"
+    end
+
     config.after_initialize do |app|
       app.routes.default_url_options = app.config.action_mailer.default_url_options
+
+      AppConfig.load_settings
     end
 
     config.autoload_paths << "#{root}/app/liquid"

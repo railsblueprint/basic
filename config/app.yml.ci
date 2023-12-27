@@ -1,0 +1,23 @@
+test:
+  app_prefix: rbp_basic
+  active_storage:
+    service: :test
+  action_mailer:
+    delivery_method: :test
+    smtp_settings:
+    default_url_options:
+       host: 'example.com'
+  redis:
+    url: 
+
+development:
+  app_prefix: rbp_basic
+  active_storage:
+    service: :test
+  action_mailer:
+    delivery_method: :test
+    smtp_settings:
+    default_url_options:
+       host: 'example.com'
+  redis:
+    url:

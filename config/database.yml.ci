@@ -9,3 +9,6 @@ default: &default
 
 test:
   <<: *default
+
+development:
+  <<: *default

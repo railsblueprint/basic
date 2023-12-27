@@ -40,7 +40,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = ENV["upload_provider"] == "aliyun" ? :aliyun : :local
+  config.active_storage.service = AppConfig.active_storage.service
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -80,11 +80,9 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: "127.0.0.1",
-    port: 1025,
-  }
+  config.action_mailer.delivery_method     = AppConfig.dig(:action_mailer, :delivery_method)
+  config.action_mailer.smtp_settings       = AppConfig.dig(:action_mailer, :smtp_settings)
+  config.action_mailer.default_url_options = AppConfig.dig(:action_mailer, :default_url_options)
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
@@ -92,9 +90,6 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-  config.action_mailer.default_url_options = {
-    host: "https://basic.railsblueprint.com"
-  }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

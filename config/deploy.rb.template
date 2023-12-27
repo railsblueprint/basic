@@ -1,5 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext/object/blank'
+require_relative "../lib/app_config"
 require 'dotenv/load'
 require 'wannabe_bool'
 require 'yaml'
@@ -12,7 +13,7 @@ set :default_stage, :staging
 require 'mina/rails'
 require 'mina/multistage'
 require 'mina/git'
-require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
+require 'mina/rbenv'
 require 'mina/data_migrate'
 require 'mina/nginx'
 require 'mina/puma_systemd'
@@ -20,10 +21,13 @@ require 'mina/rollbar'
 require 'mina/secrets'
 require 'mina/whenever'
 
-set :application_name, 'rbp_basic'
-set :domain, 'marketing'
-set :repository, ENV["git_repo_url"]
-set :branch, ENV["BRANCH"] || DEPLOY_SETTINGS["default_branch"] || "develop"
+set :application_name, '<%%= AppConfig.app_prefix %>'
+set :repository, '<%= git_repo_url %>'
+
+set :domain, fetch(:hostname)
+set :identity_file, DEPLOY_SETTINGS["ssh_key"]
+
+set :branch, ENV["BRANCH"] || DEPLOY_SETTINGS["default_branch"] || "master"
 set :version_scheme, :datetime
 
 set :ruby_version, File.open(".ruby-version").read
@@ -34,8 +38,7 @@ set :local_user, -> { `git config user.name`.chomp.presence || (ENV['USER'] ? Et
 set :bundle_options, "--quiet"
 set :bundle_path, "#{fetch(:shared_path)}/bundle"
 
-# set :rollbar_token, Rails.application.credentials.dig(:rollbar, :token)
-set :rollbar_access_token, "9859c7a47eb046178024c90e88b715f2"
+set :rollbar_access_token, AppConfig.dig(fetch(:stage),:rollbar, :token)
 set :rollbar_local_username, -> { fetch(:local_user) }
 
 # set :force_migrate, true

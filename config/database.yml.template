@@ -4,22 +4,21 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  user: <%= Rails.application.credentials.dig(:database, :user) %>
+  password: <%= Rails.application.credentials.dig(:database, :password) %>
 
 development:
   <<: *default
-  database: blueprint_development
+  database: <%= app_prefix %>_development
 
 staging:
   <<: *default
-  database: blueprint_basic_staging
-  user: <%= Rails.application.credentials.database&.dig(:user) %>
+  database: <%= app_prefix %>_staging
 
 production:
   <<: *default
-  database: blueprint_basic_production
- # user: <%= Rails.application.credentials.database&.dig(:user) %>
+  database: <%= app_prefix %>_production
 
 test:
   <<: *default
-  database: blueprint_basic_test
-
+  database: <%= app_prefix %>_test

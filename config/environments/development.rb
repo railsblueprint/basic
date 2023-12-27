@@ -19,11 +19,13 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join("tmp/caching-dev.txt").exist?
+
+  # Stimulus reflex will force to use caching anyways
+  if true 
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
-    config.cache_store = :redis_cache_store, {url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }}
+    config.cache_store = :redis_cache_store, {url: AppConfig.dig(:redis, :url) }
 
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
@@ -34,17 +36,16 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  config.session_store :cache_store, key: "_blue_print_sessions_development", compress: true, pool_size: 5, expire_after: 1.year
+  config.session_store :cache_store, key: "_#{AppConfig.app_prefix}_sessions_development", compress: true, pool_size: 5, expire_after: 1.year
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = ENV["upload_provider"] == "aliyun" ? :aliyun : :local
+  config.active_storage.service = AppConfig.active_storage.service
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger.
@@ -75,7 +76,10 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: ENV.fetch("PORT", 5000) }
+  config.action_mailer.delivery_method     = AppConfig.dig(:action_mailer, :delivery_method)
+  config.action_mailer.smtp_settings       = AppConfig.dig(:action_mailer, :smtp_settings)
+  config.action_mailer.default_url_options = AppConfig.dig(:action_mailer, :default_url_options)
+
   config.web_console.whitelisted_ips = '0.0.0.0'
   config.web_console.development_only = false
 end
