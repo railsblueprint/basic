@@ -21,7 +21,7 @@ require 'mina/rollbar'
 require 'mina/secrets'
 require 'mina/whenever'
 
-set :application_name, '<%%= AppConfig.app_prefix %>'
+set :application_name, AppConfig.app_prefix
 set :repository, '<%= git_repo_url %>'
 
 set :domain, fetch(:hostname)
