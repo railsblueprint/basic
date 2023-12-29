@@ -103,6 +103,7 @@ namespace :blueprint do
       config/schedule.rb
       config/importmap.rb
       config/i18n-tasks.yml
+      config/newrelic.yml
       config/deploy.rb
       config/deploy/staging.rb
       config/deploy/production.rb

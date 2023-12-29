@@ -4,6 +4,7 @@ require_relative "../lib/app_config"
 require 'dotenv/load'
 require 'wannabe_bool'
 require 'yaml'
+require 'new_relic/cli/command'
 
 overrides_filename = "#{File.dirname(__FILE__)}/deploy/#{ARGV[0]}.yml"
 DEPLOY_SETTINGS = File.exist?(overrides_filename) ? YAML.load_file(overrides_filename) : {}
@@ -126,9 +127,20 @@ task :deploy do
 
   run(:local) do
     invoke :'rollbar:finished'
+    invoke :'newrelic:deploy'
   end
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
   # run(:local){ say 'done' }
+end
+
+task :'newrelic:deploy' do
+  revision = `git rev-parse #{fetch(:branch)}`
+  NewRelic::Cli::Deployments.new(
+    [
+      "-e", fetch(:rails_env),
+      "-u", fetch(:local_user),
+      "-r", revision
+    ]).run
 end
 
 
