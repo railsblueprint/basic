@@ -158,3 +158,19 @@ task 'deploy:seed': :remote_environment do
     command "#{fetch(:rake)} db:seed what=#{ENV['what']}"
   end
 end
+
+
+def check_for_changes_script(options)
+  diffs = options[:at].map do |path|
+    %(diff -x builds -qrN "#{fetch(:current_path)}/#{path}" "./#{path}" 2>/dev/null)
+  end.join(' && ')
+
+  %(
+    if #{diffs}
+    then
+      #{options[:skip]}
+    else
+      #{options[:changed]}
+    fi
+  )
+end
