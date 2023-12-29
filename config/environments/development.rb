@@ -79,6 +79,12 @@ Rails.application.configure do
   config.action_mailer.delivery_method     = AppConfig.dig(:action_mailer, :delivery_method)
   config.action_mailer.smtp_settings       = AppConfig.dig(:action_mailer, :smtp_settings)
   config.action_mailer.default_url_options = AppConfig.dig(:action_mailer, :default_url_options)
+  if AppConfig.dig(:action_mailer, :configuration_method).present?
+    config.action_mailer.send(
+      "#{AppConfig.dig(:action_mailer, :configuration_method)}=",
+      AppConfig.dig(:action_mailer, :configuration_data),
+      )
+  end
 
   config.web_console.whitelisted_ips = '0.0.0.0'
   config.web_console.development_only = false

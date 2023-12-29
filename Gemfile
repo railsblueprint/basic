@@ -153,6 +153,7 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
 
+  gem "html2slim-ruby3"
   gem "slimkeyfy"
 
   gem "active_record_query_trace"

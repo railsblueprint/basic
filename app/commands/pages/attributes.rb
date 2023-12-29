@@ -15,7 +15,7 @@ module Pages
       attribute :active, Types::String | Types::Bool
       attribute :show_in_sidebar, Types::String | Types::Bool
 
-      validates :title, :url, presence: true
+      validates :title, presence: true
       validates :url, uniqueness: true
     end
   end

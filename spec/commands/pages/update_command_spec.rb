@@ -6,7 +6,6 @@ describe Pages::UpdateCommand, type: :command do
   let(:page) { create(:page) }
   let(:params) { { title: "Title", body: "Text", url: "zzz" } }
 
-  it { is_expected.to validate_presence_of(:url) }
   it { is_expected.to validate_presence_of(:title) }
 
   it "broadcasts ok" do

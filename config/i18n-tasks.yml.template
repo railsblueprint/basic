@@ -118,7 +118,7 @@ search:
 
 ## Consider these keys used:
 ignore_unused:
-  - 'activerecord.{models,attributes}.*'
+  - 'activerecord.{models,attributes,help}.*'
   - 'activemodel.attributes.*'
   - '{devise,kaminari,will_paginate,errors}.*'
   - 'admin.design_system.*'

@@ -6,7 +6,6 @@ describe Pages::CreateCommand, type: :command do
   let(:params) { { title: "Title", body: "Text", url: "zzz" } }
 
   it { is_expected.to validate_presence_of(:title) }
-  it { is_expected.to validate_presence_of(:url) }
 
   it "broadcasts ok" do
     expect { subject.call }.to broadcast(:ok)

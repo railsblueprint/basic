@@ -41,6 +41,10 @@ en:
       user:
         first_name: Name first
         unconfirmed_email: Unconfirmed email
+  activerecord:
+    help:
+      page:
+        url: Keep empty for home page
   admin:
     common:
       failed_to_create_item: Failed to create %{record}
