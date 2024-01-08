@@ -60,7 +60,7 @@ aside#sidebar.sidebar
                 i.bi.bi-circle
                 span
                   = t('admin.nav.good_job')
-      - unless Setting.hide_demo_elements
+      - unless AppConfig.hide_demo_elements
         li.nav-heading
           = t('admin.nav.design_system.design_system')
         li.nav-item

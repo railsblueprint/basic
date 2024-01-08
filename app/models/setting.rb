@@ -1,7 +1,5 @@
-class Setting < ApplicationRecord
-  self.inheritance_column = nil
-
-  enum type: { set: 0, string: 1, integer: 2, boolean: 3, json: 4 }
+class Setting < BlueprintConfig::Setting
+  # alias :alias :key
 
   default_scope -> { where(deleted_at: nil) } if Rails.env.development?
 
@@ -20,15 +18,6 @@ class Setting < ApplicationRecord
     self.class.type_text type
   end
 
-  def parsed_json_value
-    parsed = begin
-      JSON.parse(value)
-    rescue StandardError
-      nil
-    end
-    parsed.is_a?(Hash) ? parsed.with_indifferent_access : parsed
-  end
-
   # rubocop:disable Style/MissingRespondToMissing
   def self.method_missing method, *_args
     self[method]
@@ -36,7 +25,7 @@ class Setting < ApplicationRecord
   # rubocop:enable Style/MissingRespondToMissing
 
   def self.[] name
-    s = find_by(alias: name)
+    s = find_by(key: name)
     return nil unless s
     return s.value.to_i if s.integer?
     return s.value.to_b if s.boolean?
@@ -51,7 +40,7 @@ class Setting < ApplicationRecord
 
   def self.to_liquid
     all.filter_map { |s|
-      { s.alias => s.value } unless s.set?
+      { s.key => s.value } unless s.set?
     }.reduce(&:merge)
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe "Users pages" do
       end
 
       it "renders user's profile" do
-        expect(response.body).to include(user.full_name)
+        expect(response.body).to include(CGI.escapeHTML(user.full_name))
       end
 
       it "include link to edit profile" do

@@ -4,13 +4,13 @@ describe Settings::CreateCommand, type: :command do
   let(:admin) { create(:user, :superadmin) }
   let(:user) { create(:user) }
 
-  let(:params) { { alias: "zzzz", type: "string", value: "value", description: "description" } }
+  let(:params) { { key: "zzzz", type: "string", value: "value", description: "description" } }
 
   before do
     allow(Rails.env).to receive(:development?).and_return(true)
   end
 
-  it { is_expected.to validate_presence_of(:alias) }
+  it { is_expected.to validate_presence_of(:key) }
   it { is_expected.to validate_presence_of(:type) }
   it { is_expected.to validate_presence_of(:description) }
 

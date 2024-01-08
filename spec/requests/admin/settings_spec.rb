@@ -15,8 +15,8 @@ RSpec.describe "Admin Settings" do
 
   describe "GET /admin/config/settings" do
     context "not dev environment" do
-      let!(:setting_group) { create(:setting, type: :set) }
-      let!(:setting) { create(:setting, type: :string, set: setting_group) }
+      let!(:setting_group) { create(:setting, type: :section) }
+      let!(:setting) { create(:setting, type: :string, section: setting_group) }
 
       before do
         sign_in admin
@@ -38,8 +38,8 @@ RSpec.describe "Admin Settings" do
     end
 
     context "dev environment" do
-      let!(:setting_group) { create(:setting, type: :set) }
-      let!(:setting) { create(:setting, type: :string, set: setting_group.alias) }
+      let!(:setting_group) { create(:setting, type: :section) }
+      let!(:setting) { create(:setting, type: :string, section: setting_group.key) }
 
       before do
         allow(Rails.env).to receive(:development?).and_return(true)
@@ -69,7 +69,7 @@ RSpec.describe "Admin Settings" do
 
         context "and editing disabled" do
           let!(:disable_settings_editor) {
-            create(:setting, type: :boolean, set: setting_group, alias: "disable_settings_editor", value: true)
+            create(:setting, type: :boolean, section: setting_group, key: "disable_settings_editor", value: true)
           }
 
           before do
@@ -107,8 +107,8 @@ RSpec.describe "Admin Settings" do
   end
 
   describe "POST /admin/config/settings/mass_update" do
-    let(:setting_group) { create(:setting, type: :set) }
-    let(:setting) { create(:setting, type: :string, set: setting_group) }
+    let(:setting_group) { create(:setting, type: :section) }
+    let(:setting) { create(:setting, type: :string, section: setting_group) }
 
     before do
       sign_in admin
