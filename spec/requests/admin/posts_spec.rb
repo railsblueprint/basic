@@ -106,7 +106,7 @@ RSpec.describe "Admin Posts" do
 
     it "includes link to the user", :aggregate_failures do
       expect(response.body).to have_tag("a", with: { href: "/admin/users/#{post.user_id}" })
-      expect(response.body).to include(post.user.full_name)
+      expect(response.body).to include(CGI.escapeHTML(post.user.full_name))
     end
   end
 

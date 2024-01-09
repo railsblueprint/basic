@@ -4,12 +4,12 @@ RSpec.describe Setting do
   include Shoulda::Matchers::ActiveModel
   include Shoulda::Matchers::ActiveRecord
 
-  let!(:invalid_json_setting) { create(:setting, alias: "invalid_setting", type: "json", value: "[") }
-  let!(:array_setting) { create(:setting, alias: "array_setting", type: "json", value: [1, 2, 3].to_json) }
-  let!(:json_setting) { create(:setting, alias: "json_setting", type: "json", value: { a: 1, b: 2 }.to_json) }
-  let!(:string_setting) { create(:setting, alias: "string_setting", type: "string", value: "some_string") }
+  let!(:invalid_json_setting) { create(:setting, key: "invalid_setting", type: "json", value: "[") }
+  let!(:array_setting) { create(:setting, key: "array_setting", type: "json", value: [1, 2, 3].to_json) }
+  let!(:json_setting) { create(:setting, key: "json_setting", type: "json", value: { a: 1, b: 2 }.to_json) }
+  let!(:string_setting) { create(:setting, key: "string_setting", type: "string", value: "some_string") }
 
-  it { is_expected.to have_db_column(:alias).of_type(:string) }
+  it { is_expected.to have_db_column(:key).of_type(:string) }
   it { is_expected.to have_db_column(:value).of_type(:string) }
 
   describe "class_methods" do

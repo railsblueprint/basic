@@ -19,7 +19,7 @@ $(function() {
   $("[data-bs-toggle=\"tooltip\"]").tooltip();
 
   // Needed to enable link inside button
-  $(".action-edit-set").click((e) => {
+  $(".action-edit-section").click((e) => {
     const target = e.currentTarget;
     Turbo.visit(target.href);
   })

@@ -2,8 +2,8 @@ RSpec.describe "Contacts page" do
   let(:user) { create(:user) }
 
   let!(:mail_template) { create(:mail_template, alias: "contact_form_message") }
-  let!(:sender_email) { create(:setting, alias: "sender_email", value: "support@test.com") }
-  let!(:contact_form_receivers) { create(:setting, alias: "contact_form_receivers", value: "support@test.com") }
+  let!(:sender_email) { create(:setting, key: "sender_email", value: "support@test.com") }
+  let!(:contact_form_receivers) { create(:setting, key: "contact_form_receivers", value: "support@test.com") }
 
   describe "GET /contacts" do
     context "when logged in" do

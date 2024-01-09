@@ -16,7 +16,7 @@ RSpec.describe TemplateMailer do
     let(:mail) { described_class.email(template_name, params).deliver_now }
 
     let!(:sender_email) do
-      Setting.create!(alias: "sender_email", type: :string, value: "nobody@localhost", description: "Sender email")
+      Setting.create!(key: "sender_email", type: :string, value: "nobody@localhost", description: "Sender email")
     end
 
     it "renders the subject" do

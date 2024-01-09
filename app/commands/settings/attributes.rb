@@ -5,14 +5,14 @@ module Settings
     include UniquenessValidator
 
     included do
-      attribute :alias, Types::String
+      attribute :key, Types::String
       attribute :type, Types::String
       attribute :description, Types::String
       attribute :value, Types::String
-      attribute :set, Types::String
+      attribute :section, Types::String
 
-      validates :alias, :type, :description, presence: true
-      validates :alias, uniqueness: true
+      validates :key, :type, :description, presence: true
+      validates :key, uniqueness: true
     end
   end
 end

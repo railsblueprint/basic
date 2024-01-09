@@ -57,6 +57,13 @@ jobs:
           bundle exec rails db:create
           bundle exec rails db:schema:load
       - name: Check application can be eager loaded
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: rbp_basic_test
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         run: bundle exec rake zeitwerk:check
       - name: Install Yarn & modules
         run: |
