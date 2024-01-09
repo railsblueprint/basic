@@ -1,0 +1,12 @@
+require "blueprint_config"
+
+BlueprintConfig.env_backend_options = {whitelist_keys: [:port]}
+BlueprintConfig.active_record_backend_options={silence_warnings: true, nest: true}
+
+unless defined?(Rails)
+  BlueprintConfig.root ||= "#{File.dirname(__FILE__)}/.."
+  BlueprintConfig.env ||= ENV["RAILS_ENV"] || "development"
+
+  BlueprintConfig.define_shortcut
+  BlueprintConfig.init
+end

@@ -36,6 +36,16 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Setup config files
+        run: |
+          cp -f config/app_config.rb.ci config/app_config.rb
+          cp -f config/app.yml.ci config/app.yml
+          cp -f config/database.yml.ci config/database.yml
+          cp -f config/cable.yml.ci config/cable.yml
+          cp -f config/storage.yml.ci config/storage.yml
+          cp package.json.template package.json
+          cp config/importmap.rb.template config/importmap.rb
+          cp config/i18n-tasks.yml.template config/i18n-tasks.yml
       - name: Run rubocop
         run: bundle exec rake rubocop:changed
       - name: Setup database
@@ -47,13 +57,6 @@ jobs:
           POSTGRES_DB: rbp_basic_test
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
         run: |
-          cp -f config/app.yml.ci config/app.yml
-          cp -f config/database.yml.ci config/database.yml
-          cp -f config/cable.yml.ci config/cable.yml
-          cp -f config/storage.yml.ci config/storage.yml
-          cp package.json.template package.json
-          cp config/importmap.rb.template config/importmap.rb
-          cp config/i18n-tasks.yml.template config/i18n-tasks.yml
           bundle exec rails db:create
           bundle exec rails db:schema:load
       - name: Check application can be eager loaded

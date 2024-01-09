@@ -97,6 +97,7 @@ namespace :blueprint do
     %w[
       .env
       config/app.yml
+      config/app_config.rb
       config/cable.yml
       config/database.yml
       config/storage.yml
