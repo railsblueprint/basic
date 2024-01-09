@@ -48,7 +48,7 @@ Just checkout the demo: https://basic.railsblueprint.com before proceeding.
 ### Obtaining the code
 Depneding on your intetions you can go in 2 paths:
 
-##### 1. You don't care avout future updates or just want to play around.
+##### 1. You don't care about future updates or just want to play around.
 Simply clone the project, remove .git directory and check in the project you git repository:
 ```
 git clone git@github.com:railsblueprint/basic.git
@@ -78,10 +78,10 @@ git push origin master
 ### Setting up
 #### Prerequisites
 Rails blueprint relies on Postgresql and Redis. Using rbenv or rvm is recommended. If you are using MacOS, 
-use homebrew for installing dependecies.
+use homebrew for installing dependencies.
 #### Setup
 - run `bundle install` to install missing gems
-- run `bundle rails blueprint:install` to generate default configuration files.
+- run `bundle rails blueprint:init` to generate default configuration files.
 
 You will be asked for project name. Enter something meaningful in snake_case form: "my_app", "ai_translator", "wordle".
 A bunch of configuration files will be created. Use `git add . ; git commit -a` to add all new files to the repo.
@@ -113,7 +113,7 @@ or
 `overmind start` (requires [overrmind](https://github.com/DarthSim/overmind) to be installed)
 
 Open http://localhost:3000 in browser. You should home page. Use superadmin@localhost / 12345678 to login.
-Change port in .env file. This is extremly useful when you have to work on several projects and parallel.
+Change port in .env file. This is extremly useful when you have to work on several projects in parallel.
 
 ### Deploying to server
 Rails blueprint is configured for single-server deployment using 2 stage: staging and production. 
@@ -135,7 +135,7 @@ Subsequent deployments are done with
 ```
 bundle exec mina staging deploy # for deploying default branch
 bundle exec mina staging deploy:current # for deploying currently checked out branch
-BRANC=branch_named bundle exec mina staging deploy # for deploying specific brancj
+BRANCH=branch_named bundle exec mina staging deploy # for deploying specific branch
 ```
 Change stage to production for deploying to production environment
 
