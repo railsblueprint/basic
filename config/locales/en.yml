@@ -36,6 +36,8 @@ en:
           boolean: Boolean
           integer: Integer
           json: JSON
+          section: Section
+          selection: Selection
           set: Set
           string: String
       user:

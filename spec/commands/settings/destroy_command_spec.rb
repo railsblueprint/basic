@@ -12,8 +12,7 @@ describe Settings::DestroyCommand, type: :command do
     expect { subject }.to broadcast(:ok)
   end
 
-  it "destroys setting" do
-    expect { subject }.to change(Setting, :count).by(-1)
-    expect { setting.reload }.to raise_error(ActiveRecord::RecordNotFound)
+  it "marks setting as deleted" do
+    expect { subject }.to change { setting.reload.deleted_at }.from(nil).to(Time)
   end
 end
