@@ -1,6 +1,6 @@
 require "blueprint_config"
 
-BlueprintConfig.env_options = {whitelist_keys: [:port]}
+BlueprintConfig.env_backend_options = {whitelist_keys: [:port]}
 
 unless defined?(Rails)
   BlueprintConfig.root ||= "#{File.dirname(__FILE__)}/.."

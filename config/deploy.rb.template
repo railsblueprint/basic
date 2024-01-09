@@ -1,6 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext/object/blank'
-require_relative "../lib/app_config"
+require_relative "app_config"
 require 'dotenv/load'
 require 'wannabe_bool'
 require 'yaml'
