@@ -13,6 +13,7 @@ module Settings
 
       validates :key, :type, :description, presence: true
       validates :key, uniqueness: true
+      validates :section, presence: true, unless: -> { type == "section" }
     end
   end
 end

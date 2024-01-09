@@ -155,7 +155,6 @@ group :development do
   gem "rubocop-rspec", require: false
 
   gem "html2slim-ruby3"
-  gem "slimkeyfy"
 
   gem "active_record_query_trace"
   gem "better_errors"

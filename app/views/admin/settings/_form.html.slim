@@ -1,5 +1,5 @@
 = f.text_field :key
-= f.collection_select :section, @sections, :key, :description, allow_blank: true
+= f.collection_select :section, @sections, :key, :description, include_blank: true, required: false
 = f.text_field :description
 = f.select :type, Setting.type_enum
 = f.text_field :value

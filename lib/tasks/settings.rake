@@ -8,17 +8,17 @@ namespace :settings do
   task generate: :environment do
     code = Setting.unscoped.where(not_migrated: true).where(deleted_at: nil).map { |setting|
       <<-CODEEND
-    if Setting.where("alias": "#{setting.alias}").any?
-      Setting.where("alias": "#{setting.alias}").update_all(
+    if Setting.where("key": "#{setting.key}").any?
+      Setting.where("key": "#{setting.key}").update_all(
         type:        "#{setting.type}",
-        set:         "#{setting.set}",
+        section:     "#{setting.section}",
         description: "#{setting.description}",
       )
     else
       Setting.create(
-        "alias":     "#{setting.alias}",
+        "key":       "#{setting.key}",
         type:        "#{setting.type}",
-        set:         "#{setting.set}",
+        section:     "#{setting.section}",
         value:       "#{escape setting.value}",
         description: "#{setting.description}",
       )
@@ -28,7 +28,7 @@ namespace :settings do
 
     code += Setting.unscoped.where.not(deleted_at: nil).where(not_migrated: false).map { |setting|
       <<-CODEEND
-    Setting.where("alias": "#{setting.alias}").delete_all
+    Setting.where("key": "#{setting.key}").delete_all
       CODEEND
     }.join
 
@@ -40,7 +40,7 @@ namespace :settings do
       timestamp = Time.now.to_i
       filename = "#{time}_create_settings#{timestamp}.rb"
       body = <<~CODEEND
-        class CreateSettings#{timestamp} < ActiveRecord::Migration[7.0]
+        class CreateSettings#{timestamp} < ActiveRecord::Migration[#{ActiveRecord::VERSION::STRING.to_f}]
           def up
         #{code}
           end
