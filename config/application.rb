@@ -2,6 +2,7 @@ require_relative "boot"
 
 require "rails/all"
 require 'good_job/engine'
+require_relative 'app_config'
 
 # Prevent problems with double loading between `development` and `test` environments
 if defined?(Rake.application) && Rake.application.top_level_tasks.grep(/^(default$|spec(:|$))/).any?
@@ -27,18 +28,13 @@ module Railsblueprint
 
     config.i18n.fallbacks = true
 
-    config.before_configuration do |app|
-      require "#{root}/lib/app_config"
-    end
+    BlueprintConfig.configure_rails(config)
 
     config.after_initialize do |app|
       app.routes.default_url_options = app.config.action_mailer.default_url_options
-
-      AppConfig.load_settings
     end
 
     config.autoload_paths << "#{root}/app/liquid"
-
 
     # Configuration for the application, engines, and railties goes here.
     #

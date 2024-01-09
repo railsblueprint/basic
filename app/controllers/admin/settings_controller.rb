@@ -3,7 +3,7 @@ class Admin::SettingsController < Admin::CrudController
 
   def prepend_breadcrumbs
     breadcrumb t("admin.nav.configuration"), ""
-    @sets = Setting.where(type: :set)
+    @sections = Setting.where(type: :section)
   end
 
   def name_attribute
