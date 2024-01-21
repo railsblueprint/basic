@@ -1,11 +1,11 @@
 RSpec.describe "Posts page" do
   let(:user) { create(:user) }
 
-  describe "GET /posts" do
+  describe "GET /blog" do
     context "when logged in" do
       before do
         sign_in user
-        get "/posts"
+        get "/blog"
       end
 
       it "returns http success" do
@@ -17,17 +17,17 @@ RSpec.describe "Posts page" do
       let!(:resources) { create_list(:post, 7) }
 
       it "returns http success" do
-        get "/posts"
+        get "/blog"
         expect(response).to have_http_status(:success)
       end
 
       it "render first 5 posts" do
-        get "/posts"
+        get "/blog"
         expect(response.body).to have_tag(".card.post", count: 5)
       end
 
       it "render last 2 posts" do
-        get "/posts?page=2"
+        get "/blog?page=2"
         expect(response.body).to have_tag(".card.post", count: 2)
       end
     end
@@ -38,11 +38,11 @@ RSpec.describe "Posts page" do
 
       before do
         sign_in user
-        get "/posts"
+        get "/blog"
       end
 
       it "shows control buttons", :aggregate_failures do
-        get "/posts"
+        get "/blog"
         expect(response.body).to have_tag(".card.post a", text: /Edit/, count: 5)
         expect(response.body).to have_tag(".card.post a", text: /Delete/, count: 5)
       end
@@ -54,7 +54,7 @@ RSpec.describe "Posts page" do
 
       before do
         sign_in moderator
-        get "/posts"
+        get "/blog"
       end
 
       it "shows control buttons", :aggregate_failures do
@@ -64,13 +64,13 @@ RSpec.describe "Posts page" do
     end
   end
 
-  describe "GET /posts/new" do
+  describe "GET /blog/new" do
     let!(:user) { create(:user) }
 
     context "when not logged in" do
       before do
         sign_out :user
-        get "/posts/new"
+        get "/blog/new"
       end
 
       it "redirects to login page" do
@@ -85,7 +85,7 @@ RSpec.describe "Posts page" do
     context "when logged in" do
       before do
         sign_in user
-        get "/posts/new"
+        get "/blog/new"
       end
 
       it "renders ok" do
@@ -93,18 +93,18 @@ RSpec.describe "Posts page" do
       end
 
       it "renders form" do
-        expect(response.body).to have_form("/posts", :post)
+        expect(response.body).to have_form("/blog", :post)
       end
     end
   end
 
-  describe "POST /posts" do
+  describe "POST /blog" do
     let!(:user) { create(:user) }
     let(:params) { { post: { title: "title", body: "content" } } }
 
     context "when not logged in" do
       before do
-        post "/posts", params:
+        post "/blog", params:
       end
 
       it "redirects to login page" do
@@ -119,11 +119,11 @@ RSpec.describe "Posts page" do
     context "when logged in" do
       before do
         sign_in user
-        post "/posts", params:
+        post "/blog", params:
       end
 
       it "redirect to new post" do
-        expect(response).to redirect_to(%r{/posts/.+/edit})
+        expect(response).to redirect_to(%r{/blog/.+/edit})
       end
 
       it "creates a new post" do
@@ -132,14 +132,14 @@ RSpec.describe "Posts page" do
     end
   end
 
-  describe "GET /posts/:id" do
+  describe "GET /blog/:id" do
     let!(:user) { create(:user) }
     let!(:post) { create(:post, user:) }
     let(:params) { { post: { title: "title", body: "content" } } }
 
     context "when not logged in" do
       before do
-        get "/posts/#{post.id}"
+        get "/blog/#{post.id}"
       end
 
       it "renders the post" do
@@ -162,7 +162,7 @@ RSpec.describe "Posts page" do
 
       before do
         sign_in other_user
-        get "/posts/#{post.id}"
+        get "/blog/#{post.id}"
       end
 
       it "renders the post" do
@@ -183,7 +183,7 @@ RSpec.describe "Posts page" do
     context "when logged as author" do
       before do
         sign_in user
-        get "/posts/#{post.id}"
+        get "/blog/#{post.id}"
       end
 
       it "renders the post" do
@@ -206,7 +206,7 @@ RSpec.describe "Posts page" do
 
       before do
         sign_in moderator
-        get "/posts/#{post.id}"
+        get "/blog/#{post.id}"
       end
 
       it "renders the post" do
@@ -225,14 +225,14 @@ RSpec.describe "Posts page" do
     end
   end
 
-  describe "GET /posts/:id/edit" do
+  describe "GET /blog/:id/edit" do
     let!(:user) { create(:user) }
     let!(:post) { create(:post, user:) }
     let(:params) { { post: { title: "title", body: "content" } } }
 
     context "when not logged in" do
       before do
-        get "/posts/#{post.id}/edit"
+        get "/blog/#{post.id}/edit"
       end
 
       it "redirects to login page" do
@@ -245,7 +245,7 @@ RSpec.describe "Posts page" do
 
       before do
         sign_in other_user
-        get "/posts/#{post.id}/edit"
+        get "/blog/#{post.id}/edit"
       end
 
       it "redirects to home page" do
@@ -256,7 +256,7 @@ RSpec.describe "Posts page" do
     context "when logged as author" do
       before do
         sign_in user
-        get "/posts/#{post.id}/edit"
+        get "/blog/#{post.id}/edit"
       end
 
       it "renders ok" do
@@ -264,7 +264,7 @@ RSpec.describe "Posts page" do
       end
 
       it "shows the form" do
-        expect(response.body).to have_form("/posts/#{post.id}", :post)
+        expect(response.body).to have_form("/blog/#{post.id}", :post)
       end
     end
 
@@ -273,7 +273,7 @@ RSpec.describe "Posts page" do
 
       before do
         sign_in moderator
-        get "/posts/#{post.id}/edit"
+        get "/blog/#{post.id}/edit"
       end
 
       it "renders ok" do
@@ -281,7 +281,7 @@ RSpec.describe "Posts page" do
       end
 
       it "shows the form" do
-        expect(response.body).to have_form("/posts/#{post.id}", :post)
+        expect(response.body).to have_form("/blog/#{post.id}", :post)
       end
     end
   end
