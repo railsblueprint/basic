@@ -2,7 +2,7 @@ div data-controller="post" data-post-id-value=post.id
   .card.post id=dom_id(post)
     .card-body
       div id="#{dom_id(post)}_body"
-        .card-title = link_to post.title, post
+        .card-title = link_to post.title, post_path(id: post.slug)
         .card-text
           == post.body
 

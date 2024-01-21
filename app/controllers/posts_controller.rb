@@ -9,7 +9,7 @@ class PostsController < CrudController
   end
 
   def scope
-    Post.includes(:user).with_all_rich_text
+    Post.includes(:user).with_all_rich_text.friendly
   end
 
   def paginate(collection)
