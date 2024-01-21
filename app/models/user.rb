@@ -45,7 +45,7 @@ class User < ApplicationRecord
   # rubocop:enable Naming/PredicateName
 
   Role::ROLES.each do |role|
-    define_method("#{role}?".to_sym) do
+    define_method(:"#{role}?") do
       has_role?(role)
     end
   end
