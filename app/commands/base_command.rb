@@ -199,31 +199,31 @@ class BaseCommand < Dry::Struct
       dry_struct_attribute(name, type, &)
     end
 
-    def call(*)
-      new(*).tap { |obj|
+    def call(*args)
+      new(*args).tap { |obj|
         yield obj if block_given?
       }.call
     end
 
-    def call_later(*)
-      new(*).tap do |command|
+    def call_later(*args)
+      new(*args).tap do |command|
         yield command if block_given?
 
         return command if command.preflight_nok?
 
-        DelayedCommandJob.perform_later(self, *)
+        DelayedCommandJob.perform_later(self, *args)
 
         command.broadcast_ok
       end
     end
 
-    def call_at(delay, *)
-      new(*).tap do |command|
+    def call_at(delay, *args)
+      new(*args).tap do |command|
         yield command if block_given?
 
         return command if command.preflight_nok?
 
-        DelayedCommandJob.set(delay).perform_later(self, *)
+        DelayedCommandJob.set(delay).perform_later(self, *args)
 
         command.broadcast_ok
       end
