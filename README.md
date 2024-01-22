@@ -2,9 +2,9 @@
 
 ### Rationale
 
-[Ruby on Rails](https://rubyonrails.org) is awesome and was awsome since the beginning. The legendary video 
-["Building blog in 15 minutes"](https://www.youtube.com/watch?v=Gzj723LkRJY&t=470s) is still impressive 18 years later.  
-With the release of [Hotwire stack](https://hotwired.dev) things git even funier. There is a sequel 
+[Ruby on Rails](https://rubyonrails.org) is awesome and was splendid since the beginning. The legendary video 
+["Building blog in 15 minutes"](https://www.youtube.com/watch?v=Gzj723LkRJY) is still impressive 18 years after presentation.  
+With the release of [Hotwire stack](https://hotwired.dev) things get even more gorgeous. There is a sequel 
 video [Building a Twitter clone in 10 minutes](https://www.youtube.com/watch?v=F5hA79vKE_E) demonstrating modern
 Rails approaches.
 
@@ -21,19 +21,21 @@ what really matters. It includes best practices for rapid development of your Ra
 Main features:
 
 - Latest Ruby on Rails (7.1)
-- Latest Ruby (3.2.2)
+- Latest Ruby (3.3.0)
 - Hotwire stack (Turbo, Stimulus)
 - Action Cable and Stimulus Reflex for even more reactivity
 - Bootstrap 5.3.2
 - Slim for compact views
-- Awseome livereload
+- Awesome livereload
 - Users and roles.
-- Authorization using devise
+- Friendly ids for blog posts
 - Basic blog and static pages editor
+- Authorization using devise
 - Email templates and settings stored in database
 - Pundit for permissions management
 - Basic admin panel. Highly responsive and easy to use.
-- good_job for backround job processing
+- Design system pages demostrating various bootstrap components, color system, icon fonts, text editors etc.
+- good_job for background job processing
 - Blazing fast deployment using [Mina](https://github.com/mina-deploy/mina)
 - Rspec tests for everything (including FactoryBot, Simplecov, DatabaseCleaner)
 - Rubocop and security checks in place
@@ -43,7 +45,7 @@ Main features:
 Basically you get a ready application you can deploy to your server and start to use instantly after a short
 configuration process. And next you can extend it with your own features.
 
-Just checkout the demo: https://basic.railsblueprint.com before proceeding.
+Just check out the demo: https://basic.railsblueprint.com before proceeding.
 
 ### Obtaining the code
 Depneding on your intetions you can go in 2 paths:
@@ -60,16 +62,18 @@ git commit -m 'Orininal Rails blueprint'
 git remote add origin "Your git repository"
 git push origin master
 ```
-#### 2. If you want to play long and try to keep your project aligned with update in Rails Blueprint.
+#### 2. If you want to play long and try to keep your project aligned with updates in Rails Blueprint.
+Please keep in mind that smooth updates are not guaranteed. Working on your project suppose changing provided
+source code, meaning merge conflicts are inevitable. Though we try to make upgrade as painless as we can.
 ##### 2.1 If you're using github
-- Fork the rails blueprint project.
+- Fork the rails blueprint project. Main branch is named `blueprint-basic-master`  
 - Create you own master branch and set it as default
 - Checkout your master branch locally and start working on it
 ##### 2.2 If you're using different git provider
 Clone blueprint specifying different origin name, add your git provider as origin and push there
 
 ```
-git clone --origin git@github.com:railsblueprint/basic.git
+git clone --origin blueprint git@github.com:railsblueprint/basic.git
 git branch master
 git remote add origin "Your git repository"
 git push origin master
@@ -86,10 +90,10 @@ use homebrew for installing dependencies.
 You will be asked for project name. Enter something meaningful in snake_case form: "my_app", "ai_translator", "wordle".
 A bunch of configuration files will be created. Use `git add . ; git commit -a` to add all new files to the repo.
 
-Be careful! Some files are excluded using .gitignore file. These are .env (which is not that scary), config/master.key, 
-config/credentials/staging.key and config/credentials/production.key. Later 3 are needed for editing encrypted
+Be careful! Some files are excluded using `.gitignore` file. These are `.env` (which is not that scary), `config/master.key`, 
+`config/credentials/staging.key` and `config/credentials/production.key`. Later 3 are needed for editing encrypted
 credentials files. You you loose them you won't be able to decrypt your credentials files anymore. So take care and
-make backups (but in some password manager).
+make backups (in some secure place like password manager).
 
 - run `yarn install` to install javascript dependencies
 
@@ -116,11 +120,11 @@ Open http://localhost:3000 in browser. You should home page. Use superadmin@loca
 Change port in .env file. This is extremly useful when you have to work on several projects in parallel.
 
 ### Deploying to server
-Rails blueprint is configured for single-server deployment using 2 stage: staging and production. 
+Rails blueprint is configured for single-server deployment using 2 stages: staging and production. 
 AWS EC2 is tested and recommented, but any linux machine should work (maybe with some adjustments)
 
-To setup deployment you have to check and update configuration files: config/deploy/stage.rb and 
-config/deploy/production.rb They are responsible for staging and production environments respectively.
+To setup deployment you have to check and update configuration files: `config/deploy/stage.rb` and 
+`config/deploy/production.rb` They are responsible for staging and production environments respectively.
 
 Initial deployment:
 ```
@@ -139,5 +143,17 @@ BRANCH=branch_named bundle exec mina staging deploy # for deploying specific bra
 ```
 Change stage to production for deploying to production environment
 
+### Updating
+#### When useing github
+1. Update `blueprint-basic-master` branch from upstream repo.
+2. Merge `blueprint-basic-master` to your master. It is recommendable to first create a temporary branch and check that after update everythign works as expected.
+
+#### When useing different environment
+1. Update `blueprint-basic-master` branch from blueprint remote (`git fetch blueprint`
+2. Merge `blueprint-basic-master` to your master. It is recommendable to first create a temporary branch and check that after update everythign works as expected.
+
+Use `bundle rails blueprint:init` to check if anything changed in configuration files. It won't overwrite any 
+configuration file automatically, you'll be prompted for each file which differs from default values and provided with standard rails
+options: overwrite, ignore, show diff etc.
 
 
