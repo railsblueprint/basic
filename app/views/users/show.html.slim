@@ -106,4 +106,4 @@ section.section.profile
                     h6
                       = post.created_at.strftime("%d-%m-%Y %H:%M")
                       '
-                      = link_to post.title, [post, id: post.slug]
+                      = link_to post.title,post_path(id: post.slug)
