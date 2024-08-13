@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 7.2.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -89,7 +89,7 @@ gem "down", "~> 5.3"
 gem "faraday", "~> 2.2"
 gem "faraday-multipart", "~> 1.0"
 gem "friendly_id", "~> 5.4"
-gem "good_job", "~> 3.21"
+gem "good_job", "~> 4.0"
 gem "hotwire-livereload", github: "elik-ru/hotwire-livereload"
 gem "i18n-tasks", "~> 1.0.13"
 gem "inky-rb", require: "inky"
@@ -173,7 +173,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "database_cleaner"
   gem "factory_bot"
   gem "factory_bot_rails", "6.2.0"
   gem "rails-controller-testing"
