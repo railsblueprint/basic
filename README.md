@@ -37,7 +37,7 @@ Main features:
 - Design system pages demostrating various bootstrap components, color system, icon fonts, text editors etc.
 - good_job for background job processing
 - Blazing fast deployment using [Mina](https://github.com/mina-deploy/mina)
-- Rspec tests for everything (including FactoryBot, Simplecov, DatabaseCleaner)
+- Rspec tests for everything (including FactoryBot, Simplecov)
 - Rubocop and security checks in place
 - Github actions configured
 - Translation ready

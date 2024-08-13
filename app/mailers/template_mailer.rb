@@ -2,8 +2,8 @@ class TemplateMailer < ApplicationMailer
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # TODO: refactor
   def email template_alias, params={}
-    params = params.with_indifferent_access.transform_values(&:to_liquid)
-
+    params = params.with_indifferent_access
+    liquid_params = params.transform_values(&:to_liquid).deep_stringify_keys
     template = MailTemplate.find_by(alias: template_alias)
 
     if template.blank?
@@ -33,8 +33,8 @@ class TemplateMailer < ApplicationMailer
          to:       params[:to],
          reply_to: params[:reply_to],
          bcc:      params[:bcc],
-         subject:  template_subject.render(params)) do |format|
-      format.html { template_body.render(params) }
+         subject:  template_subject.render(liquid_params)) do |format|
+      format.html { template_body.render(liquid_params) }
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

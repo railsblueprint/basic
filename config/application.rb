@@ -15,7 +15,6 @@ require "rspec-rails" if Rails.env.development? || Rails.env.test?
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-
 module Railsblueprint
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

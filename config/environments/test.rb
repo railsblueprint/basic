@@ -16,6 +16,10 @@ Rails.application.configure do
   # system, or in some way before deploying your code.
   config.eager_load = ENV["CI"].present?
 
+  # Disable logging in test environment. Saves disk space and a bit of performance
+  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(nil))
+  config.log_level = :fatal
+
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
@@ -62,6 +66,8 @@ Rails.application.configure do
 
   # add a view directory for the anonymous controller tests
   config.paths['app/views'] << "spec/test_views"
+
+  config.active_job.queue_adapter = :test
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
