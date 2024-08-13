@@ -72,7 +72,7 @@
 #
 # Use in controller:
 # def create
-#   CreateOrder.call(user_id: current.user_id, name: params[:name]).do |command|
+#   CreateOrder.call(user_id: current.user_id, name: params[:name]) do |command|
 #     command.on(:ok) do
 #       render :success
 #     end
@@ -273,7 +273,7 @@ class BaseCommand < Dry::Struct
     self.class.transactional?
   end
 
-  # sets empty listeners to avoif raising exceptions
+  # sets empty listeners to avoid raising exceptions
   def no_exceptions!
     on(:invalid, :abort, :stale, :unauthorized) {} # rubocop:disable Lint/EmptyBlock
     self
