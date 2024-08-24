@@ -216,7 +216,7 @@ GEM
       addressable
     dartsass-rails (0.4.1)
       railties (>= 6.0.0)
-    data_migrate (9.2.0)
+    data_migrate (11.0.0)
       activerecord (>= 6.1)
       railties (>= 6.1)
     date (3.3.4)
@@ -422,7 +422,7 @@ GEM
       mina (~> 1.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    minitest (5.24.1)
+    minitest (5.25.1)
     msgpack (1.7.2)
     multipart-post (2.3.0)
     net-http (0.2.2)
@@ -533,7 +533,7 @@ GEM
       redis (>= 3.0, < 5)
       sweet_notifications (~> 1.0)
     regexp_parser (2.9.0)
-    reline (0.5.9)
+    reline (0.5.10)
       io-console (~> 0.5)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -662,7 +662,7 @@ GEM
     temple (0.8.2)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
-    thor (1.3.1)
+    thor (1.3.2)
     thread-local (1.1.0)
     tilt (2.0.11)
     timeout (0.4.1)
@@ -710,7 +710,7 @@ GEM
     wisper-rspec (1.1.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.17)
+    zeitwerk (2.6.18)
 
 PLATFORMS
   arm64-darwin-22
