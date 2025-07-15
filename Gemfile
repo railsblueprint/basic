@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.0"
+gem "rails", "~> 7.2.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -13,7 +13,7 @@ gem "sprockets-rails"
 # gem "sqlite3", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.4"
+gem "puma", ">= 6.4.3"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -84,7 +84,7 @@ gem "bundle-audit", "~> 0.1.0"
 gem "cable_ready", "~> 5.0.pre9"
 gem "creek", "~> 2.5"
 gem "dartsass-rails", "~> 0.4.0"
-gem "data_migrate"
+gem "data_migrate", "~> 11.0"
 gem "down", "~> 5.3"
 gem "faraday", "~> 2.2"
 gem "faraday-multipart", "~> 1.0"
@@ -115,7 +115,7 @@ gem "sd_notify", "~> 0.1.1"
 gem "simple_xlsx_reader", "~> 1.0"
 gem "slim", "~> 4.1"
 gem "stimulus_reflex", "~> 3.5.pre9"
-gem "uri", "~> 0.12"
+gem "uri", "~> 0.13.2"
 gem "view_component"
 gem "view_component_reflex"
 gem "wannabe_bool", "~> 0.7.1"
@@ -154,7 +154,7 @@ group :development do
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
 
-  gem "html2slim-ruby3"
+  # gem "html2slim-ruby3"  # Commented out due to hpricot Ruby 3.3 compatibility issues
 
   gem "active_record_query_trace"
   gem "better_errors"

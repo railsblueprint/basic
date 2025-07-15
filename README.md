@@ -1,5 +1,7 @@
 ## Rails Blueprint. Basic edition.
 
+**Version:** 1.0.0 (see VERSION_BASIC file)
+
 ### Rationale
 
 [Ruby on Rails](https://rubyonrails.org) is awesome and was splendid since the beginning. The legendary video 
@@ -20,11 +22,11 @@ what really matters. It includes best practices for rapid development of your Ra
 
 Main features:
 
-- Latest Ruby on Rails (7.1)
+- Latest Ruby on Rails (7.2.2)
 - Latest Ruby (3.3.0)
 - Hotwire stack (Turbo, Stimulus)
 - Action Cable and Stimulus Reflex for even more reactivity
-- Bootstrap 5.3.2
+- Bootstrap 5.3.0
 - Slim for compact views
 - Awesome livereload
 - Users and roles.
@@ -90,6 +92,10 @@ use homebrew for installing dependencies.
 You will be asked for project name. Enter something meaningful in snake_case form: "my_app", "ai_translator", "wordle".
 A bunch of configuration files will be created. Use `git add . ; git commit -a` to add all new files to the repo.
 
+**Important**: After running `blueprint:init`, update the domain configurations in `config/app.yml`:
+- Change `host: 'example.com'` in staging section to your staging domain
+- Change `host: 'example.com'` in production section to your production domain
+
 Be careful! Some files are excluded using `.gitignore` file. These are `.env` (which is not that scary), `config/master.key`, 
 `config/credentials/staging.key` and `config/credentials/production.key`. Later 3 are needed for editing encrypted
 credentials files. You you loose them you won't be able to decrypt your credentials files anymore. So take care and
@@ -129,8 +135,8 @@ To setup deployment you have to check and update configuration files: `config/de
 Initial deployment:
 ```
 bundle exec mina staging setup
-bundle exec mina staging nginx:install
-bundle exec mina staging puma:install
+bundle exec mina staging nginx:setup
+bundle exec mina staging puma:setup
 bundle exec mina staging deploy:current
 ```
 
