@@ -49,6 +49,11 @@ set :rollbar_local_username, -> { fetch(:local_user) }
 #   set :port, '30000'           # SSH port number.
 #   set :forward_agent, true     # SSH forward_agent.
 
+# Puma configuration defaults
+set :keep_releases, 5
+set :puma_user, -> { fetch(:user) }
+set :puma_group, -> { fetch(:user) }
+
 # Shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
