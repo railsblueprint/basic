@@ -6,11 +6,11 @@ RSpec.describe "Admin Settings" do
       allow(Rails.env).to receive(:development?).and_return(true)
 
       # Reload model class
-      Object.send(:remove_const, :Setting)
+      Object.send(:remove_const, :Setting) # rubocop:disable RSpec/RemoveConst
       load "app/models/setting.rb"
     end
 
-    include_examples "admin crud controller", { resource: :settings, model: Setting, prefix: "config" }
+    it_behaves_like "admin crud controller", { resource: :settings, model: Setting, prefix: "config" }
   end
 
   describe "GET /admin/config/settings" do
@@ -45,7 +45,7 @@ RSpec.describe "Admin Settings" do
         allow(Rails.env).to receive(:development?).and_return(true)
 
         # Reload model class
-        Object.send(:remove_const, :Setting)
+        Object.send(:remove_const, :Setting) # rubocop:disable RSpec/RemoveConst
         load "app/models/setting.rb"
 
         sign_in admin

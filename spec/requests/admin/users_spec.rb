@@ -2,9 +2,9 @@ RSpec.describe "Admin Users" do
   options = { resource: :users, model: User, has_filters: true }
   let(:admin) { create(:user, :superadmin) }
 
-  include_examples "admin crud controller", options
-  include_examples "admin crud controller paginated index", options
-  include_examples "admin crud controller show resource", options
+  it_behaves_like "admin crud controller", options
+  it_behaves_like "admin crud controller paginated index", options
+  it_behaves_like "admin crud controller show resource", options
 
   describe "GET /admin/users" do
     let!(:testuser) { create(:user, first_name: "test") }

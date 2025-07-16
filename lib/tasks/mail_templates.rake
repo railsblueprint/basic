@@ -2,7 +2,7 @@ def escape(value)
   value.to_s.gsub('"', '\"').gsub(/\n/m, "\\n\" \\\n          \"")
 end
 
-# rubocop:disable Metrics/BlockLength:
+# rubocop:disable Metrics/BlockLength
 namespace :mail_templates do
   desc "Generate migration for new mail_templates"
   task generate: :environment do
@@ -50,4 +50,4 @@ namespace :mail_templates do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength:
+# rubocop:enable Metrics/BlockLength

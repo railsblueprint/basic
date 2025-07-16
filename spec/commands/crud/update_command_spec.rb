@@ -12,7 +12,7 @@ RSpec.describe Crud::UpdateCommand, type: :command do
         @id = "123"
       end
 
-      def update(...) = true
+      def update(...) = true # rubocop:disable Naming/PredicateMethod
 
       def errors
         ActiveModel::Errors.new(self)
