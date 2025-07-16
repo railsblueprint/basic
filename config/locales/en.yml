@@ -295,6 +295,8 @@ en:
     failed_to_update_password: Failed to update password.
     failed_to_update_profile: Failed to update profile
     password_changed: Your password has been changed.
+    password_change_failed: Failed to change password
+    unauthorized: You are not authorized to perform this action
     profile_updated: Your profile has been updated
     successfully_updated: Successfully updated  %{resource}
     you_cannot_access_this_page: You cannot access this page
