@@ -294,11 +294,11 @@ en:
     failed_to_copy: Failed to copy
     failed_to_update_password: Failed to update password.
     failed_to_update_profile: Failed to update profile
-    password_changed: Your password has been changed.
     password_change_failed: Failed to change password
-    unauthorized: You are not authorized to perform this action
+    password_changed: Your password has been changed.
     profile_updated: Your profile has been updated
     successfully_updated: Successfully updated  %{resource}
+    unauthorized: You are not authorized to perform this action
     you_cannot_access_this_page: You cannot access this page
     you_cannot_peform_this_action: You cannot peform this action
     you_must_be_signed_in_to_edit_your_profile: You must be signed in to edit your profile.
