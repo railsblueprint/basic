@@ -1,6 +1,6 @@
 ## Rails Blueprint. Basic edition.
 
-**Version:** 1.1.0 (see VERSION_BASIC file)
+**Version:** 1.2.0 (see VERSION_BASIC file)
 
 ### Rationale
 
@@ -197,6 +197,43 @@ bundle exec mina staging deploy:current # for deploying currently checked out br
 BRANCH=branch_named bundle exec mina staging deploy # for deploying specific branch
 ```
 Change stage to production for deploying to production environment
+
+### Health Monitoring
+
+Rails Blueprint includes a health endpoint at `/health` that provides application status information useful for monitoring and load balancers.
+
+**Endpoint:** `GET /health`
+
+**Response format:**
+```json
+{
+  "status": "ok",
+  "version": {
+    "basic": "1.2.0"
+  },
+  "git_revision": "c011f46f988ea5421454b3897e4b29c14a09861b",
+  "timestamp": "2025-07-16T10:27:04Z"
+}
+```
+
+**Note:** The version object shows all edition versions present in the project:
+- **Basic edition**: Shows only `{"basic": "1.2.0"}`
+- **Plus edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0"}`
+- **Pro edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0", "pro": "1.2.0"}`
+
+The endpoint:
+- Returns JSON with application health information
+- Shows versions from all `VERSION_*` files present in the project
+- Includes git revision (from git command in development, `.mina_git_revision` file in production)
+- Provides current timestamp
+- Requires no authentication
+- Adapts automatically across different editions (basic/plus/pro)
+
+This endpoint is useful for:
+- Load balancer health checks
+- Monitoring system integration
+- Deployment verification
+- Version tracking across environments
 
 ### Updating
 #### When useing github
