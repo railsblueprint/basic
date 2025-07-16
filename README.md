@@ -1,6 +1,6 @@
 ## Rails Blueprint. Basic edition.
 
-**Version:** 1.1.0 (see VERSION_BASIC file)
+**Version:** 1.2.0 (see VERSION_BASIC file)
 
 ### Rationale
 
@@ -209,12 +209,17 @@ Rails Blueprint includes a health endpoint at `/health` that provides applicatio
 {
   "status": "ok",
   "version": {
-    "basic": "1.1.0"
+    "basic": "1.2.0"
   },
   "git_revision": "c011f46f988ea5421454b3897e4b29c14a09861b",
   "timestamp": "2025-07-16T10:27:04Z"
 }
 ```
+
+**Note:** The version object shows all edition versions present in the project:
+- **Basic edition**: Shows only `{"basic": "1.2.0"}`
+- **Plus edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0"}`
+- **Pro edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0", "pro": "1.2.0"}`
 
 The endpoint:
 - Returns JSON with application health information
