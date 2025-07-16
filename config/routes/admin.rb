@@ -24,6 +24,7 @@ namespace :admin do
     member do
       post :cancel_email_change
       post :resend_confirmation_email
+      patch :update_password
     end
   end
 
