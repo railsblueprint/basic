@@ -1,5 +1,34 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.2.2 (2025-07-16)
+
+### Features
+- **CLI Enhancement**: Added command line parameters to `blueprint:init` task
+  - Can now pass app name as parameter: `bundle exec rails blueprint:init[my_app_name]`
+  - Skips interactive prompt when app name is provided
+  - Documented in README for both initial setup and updates
+
+- **Health Endpoint Enhancement**: Added support for application VERSION file
+  - Health endpoint now checks for `VERSION` file and displays as "app" in response
+  - Allows tracking custom application version separately from Rails Blueprint editions
+  - Updated documentation with examples
+
+### Bug Fixes
+- **Settings Migration Fix**: Fixed data migrations creating settings with deprecated "set" type
+  - Updated data migrations to use "section" type instead of "set"
+  - Fixed field names to use "key" instead of "alias" and "section" instead of "set"
+  - Added data migration to fix existing installations with incorrect type values
+  
+- **Admin Settings Display**: Added uncategorized section for orphaned settings
+  - Settings without matching sections now display in "Uncategorized" group
+  - Prevents settings from being hidden in admin interface
+  - Added proper translations for uncategorized section
+
+### Technical Improvements
+- Improved settings management consistency across the application
+- Enhanced admin UI to handle edge cases in settings display
+- Better CLI experience for project initialization
+
 ## Version 1.2.1 (2025-07-16)
 
 ### Features

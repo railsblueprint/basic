@@ -13,6 +13,10 @@ class HealthController < ApplicationController
   def version_info
     versions = {}
 
+    # Check for VERSION file without suffix
+    version_file = Rails.root.join("VERSION")
+    versions["app"] = File.read(version_file).strip if File.exist?(version_file)
+
     # Read all VERSION_* files in the root directory
     Rails.root.glob("VERSION_*").each do |file|
       edition = File.basename(file).gsub("VERSION_", "").downcase

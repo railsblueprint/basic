@@ -83,8 +83,11 @@ end
 # rubocop:disable Rails/RakeEnvironment
 namespace :blueprint do
   desc "Initialise new project"
-  task :init do
+  task :init, [:app_name] do |_t, args|
     Thor.new.say "Initialising new project", :green
+
+    # Set app name from command line argument or environment variable
+    ENV["app_prefix"] = args[:app_name].parameterize.underscore if args[:app_name]
 
     [
       %w[config/master.key config/credentials.yml.enc],
