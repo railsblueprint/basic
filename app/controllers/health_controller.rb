@@ -1,10 +1,10 @@
 class HealthController < ApplicationController
   def show
     render json: {
-      status: 'ok',
-      version: version_info,
+      status:       "ok",
+      version:      version_info,
       git_revision: git_revision,
-      timestamp: Time.current.iso8601
+      timestamp:    Time.current.iso8601
     }
   end
 
@@ -12,13 +12,13 @@ class HealthController < ApplicationController
 
   def version_info
     versions = {}
-    
+
     # Read all VERSION_* files in the root directory
-    Dir.glob(Rails.root.join('VERSION_*')).each do |file|
-      edition = File.basename(file).gsub('VERSION_', '').downcase
+    Rails.root.glob("VERSION_*").each do |file|
+      edition = File.basename(file).gsub("VERSION_", "").downcase
       versions[edition] = File.read(file).strip
     end
-    
+
     versions
   end
 
@@ -27,16 +27,16 @@ class HealthController < ApplicationController
       # In development, try to get git revision from git command
       begin
         `git rev-parse HEAD`.strip
-      rescue
-        'unknown'
+      rescue StandardError
+        "unknown"
       end
     else
       # In production, read from .mina_git_revision file created by Mina
-      revision_file = Rails.root.join('.mina_git_revision')
+      revision_file = Rails.root.join(".mina_git_revision")
       if File.exist?(revision_file)
         File.read(revision_file).strip
       else
-        'unknown'
+        "unknown"
       end
     end
   end
