@@ -1,13 +1,14 @@
-require:
+plugins:
   - rubocop-performance
   - rubocop-factory_bot
   - rubocop-capybara
   - rubocop-rails
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-rspec_rails
   
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.4
   Include:
     - Rakefile
     - Gemfile

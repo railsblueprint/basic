@@ -5,10 +5,10 @@ RSpec.describe "Admin Posts" do
 
   options = { resource: :posts, model: Post, has_filters: true }
 
-  include_examples "admin crud controller", options
-  include_examples "admin crud controller paginated index", options
-  include_examples "admin crud controller empty search", options
-  include_examples "admin crud controller show resource", options
+  it_behaves_like "admin crud controller", options
+  it_behaves_like "admin crud controller paginated index", options
+  it_behaves_like "admin crud controller empty search", options
+  it_behaves_like "admin crud controller show resource", options
 
   describe "GET /admin/posts" do
     before do

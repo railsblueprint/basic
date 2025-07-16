@@ -199,31 +199,31 @@ class BaseCommand < Dry::Struct
       dry_struct_attribute(name, type, &)
     end
 
-    def call(*args)
-      new(*args).tap { |obj|
+    def call(*)
+      new(*).tap { |obj|
         yield obj if block_given?
       }.call
     end
 
-    def call_later(*args)
-      new(*args).tap do |command|
+    def call_later(*)
+      new(*).tap do |command|
         yield command if block_given?
 
         return command if command.preflight_nok?
 
-        DelayedCommandJob.perform_later(self, *args)
+        DelayedCommandJob.perform_later(self, *)
 
         command.broadcast_ok
       end
     end
 
-    def call_at(delay, *args)
-      new(*args).tap do |command|
+    def call_at(delay, *)
+      new(*).tap do |command|
         yield command if block_given?
 
         return command if command.preflight_nok?
 
-        DelayedCommandJob.set(delay).perform_later(self, *args)
+        DelayedCommandJob.set(delay).perform_later(self, *)
 
         command.broadcast_ok
       end
@@ -265,13 +265,9 @@ class BaseCommand < Dry::Struct
     end
   end
 
-  def adapter
-    self.class.adapter
-  end
+  delegate :adapter, to: :class
 
-  def transactional?
-    self.class.transactional?
-  end
+  delegate :transactional?, to: :class
 
   # sets empty listeners to avoid raising exceptions
   def no_exceptions!
@@ -309,6 +305,7 @@ class BaseCommand < Dry::Struct
     false
   end
 
+  # rubocop:disable Naming/PredicateMethod
   def broadcast_unauthorized
     broadcast(:unauthorized)
     raise Unauthorized unless local_registrations.any?(&it.on.include?(:unauthorized))
@@ -329,6 +326,7 @@ class BaseCommand < Dry::Struct
 
     true
   end
+  # rubocop:enable Naming/PredicateMethod
 
   def abort_command
     raise AbortCommand

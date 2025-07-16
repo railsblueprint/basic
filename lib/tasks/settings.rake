@@ -2,7 +2,7 @@ def escape(value)
   value.to_s.gsub('"', '\"')
 end
 
-# rubocop:disable Metrics/BlockLength:
+# rubocop:disable Metrics/BlockLength
 namespace :settings do
   desc "Generate migration for new settings"
   task generate: :environment do
@@ -57,4 +57,4 @@ namespace :settings do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength:
+# rubocop:enable Metrics/BlockLength

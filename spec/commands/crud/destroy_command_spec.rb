@@ -14,7 +14,7 @@ RSpec.describe Crud::DestroyCommand, type: :command do
 
                                 def errors = ActiveModel::Errors.new(self)
 
-                                def destroy = true
+                                def destroy = true # rubocop:disable Naming/PredicateMethod
                               end)
 
     stub_const("SampleModels", Module.new)

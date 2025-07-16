@@ -1,7 +1,7 @@
 RSpec.describe "Admin Mail Templates" do
-  include_examples "admin crud controller", { resource: :mail_templates, model: MailTemplate, prefix: "config" }
-  include_examples "admin crud controller empty search",
-                   { resource: :mail_templates, model: MailTemplate, prefix: "config" }
+  it_behaves_like "admin crud controller", { resource: :mail_templates, model: MailTemplate, prefix: "config" }
+  it_behaves_like "admin crud controller empty search",
+                  { resource: :mail_templates, model: MailTemplate, prefix: "config" }
 
   describe "GET /admin/config/mail_templates/:id/preview" do
     let(:mail_template) { create(:mail_template) }
@@ -25,7 +25,7 @@ RSpec.describe "Admin Mail Templates" do
       allow(Rails.env).to receive(:development?).and_return(true)
 
       # Reload model class
-      Object.send(:remove_const, :MailTemplate)
+      Object.send(:remove_const, :MailTemplate) # rubocop:disable RSpec/RemoveConst
       load "app/models/mail_template.rb"
 
       sign_in admin
