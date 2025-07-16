@@ -85,6 +85,55 @@ git push origin master
 #### Prerequisites
 Rails blueprint relies on Postgresql and Redis. Using rbenv or rvm is recommended. If you are using MacOS, 
 use homebrew for installing dependencies.
+
+##### Installing Ruby with Performance Optimizations
+Rails Blueprint uses Ruby 3.4.4 with YJIT and jemalloc for optimal performance. These optimizations can provide:
+- **YJIT**: 15-30% performance improvement through Just-In-Time compilation
+- **jemalloc**: Better memory management, reducing memory usage by 10-20%
+
+To install Ruby with these optimizations using rbenv:
+
+**On macOS:**
+```bash
+# Install jemalloc
+brew install jemalloc
+
+# Install rust (required for YJIT)
+brew install rust
+
+# Install Ruby with optimizations
+RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc=$(brew --prefix jemalloc)" rbenv install 3.4.4
+```
+
+**On Ubuntu/Debian:**
+```bash
+# Install dependencies
+sudo apt-get update
+sudo apt-get install -y libjemalloc-dev rustc
+
+# Install Ruby with optimizations
+RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc" rbenv install 3.4.4
+```
+
+**Verify the installation:**
+```bash
+# Check Ruby version
+ruby --version
+# Should show: ruby 3.4.4 (2025-05-14 revision a38531fd3f) +PRISM [x86_64-...]
+
+# Verify YJIT is available
+ruby --yjit -e "puts RubyVM::YJIT.enabled?"
+# Should output: true
+
+# Verify jemalloc is linked (Linux)
+ldd $(rbenv which ruby) | grep jemalloc
+# Should show: libjemalloc.so.2 => /lib/.../libjemalloc.so.2
+
+# Verify jemalloc is linked (macOS)
+otool -L $(rbenv which ruby) | grep jemalloc
+# Should show a jemalloc library path
+```
+
 #### Setup
 - run `bundle install` to install missing gems
 - run `bundle rails blueprint:init` to generate default configuration files.
