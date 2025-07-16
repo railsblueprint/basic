@@ -1,5 +1,26 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.2.1 (2025-07-16)
+
+### Features
+- **Admin Password Management**: Fixed admin password change functionality
+  - Added dedicated `UpdatePasswordCommand` for secure password updates
+  - Implemented `update_password` controller action with proper validation
+  - Added independent password change form using polymorphic path helpers
+  - Users receive automatic email notifications when password is changed by admin
+  - Comprehensive test coverage for password change functionality
+
+### Bug Fixes
+- Fixed admin password change form not working due to missing attributes
+- Improved error handling for password validation failures
+- Fixed RuboCop compliance and i18n normalization issues
+
+### Technical Improvements
+- Enhanced command pattern with dedicated password update logic
+- Improved form structure with clean polymorphic path helpers
+- Added proper authorization checks for password changes
+- Better separation of concerns between regular updates and password changes
+
 ## Version 1.0.0 (2025-07-15)
 
 ### Features
