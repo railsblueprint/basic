@@ -76,6 +76,12 @@ RSpec.describe "Admin Users" do
           user.reload
           expect(user.valid_password?("newpassword123")).to be true
         end
+
+        it "sends password change email to user" do
+          expect {
+            patch update_password_admin_user_path(user), params: valid_password_attributes
+          }.to have_enqueued_mail(TemplateMailer, :email).with(:password_change, hash_including(to: user.email, user: user))
+        end
       end
 
       context "with mismatched password confirmation" do
