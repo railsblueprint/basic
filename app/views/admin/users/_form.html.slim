@@ -52,7 +52,7 @@
       - if @resource && policy(@resource).change_password?
         - tab.add title: t(".password") do
           .pt-3
-            = bootstrap_form_for([:admin, @command], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f|
+            = bootstrap_form_for([:update_password, :admin, @resource], as: :user, method: :patch, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f|
               = f.password_field :password
               = f.password_field :password_confirmation
               = f.form_group
@@ -60,8 +60,8 @@
                   .actions
                     = f.submit t("actions.change_password"), "data-controller": "save-submit"
                     = link_to t("actions.cancel"), params[:return_to] || search_url || { action: :index }, class: "btn btn-outline-secondary"
-                - if @resource.present?
-                  .actions
-                    = delete_button(@resource)
+                  - if @resource.present?
+                    .actions
+                      = delete_button(@resource)
 .filler
 
