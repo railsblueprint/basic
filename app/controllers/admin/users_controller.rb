@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::CrudController
   def actions_with_resource
-    super + [:cancel_email_change, :resend_confirmation_email]
+    super + [:cancel_email_change, :resend_confirmation_email, :update_password]
   end
 
   # rubocop:disable Metrics/AbcSize, Style/GuardClause
@@ -41,5 +41,34 @@ class Admin::UsersController < Admin::CrudController
     @resource.send_confirmation_instructions
     redirect_to url_for({ action: :edit }),
                 success: t("messages.confirmationl_resent", email: @resource.unconfirmed_email)
+  end
+
+  def update_password
+    Users::UpdatePasswordCommand.call_for(params, context) do |command|
+      command.on(:ok) { handle_password_update_success }
+      command.on(:invalid, :abort) { |errors| handle_password_update_failure(errors) }
+      command.on(:unauthorized) { handle_password_update_unauthorized }
+    end
+  end
+
+  private
+
+  def handle_password_update_success
+    flash[:success] = t("messages.password_changed")
+    redirect_to url_for({ action: :edit })
+  end
+
+  def handle_password_update_failure(errors)
+    @command = update_command.build_from_object_and_attributes(@resource, context)
+    flash.now[:error] = {
+      message: t("messages.password_change_failed"),
+      details: errors.full_messages
+    }
+    render :edit, status: :unprocessable_entity
+  end
+
+  def handle_password_update_unauthorized
+    flash[:error] = t("messages.unauthorized")
+    redirect_to({ action: :index })
   end
 end
