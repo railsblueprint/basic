@@ -80,7 +80,8 @@ RSpec.describe "Admin Users" do
         it "sends password change email to user" do
           expect {
             patch update_password_admin_user_path(user), params: valid_password_attributes
-          }.to have_enqueued_mail(TemplateMailer, :email).with(:password_change, hash_including(to: user.email, user: user))
+          }.to have_enqueued_mail(TemplateMailer, :email).with(:password_change,
+                                                               hash_including(to: user.email, user: user))
         end
       end
 
