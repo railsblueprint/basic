@@ -11,7 +11,7 @@
               = link_to t("actions.edit"), [:edit, :admin, section], class: "btn btn-outline-primary action-edit-section", style: "margin-right: 20px;"
         .accordion-collapse.collapse aria-labelledby="heading-#{section.key}" data-bs-parent="#accordionExample"  id="collapse-#{section.key}"
           .accordion-body
-            - @resources.select{|n| n.section.presence == section.key and not n.section?}.sort_by(&:key).each do |n|
+            - @resources.select{|n| n.section.presence == section.key && !n.section?}.sort_by(&:key).each do |n|
               = f.fields_for "",n do |fn|
                 .row
                   .col-md-6
@@ -31,6 +31,39 @@
                       = fn.text_area_without_bootstrap :value, class: "form-control"
                     -else
                       = fn.text_field_without_bootstrap :value, class: "form-control"
+    
+    / Uncategorized section for settings without a matching section
+    - uncategorized_settings = @resources.select{|n| !n.section? && (@sections.map(&:key) + [""]).exclude?(n.section)}
+    - if uncategorized_settings.any?
+      .accordion-item
+        .accordion-header id="heading-uncategorized"
+          button.accordion-button.collapsed aria-controls="collapse-uncategorized" aria-expanded="false" data-bs-target="#collapse-uncategorized" data-bs-toggle="collapse" type="button"
+            h4.d-flex.justify-content-between style="width: 100%; margin: 0;"
+              strong  style="padding-top: 5px"
+                = t("admin.settings.uncategorized")
+        .accordion-collapse.collapse aria-labelledby="heading-uncategorized" data-bs-parent="#accordionExample"  id="collapse-uncategorized"
+          .accordion-body
+            - uncategorized_settings.sort_by(&:key).each do |n|
+              = f.fields_for "",n do |fn|
+                .row
+                  .col-md-6
+                    - if policy(n).edit?
+                      = link_to [:edit, :admin, n] do
+                        = n.key
+                    - else
+                      strong
+                        = n.key
+                    br
+                    = n.description
+                  .col-md-6
+                    - if n.boolean?
+                      .form-check.form-switch
+                        = fn.check_box_without_bootstrap :value, class: "form-check-input"
+                    -elsif n.json?
+                      = fn.text_area_without_bootstrap :value, class: "form-control"
+                    -else
+                      = fn.text_field_without_bootstrap :value, class: "form-control"
+    
     .mt-3
       = f.form_group
         = f.submit t('actions.save'), class: "btn btn-primary float-end"

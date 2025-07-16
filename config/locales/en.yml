@@ -209,6 +209,7 @@ en:
         create_setting: Create setting
         page_title: System settings
       page_title: System settings
+      uncategorized: Uncategorized
     users:
       company: Company
       email: E-mail

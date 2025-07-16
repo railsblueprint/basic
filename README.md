@@ -1,6 +1,6 @@
 ## Rails Blueprint. Basic edition.
 
-**Version:** 1.2.0 (see VERSION_BASIC file)
+**Version:** 1.2.2 (see VERSION_BASIC file)
 
 ### Rationale
 
@@ -139,6 +139,11 @@ otool -L $(rbenv which ruby) | grep jemalloc
 - run `bundle rails blueprint:init` to generate default configuration files.
 
 You will be asked for project name. Enter something meaningful in snake_case form: "my_app", "ai_translator", "wordle".
+Alternatively, you can pass the app name as a parameter to skip the interactive prompt:
+```bash
+bundle exec rails blueprint:init[my_app_name]
+```
+
 A bunch of configuration files will be created. Use `git add . ; git commit -a` to add all new files to the repo.
 
 **Important**: After running `blueprint:init`, update the domain configurations in `config/app.yml`:
@@ -209,6 +214,7 @@ Rails Blueprint includes a health endpoint at `/health` that provides applicatio
 {
   "status": "ok",
   "version": {
+    "app": "2.0.0",
     "basic": "1.2.0"
   },
   "git_revision": "c011f46f988ea5421454b3897e4b29c14a09861b",
@@ -216,13 +222,16 @@ Rails Blueprint includes a health endpoint at `/health` that provides applicatio
 }
 ```
 
-**Note:** The version object shows all edition versions present in the project:
-- **Basic edition**: Shows only `{"basic": "1.2.0"}`
-- **Plus edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0"}`
-- **Pro edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0", "pro": "1.2.0"}`
+**Note:** The version object shows:
+- **`app`**: Version from `VERSION` file (if present) - your application's version
+- **Edition versions**: From `VERSION_*` files:
+  - **Basic edition**: Shows only `{"basic": "1.2.0"}`
+  - **Plus edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0"}`
+  - **Pro edition**: Shows `{"basic": "1.2.0", "plus": "1.2.0", "pro": "1.2.0"}`
 
 The endpoint:
 - Returns JSON with application health information
+- Shows application version from `VERSION` file (if present) as "app"
 - Shows versions from all `VERSION_*` files present in the project
 - Includes git revision (from git command in development, `.mina_git_revision` file in production)
 - Provides current timestamp
@@ -247,5 +256,10 @@ This endpoint is useful for:
 Use `bundle rails blueprint:init` to check if anything changed in configuration files. It won't overwrite any 
 configuration file automatically, you'll be prompted for each file which differs from default values and provided with standard rails
 options: overwrite, ignore, show diff etc.
+
+You can also pass the app name as a parameter:
+```bash
+bundle exec rails blueprint:init[my_app_name]
+```
 
 
