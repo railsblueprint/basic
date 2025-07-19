@@ -1,5 +1,22 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.2.3 (2025-07-19)
+
+### Documentation
+- **Comprehensive Documentation Structure**: Added complete documentation system in `docs/` folder
+  - Created tier-ready structure designed for propagation to plus and pro editions
+  - Added setup guides covering installation, configuration, database, and development
+  - Documented all basic tier features: authentication, authorization, admin panel, blog, settings, etc.
+  - Included deployment guides for server setup, Mina configuration, environments, and SSL
+  - Added API reference for models, controllers, commands, and helpers
+  - Created troubleshooting guide and FAQ for common issues
+  - Added tier-specific sections with conflict prevention markers for plus/pro additions
+
+### Technical Updates
+- **Blueprint Config**: Updated blueprint_config gem to version 1.5.0
+- **Documentation Integration**: Added proper cross-references and navigation between sections
+- **Developer Experience**: Enhanced onboarding with comprehensive setup instructions
+
 ## Version 1.2.2 (2025-07-16)
 
 ### Features
