@@ -424,9 +424,9 @@ GEM
       mina (~> 1.0)
     mina-multistage (1.0.4)
       mina (~> 1.0)
-    mina-puma-nginx (1.0.4)
+    mina-puma-nginx (1.1.0)
       mina
-    mina-puma-systemd (1.0.3)
+    mina-puma-systemd (1.1.0)
       mina (~> 1.2.0)
       puma (>= 2.13)
     mina-rollbar-3 (1.0.3)
@@ -828,8 +828,8 @@ DEPENDENCIES
   mina
   mina-data-migrate
   mina-multistage
-  mina-puma-nginx
-  mina-puma-systemd
+  mina-puma-nginx (~> 1.1.0)
+  mina-puma-systemd (~> 1.1.0)
   mina-rollbar-3
   mina-secrets-transfer
   mina-whenever-env

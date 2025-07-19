@@ -1,4 +1,4 @@
 set :nginx_server_name, "<%= app_prefix.dasherize %>-staging.example.com"
 set :rails_env, "staging"
-set :deploy_to, '/home/deploy/<%= app_prefix %>/staging'
+set :deploy_to, -> { "/home/#{fetch(:user)}/<%= app_prefix %>/staging" }
 set :hostname, "example.com"
