@@ -168,8 +168,8 @@ group :development do
   gem "mina", require: false
   gem "mina-data-migrate", require: false
   gem "mina-multistage", require: false
-  gem "mina-puma-nginx", require: false
-  gem "mina-puma-systemd", require: false
+  gem "mina-puma-nginx", "~> 1.1.0", require: false
+  gem "mina-puma-systemd", "~> 1.1.0", require: false
   gem "mina-rollbar-3", require: false
   gem "mina-secrets-transfer", require: false
   gem "mina-whenever-env", require: false

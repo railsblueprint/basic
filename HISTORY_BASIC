@@ -1,5 +1,16 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.2.4 (2025-07-20)
+
+### Deployment Configuration Updates
+- **Updated mina gems**: Updated mina-puma-nginx and mina-puma-systemd to version 1.1.0 for better compatibility
+- **Added user variable**: Added configurable `user` variable (default: 'deploy') to deployment configuration
+- **Updated deployment paths**: Changed hardcoded `/home/deploy` paths to use dynamic `"/home/#{fetch(:user)}"` for flexibility
+- **Fixed UTF-8 encoding issues**: Added encoding fixes to prevent crashes when non-latin characters appear in deployment output
+- **Enhanced SSH configuration**: Added locale forwarding and UTF-8 environment setup for remote commands
+- **Added deploy:initial task**: Complete first-time deployment task that handles all setup, deployment, and service configuration
+- **Fixed nginx config filename generation**: Added application_name back for mina-puma-nginx gem compatibility
+
 ## Version 1.2.3 (2025-07-19)
 
 ### Documentation

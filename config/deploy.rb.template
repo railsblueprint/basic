@@ -1,3 +1,7 @@
+# Fix for Mina encoding issues with non-latin characters
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 require 'active_support'
 require 'active_support/core_ext/object/blank'
 require_relative "app_config"
@@ -22,11 +26,27 @@ require 'mina/rollbar'
 require 'mina/secrets'
 require 'mina/whenever'
 
-set :application_name, AppConfig.app_prefix
+set :application, "<%= app_prefix %>"
+set :application_name, "<%= app_prefix %>"  # Required for mina-puma-nginx gem
 set :repository, '<%= git_repo_url %>'
 
+# Fix for mina-puma-systemd gem which uses application_name for service name
+set :puma_service_name, -> { "puma_#{fetch(:application)}_#{fetch(:rails_env)}" }
+
+set :user, 'deploy'
 set :domain, fetch(:hostname)
 set :identity_file, DEPLOY_SETTINGS["ssh_key"]
+
+# Set UTF-8 locale for SSH to prevent encoding issues
+set :ssh_options, lambda {
+  options = {}
+  options[:keys] = [fetch(:identity_file)] if fetch(:identity_file)
+  options[:forward_agent] = true
+  options[:user_known_hosts_file] = '/dev/null'
+  options[:verify_host_key] = :never
+  options[:send_env] = %w[LANG LC_CTYPE LC_ALL]
+  options
+}
 
 set :branch, ENV["BRANCH"] || DEPLOY_SETTINGS["default_branch"] || "master"
 set :version_scheme, :datetime
@@ -63,11 +83,16 @@ set :shared_files, fetch(:shared_files, []).push("config/credentials/#{fetch(:ra
 
 set :nginx_sites_enabled_path,   -> { "#{fetch(:nginx_path)}/conf.d" }
 
-set :whenever_name , -> { "#{fetch(:application_name)}_#{fetch(:rails_env)}" }
+set :whenever_name , -> { "#{fetch(:application)}_#{fetch(:rails_env)}" }
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
 task :remote_environment do
+  # Set UTF-8 locale to prevent encoding issues
+  command %{export LANG=en_US.UTF-8}
+  command %{export LC_ALL=en_US.UTF-8}
+  command %{export LC_CTYPE=en_US.UTF-8}
+  
   # If you're using rbenv, use this to load the rbenv environment.
   # Be sure to commit your .ruby-version or .rbenv-version to your repository.
   invoke :'rbenv:load'
@@ -103,6 +128,30 @@ task :'deploy:log' do
   end
 end
 
+
+desc "Initial deployment (puma, nginx, ssl). Run 'mina staging setup' first."
+task :'deploy:initial' do
+  deploy do
+    invoke :'git:clone'
+    invoke :'deploy:link_shared_paths'
+    invoke :'bundle:config'
+    invoke :'bundle:install'
+    invoke :'rails:db_create'
+    invoke :'rails:db_data_migrate'
+    invoke :'yarn:install'
+    invoke :'rails:assets_precompile'
+    invoke :'puma:setup'
+    invoke :'puma:start'
+    invoke :'nginx:setup'
+    invoke :'nginx:reload'
+    invoke :'nginx:certbot'
+
+    on :launch do
+      invoke :'whenever:update'
+      invoke :'deploy:log'
+    end
+  end
+end
 
 desc "Deploys the current version to the server."
 task :deploy do
