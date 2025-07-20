@@ -46,4 +46,3 @@ yarn-error.log
 /config/credentials/production.key
 /config/credentials/staging.key
 /coverage
-.blueprint_templates
