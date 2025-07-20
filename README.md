@@ -1,6 +1,6 @@
 ## Rails Blueprint. Basic edition.
 
-**Version:** 1.2.3 (see VERSION_BASIC file)
+**Version:** 1.2.9 (see VERSION_BASIC file)
 
 ### Rationale
 
@@ -200,12 +200,10 @@ To setup deployment you have to check and update configuration files: `config/de
 Initial deployment:
 ```
 bundle exec mina staging setup
-bundle exec mina staging nginx:setup
-bundle exec mina staging puma:setup
-bundle exec mina staging deploy:current
+bundle exec mina staging deploy:initial
 ```
 
-This will create all directories on server, create nginx config file, puma systemd service and deploy current branch.
+This will create all directories on server, create nginx config file, puma systemd service, deploy current branch, and seed the database.
 Subsequent deployments are done with
 ```
 bundle exec mina staging deploy # for deploying default branch
