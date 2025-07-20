@@ -127,16 +127,16 @@ task :'deploy:initial' do
     invoke :'bundle:install'
     invoke :'rails:db_create'
     invoke :'rails:db_data_migrate'
-    invoke :'deploy:seed'
     invoke :'yarn:install'
     invoke :'rails:assets_precompile'
     invoke :'puma:setup'
-    invoke :'puma:start'
     invoke :'nginx:setup'
     invoke :'nginx:reload'
     invoke :'nginx:certbot'
 
     on :launch do
+      invoke :'puma:start'
+      invoke :'deploy:seed'
       invoke :'whenever:update'
       invoke :'deploy:log'
     end
