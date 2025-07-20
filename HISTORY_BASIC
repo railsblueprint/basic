@@ -1,5 +1,12 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.2.6 (2025-07-20)
+
+### Bug Fixes
+- **Fixed additional data migration**: Fixed second data migration (create_settings1665939890) with column reference issues
+  - Updated to use original column names (alias/set) instead of (key/section)
+- **Enhanced deploy:initial task**: Added db:seed step after migrations for complete initial deployment
+
 ## Version 1.2.5 (2025-07-20)
 
 ### Bug Fixes
