@@ -1,5 +1,11 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.2.8 (2025-07-20)
+
+### Bug Fixes
+- **Fixed deploy:initial task timing**: Moved puma:start and deploy:seed to launch block
+  - These tasks need the current symlink to exist, which only happens after deployment is linked
+
 ## Version 1.2.7 (2025-07-20)
 
 ### Bug Fixes
