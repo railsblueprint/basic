@@ -1,16 +1,16 @@
 class CreateSettings1665939890 < ActiveRecord::Migration[7.0]
   def up
-    if Setting.where(key: "contact_form_receivers").any?
-      Setting.where(key: "contact_form_receivers").update_all(
+    if Setting.where(alias: "contact_form_receivers").any?
+      Setting.where(alias: "contact_form_receivers").update_all(
         type:        "string",
-        section:     "notifications",
+        set:         "notifications",
         description: "Receivers of messages for contact form",
       )
     else
       Setting.create(
-        key:         "contact_form_receivers",
+        alias:       "contact_form_receivers",
         type:        "string",
-        section:     "notifications",
+        set:         "notifications",
         value:       "support@railsblueprint.com",
         description: "Receivers of messages for contact form",
       )
