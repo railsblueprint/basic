@@ -37,17 +37,6 @@ set :user, 'deploy'
 set :domain, fetch(:hostname)
 set :identity_file, DEPLOY_SETTINGS["ssh_key"]
 
-# Set UTF-8 locale for SSH to prevent encoding issues
-set :ssh_options, lambda {
-  options = {}
-  options[:keys] = [fetch(:identity_file)] if fetch(:identity_file)
-  options[:forward_agent] = true
-  options[:user_known_hosts_file] = '/dev/null'
-  options[:verify_host_key] = :never
-  options[:send_env] = %w[LANG LC_CTYPE LC_ALL]
-  options
-}
-
 set :branch, ENV["BRANCH"] || DEPLOY_SETTINGS["default_branch"] || "master"
 set :version_scheme, :datetime
 
