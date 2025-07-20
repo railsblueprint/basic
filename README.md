@@ -212,6 +212,54 @@ BRANCH=branch_named bundle exec mina staging deploy # for deploying specific bra
 ```
 Change stage to production for deploying to production environment
 
+### Updating Templates
+
+Rails Blueprint includes a template update detection system to help you manage configuration file updates when upgrading to newer versions.
+
+When Rails Blueprint releases new versions, template files (like `config/importmap.rb.template`, `config/database.yml.template`, etc.) may be updated. The template tracking system helps you:
+- Detect which templates have changed
+- Review differences between your local files and new templates
+- Apply updates while preserving your local customizations
+
+#### Checking for Template Updates
+
+After upgrading Rails Blueprint, run:
+```bash
+bundle exec rails blueprint:check_templates
+```
+
+This will:
+1. Compare your local template versions with the new ones
+2. Show you which files have updates available
+3. For each changed file, offer merge options:
+   - Keep your local version
+   - Use the new template version
+   - View full diff
+   - Attempt automatic three-way merge
+   - Create a merge file for manual resolution
+   - Skip the file
+
+#### Template Tracking
+
+The system tracks template versions in `.blueprint_templates` file, which:
+- Is automatically created during `rails blueprint:init`
+- Stores checksums of template files to detect changes
+- Should be committed to your repository (it's not in .gitignore)
+
+For existing projects created before this feature, initialize tracking with:
+```bash
+bundle exec rails blueprint:init_template_tracking
+```
+
+#### Force Update (Use with Caution)
+
+If you need to force update all templates:
+```bash
+bundle exec rails blueprint:update_templates
+```
+
+**Warning**: This copies raw template files without processing ERB placeholders. It's intended for development use only.
+
 ### Health Monitoring
 
 Rails Blueprint includes a health endpoint at `/health` that provides application status information useful for monitoring and load balancers.
