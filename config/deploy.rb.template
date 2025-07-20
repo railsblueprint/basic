@@ -127,7 +127,7 @@ task :'deploy:initial' do
     invoke :'bundle:install'
     invoke :'rails:db_create'
     invoke :'rails:db_data_migrate'
-    invoke :'rails:db_seed'
+    invoke :'deploy:seed'
     invoke :'yarn:install'
     invoke :'rails:assets_precompile'
     invoke :'puma:setup'
