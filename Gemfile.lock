@@ -236,6 +236,7 @@ GEM
       devise (>= 4.9.0)
       rails-i18n
     diff-lcs (1.6.2)
+    diffy (3.4.4)
     docile (1.4.1)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
@@ -794,6 +795,7 @@ DEPENDENCIES
   debug
   devise (~> 4.8)
   devise-i18n
+  diffy (~> 3.4)
   dotenv-rails (~> 2.7)
   down (~> 5.3)
   dry-struct (~> 1.3)
