@@ -1,4 +1,5 @@
 require "rails/generators/rails/encryption_key_file/encryption_key_file_generator"
+require "English"
 
 class CredentialsGenerator < Rails::Generators::Base
   argument :content_path, default: "config/credentials.yml.enc"
@@ -122,20 +123,17 @@ namespace :blueprint do
   end
 
   desc "Check for template updates and optionally apply them"
-  task :check_templates => :environment do
+  # rubocop:disable Metrics/BlockNesting
+  task check_templates: :environment do
     require "digest"
     require "yaml"
     require "diffy"
-    
+
     tracker = TemplateTracker.new
-    
-    unless tracker.tracking_initialized?
-      Thor.new.say "Template tracking not initialized!", :yellow
-      Thor.new.say "Run 'rails blueprint:init_template_tracking' to enable template update detection.", :yellow
-      Thor.new.say "This will create a baseline for tracking future template changes.", :cyan
-    else
+
+    if tracker.tracking_initialized?
       changes = tracker.check_for_updates
-      
+
       if changes.empty?
         Thor.new.say "All templates are up to date!", :green
       else
@@ -144,33 +142,36 @@ namespace :blueprint do
           Thor.new.say "\n  #{change[:file]}:", :cyan
           Thor.new.say "    Status: #{change[:status]}", :yellow
           if change[:status] == :modified
-            Thor.new.say "    Local changes: #{change[:has_local_changes] ? 'Yes' : 'No'}", 
+            Thor.new.say "    Local changes: #{change[:has_local_changes] ? 'Yes' : 'No'}",
                          change[:has_local_changes] ? :red : :green
           end
         end
-        
-        if Thor.new.yes?("\nWould you like to review and apply updates? (y/n)")
-          tracker.apply_updates(changes)
-        end
+
+        tracker.apply_updates(changes) if Thor.new.yes?("\nWould you like to review and apply updates? (y/n)")
       end
+    else
+      Thor.new.say "Template tracking not initialized!", :yellow
+      Thor.new.say "Run 'rails blueprint:init_template_tracking' to enable template update detection.", :yellow
+      Thor.new.say "This will create a baseline for tracking future template changes.", :cyan
     end
   end
+  # rubocop:enable Metrics/BlockNesting
 
   desc "Force update all templates (creates backups)"
-  task :update_templates => :environment do
+  task update_templates: :environment do
     tracker = TemplateTracker.new
-    
-    if !tracker.tracking_initialized?
+
+    unless tracker.tracking_initialized?
       Thor.new.say "Template tracking not initialized!", :yellow
       Thor.new.say "Initializing template tracking now...", :cyan
       tracker.save_all_templates
     end
-    
+
     tracker.force_update_all
   end
 
   desc "Initialize template tracking (only needed for projects created before template tracking was added)"
-  task :init_template_tracking => :environment do
+  task init_template_tracking: :environment do
     tracker = TemplateTracker.new
     tracker.save_all_templates
     Thor.new.say "Template tracking initialized!", :green
@@ -209,10 +210,10 @@ class TemplateTracker
     TEMPLATE_FILES.each do |file|
       template_path = Rails.root.join("#{file}.template")
       next unless File.exist?(template_path)
-      
+
       @templates[file] = {
-        checksum: calculate_checksum(template_path),
-        version: blueprint_version,
+        checksum:   calculate_checksum(template_path),
+        version:    blueprint_version,
         updated_at: Time.current.to_s
       }
     end
@@ -221,40 +222,54 @@ class TemplateTracker
 
   def check_for_updates
     changes = []
-    
+
     TEMPLATE_FILES.each do |file|
-      template_path = Rails.root.join("#{file}.template")
-      local_path = Rails.root.join(file)
-      
-      next unless File.exist?(template_path)
-      
-      current_checksum = calculate_checksum(template_path)
-      tracked = @templates[file]
-      
-      if tracked.nil?
-        changes << { file:, status: :new, template_path:, local_path: }
-      elsif tracked[:checksum] != current_checksum
-        has_local_changes = File.exist?(local_path) && 
-                           !FileUtils.identical?(template_path, local_path)
-        changes << { 
-          file:, 
-          status: :modified, 
-          template_path:, 
-          local_path:,
-          has_local_changes:,
-          old_checksum: tracked[:checksum],
-          new_checksum: current_checksum
-        }
-      end
+      change = check_single_template(file)
+      changes << change if change
     end
-    
+
     changes
   end
 
+  private
+
+  def check_single_template(file)
+    template_path = Rails.root.join("#{file}.template")
+    local_path = Rails.root.join(file)
+
+    return nil unless File.exist?(template_path)
+
+    current_checksum = calculate_checksum(template_path)
+    tracked = @templates[file]
+
+    if tracked.nil?
+      { file:, status: :new, template_path:, local_path: }
+    elsif tracked[:checksum] != current_checksum
+      build_modified_change(file, template_path, local_path, tracked, current_checksum)
+    end
+  end
+
+  def build_modified_change(file, template_path, local_path, tracked, current_checksum)
+    has_local_changes = File.exist?(local_path) &&
+                       !FileUtils.identical?(template_path, local_path)
+    {
+      file:,
+      status:            :modified,
+      template_path:,
+      local_path:,
+      has_local_changes:,
+      old_checksum:      tracked[:checksum],
+      new_checksum:      current_checksum
+    }
+  end
+
+  public
+
+  # rubocop:disable Metrics/AbcSize
   def apply_updates(changes)
     changes.each do |change|
       Thor.new.say "\nProcessing #{change[:file]}...", :cyan
-      
+
       if !File.exist?(change[:local_path])
         # File doesn't exist locally, just copy it
         FileUtils.cp(change[:template_path], change[:local_path])
@@ -267,166 +282,238 @@ class TemplateTracker
         FileUtils.cp(change[:template_path], change[:local_path])
         Thor.new.say "  Updated (no local changes)", :green
       end
-      
+
       # Update tracking
       @templates[change[:file]] = {
-        checksum: calculate_checksum(change[:template_path]),
-        version: blueprint_version,
+        checksum:   calculate_checksum(change[:template_path]),
+        version:    blueprint_version,
         updated_at: Time.current.to_s
       }
     end
-    
+
     save_tracking_data
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def force_update_all
     Thor.new.say "WARNING: Force update copies raw template files without processing ERB placeholders!", :red
     Thor.new.say "This command is intended for development use only.", :yellow
     Thor.new.say "For normal updates, use 'rails blueprint:check_templates'", :yellow
-    
+
     unless Thor.new.yes?("\nDo you want to continue? (y/n)")
       Thor.new.say "Aborted.", :red
       return
     end
-    
+
     timestamp = Time.current.strftime("%Y%m%d%H%M%S")
     backup_dir = Rails.root.join("tmp/blueprint_backups/#{timestamp}")
     FileUtils.mkdir_p(backup_dir)
-    
+
     TEMPLATE_FILES.each do |file|
       template_path = Rails.root.join("#{file}.template")
       local_path = Rails.root.join(file)
-      
+
       next unless File.exist?(template_path)
-      
+
       if File.exist?(local_path)
         backup_path = backup_dir.join(file)
         FileUtils.mkdir_p(backup_path.dirname)
         FileUtils.cp(local_path, backup_path)
       end
-      
+
       FileUtils.cp(template_path, local_path)
     end
-    
+
     save_all_templates
     Thor.new.say "All templates updated. Backups saved to: #{backup_dir}", :green
     Thor.new.say "IMPORTANT: You need to manually process ERB placeholders in the updated files!", :red
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
   def handle_merge_conflict(change)
+    show_diff(change)
+    show_merge_options
+    choice = Thor.new.ask("  Choose option:")
+    process_merge_choice(choice, change)
+  end
+
+  def show_diff(change)
     diff = Diffy::Diff.new(
-      File.read(change[:local_path]), 
+      File.read(change[:local_path]),
       File.read(change[:template_path]),
       context: 3
     )
-    
     Thor.new.say "  Diff:", :yellow
     puts diff.to_s(:color)
-    
-    options = {
+  end
+
+  def show_merge_options
+    merge_options.each { |k, v| Thor.new.say "  #{k}) #{v}" }
+  end
+
+  def merge_options
+    {
       "1" => "Keep local version",
-      "2" => "Use template version", 
+      "2" => "Use template version",
       "3" => "View full diff",
       "4" => "Auto-merge (attempt three-way merge)",
       "5" => "Create .merge file for manual resolution",
       "6" => "Skip this file"
     }
-    
-    options.each { |k, v| Thor.new.say "  #{k}) #{v}" }
-    choice = Thor.new.ask("  Choose option:")
-    
+  end
+
+  def process_merge_choice(choice, change)
     case choice
-    when "1"
-      Thor.new.say "  Keeping local version", :green
-    when "2"
-      backup_path = "#{change[:local_path]}.blueprint_backup"
-      FileUtils.cp(change[:local_path], backup_path)
-      FileUtils.cp(change[:template_path], change[:local_path])
-      Thor.new.say "  Updated to template version (backup: #{backup_path})", :green
-    when "3"
-      puts diff.to_s(:text)
-      handle_merge_conflict(change) # Recurse to show options again
-    when "4"
-      # Attempt automatic three-way merge
-      if attempt_auto_merge(change)
-        Thor.new.say "  Successfully auto-merged changes!", :green
-      else
-        Thor.new.say "  Auto-merge failed, please choose another option", :red
-        handle_merge_conflict(change)
-      end
-    when "5"
-      merge_path = "#{change[:local_path]}.blueprint_merge"
-      File.write(merge_path, <<~MERGE)
-        <<<<<<< LOCAL VERSION
-        #{File.read(change[:local_path])}
-        =======
-        #{File.read(change[:template_path])}
-        >>>>>>> TEMPLATE VERSION
-      MERGE
-      Thor.new.say "  Created merge file: #{merge_path}", :yellow
-    when "6"
-      Thor.new.say "  Skipped", :yellow
-      return
-    else
-      handle_merge_conflict(change) # Invalid choice, try again
+    when "1" then keep_local_version
+    when "2" then use_template_version(change)
+    when "3" then view_full_diff(change)
+    when "4" then try_auto_merge(change)
+    when "5" then create_merge_file(change)
+    when "6" then skip_file
+    else handle_merge_conflict(change) # Invalid choice, try again
     end
   end
 
-  def attempt_auto_merge(change)
-    # Find the previous template version for three-way merge
-    old_template_path = find_previous_template_version(change[:file])
-    
-    return false unless old_template_path
-    
-    require "tempfile"
-    
-    # Create temporary files for the merge
-    base_file = Tempfile.new("base")
-    local_file = Tempfile.new("local")
-    template_file = Tempfile.new("template")
-    result_file = Tempfile.new("result")
-    
-    begin
-      # Write content to temp files
-      base_file.write(File.read(old_template_path))
-      local_file.write(File.read(change[:local_path]))
-      template_file.write(File.read(change[:template_path]))
-      
-      [base_file, local_file, template_file].each(&:close)
-      
-      # Attempt three-way merge using git merge-file
-      merge_cmd = "git merge-file -p #{local_file.path} #{base_file.path} #{template_file.path} > #{result_file.path} 2>/dev/null"
-      merge_status = system(merge_cmd)
-      
-      if merge_status || $?.exitstatus == 1 # Exit status 1 means conflicts but merge completed
-        merged_content = File.read(result_file.path)
-        
-        # Check if there are merge conflicts
-        if merged_content.include?("<<<<<<<")
-          Thor.new.say "  Merge has conflicts. Creating conflict file for manual resolution.", :yellow
-          conflict_path = "#{change[:local_path]}.blueprint_conflict"
-          File.write(conflict_path, merged_content)
-          Thor.new.say "  Conflict file created: #{conflict_path}", :yellow
-          return false
-        else
-          # Success! Apply the merged content
-          backup_path = "#{change[:local_path]}.blueprint_backup"
-          FileUtils.cp(change[:local_path], backup_path)
-          File.write(change[:local_path], merged_content)
-          Thor.new.say "  Backup created: #{backup_path}", :green
-          return true
-        end
-      else
-        return false
-      end
-    ensure
-      [base_file, local_file, template_file, result_file].each do |file|
-        file.close rescue nil
-        file.unlink rescue nil
-      end
+  def keep_local_version
+    Thor.new.say "  Keeping local version", :green
+  end
+
+  def use_template_version(change)
+    backup_path = "#{change[:local_path]}.blueprint_backup"
+    FileUtils.cp(change[:local_path], backup_path)
+    FileUtils.cp(change[:template_path], change[:local_path])
+    Thor.new.say "  Updated to template version (backup: #{backup_path})", :green
+  end
+
+  def view_full_diff(change)
+    diff = Diffy::Diff.new(
+      File.read(change[:local_path]),
+      File.read(change[:template_path]),
+      context: 3
+    )
+    puts diff.to_s(:text)
+    handle_merge_conflict(change) # Show options again
+  end
+
+  def try_auto_merge(change)
+    if attempt_auto_merge(change)
+      Thor.new.say "  Successfully auto-merged changes!", :green
+    else
+      Thor.new.say "  Auto-merge failed, please choose another option", :red
+      handle_merge_conflict(change)
     end
+  end
+
+  def create_merge_file(change)
+    merge_path = "#{change[:local_path]}.blueprint_merge"
+    File.write(merge_path, <<~MERGE)
+      <<<<<<< LOCAL VERSION
+      #{File.read(change[:local_path])}
+      =======
+      #{File.read(change[:template_path])}
+      >>>>>>> TEMPLATE VERSION
+    MERGE
+    Thor.new.say "  Created merge file: #{merge_path}", :yellow
+  end
+
+  def skip_file
+    Thor.new.say "  Skipped", :yellow
+    nil
+  end
+
+  def attempt_auto_merge(change)
+    old_template_path = find_previous_template_version(change[:file])
+    return false unless old_template_path
+
+    require "tempfile"
+    temp_files = create_temp_files_for_merge
+
+    begin
+      write_merge_content(temp_files, old_template_path, change)
+      merged_content = perform_git_merge(temp_files)
+      return false unless merged_content
+
+      handle_merge_result?(merged_content, change)
+    ensure
+      cleanup_temp_files(temp_files.values)
+    end
+  end
+
+  def create_temp_files_for_merge
+    {
+      base:     Tempfile.new("base"),
+      local:    Tempfile.new("local"),
+      template: Tempfile.new("template"),
+      result:   Tempfile.new("result")
+    }
+  end
+
+  def write_merge_content(temp_files, old_template_path, change)
+    temp_files[:base].write(File.read(old_template_path))
+    temp_files[:local].write(File.read(change[:local_path]))
+    temp_files[:template].write(File.read(change[:template_path]))
+
+    [:base, :local, :template].each { |key| temp_files[key].close }
+  end
+
+  def perform_git_merge(temp_files)
+    merge_cmd = build_merge_command(temp_files)
+    merge_status = system(merge_cmd)
+
+    return nil unless merge_status || $CHILD_STATUS.exitstatus == 1
+
+    File.read(temp_files[:result].path)
+  end
+
+  def build_merge_command(temp_files)
+    "git merge-file -p #{temp_files[:local].path} #{temp_files[:base].path} " \
+      "#{temp_files[:template].path} > #{temp_files[:result].path} 2>/dev/null"
+  end
+
+  def handle_merge_result?(merged_content, change)
+    if merged_content.include?("<<<<<<<")
+      create_conflict_file(merged_content, change)
+      false
+    else
+      apply_merged_content(merged_content, change)
+      true
+    end
+  end
+
+  def create_conflict_file(merged_content, change)
+    Thor.new.say "  Merge has conflicts. Creating conflict file for manual resolution.", :yellow
+    conflict_path = "#{change[:local_path]}.blueprint_conflict"
+    File.write(conflict_path, merged_content)
+    Thor.new.say "  Conflict file created: #{conflict_path}", :yellow
+  end
+
+  def apply_merged_content(merged_content, change)
+    backup_path = "#{change[:local_path]}.blueprint_backup"
+    FileUtils.cp(change[:local_path], backup_path)
+    File.write(change[:local_path], merged_content)
+    Thor.new.say "  Backup created: #{backup_path}", :green
+  end
+
+  def cleanup_temp_files(files)
+    files.each do |file|
+      safe_close_file(file)
+      safe_unlink_file(file)
+    end
+  end
+
+  def safe_close_file(file)
+    file.close
+  rescue StandardError
+    nil
+  end
+
+  def safe_unlink_file(file)
+    file.unlink
+  rescue StandardError
+    nil
   end
 
   def find_previous_template_version(file)
@@ -434,9 +521,9 @@ class TemplateTracker
     # In the future, we could store previous template versions
     tracked = @templates[file]
     return nil unless tracked
-    
+
     # Use the current local file as the base (assuming it was from the previous template)
-    Rails.root.join(file) if File.exist?(Rails.root.join(file))
+    Rails.root.join(file) if Rails.root.join(file).exist?
   end
 
   def calculate_checksum(file_path)
@@ -450,6 +537,7 @@ class TemplateTracker
 
   def load_tracking_data
     return {} unless File.exist?(TRACKING_FILE)
+
     YAML.load_file(TRACKING_FILE) || {}
   end
 
