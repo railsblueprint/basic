@@ -37,7 +37,7 @@ RSpec.describe "Static pages" do
       end
 
       it "sets title" do
-        expect(response.body).to have_tag("title", "Rails Blueprint annoying test | HomePage")
+        expect(response.body).to have_tag("title", "Rails blueprint - commandments | HomePage")
       end
 
       it "sets SEO tags", :aggregate_failures do
@@ -77,7 +77,7 @@ RSpec.describe "Static pages" do
       end
 
       it "sets title" do
-        expect(response.body).to have_tag("title", "Rails Blueprint annoying test | #{page.title}")
+        expect(response.body).to have_tag("title", "Rails blueprint - commandments | #{page.title}")
       end
 
       it "sets SEO tags", :aggregate_failures do
