@@ -59,16 +59,6 @@
 # end
 #
 # By default BaseCommand permits to omit all attributes. Any mandatory attribute must be checked with validations
-# Though there is a possibility to run in a default way of Dry::Struct :
-# class StrictCommand < BaseCommand
-#   strict_attributes!
-#   attribute :user_id, Types::Integer
-#
-#   def process
-#   end
-# end
-#
-# StrictCommand.new() => raises Dry::Struct::Error
 #
 # Use in controller:
 # def create
@@ -116,7 +106,9 @@
 # 1. When call_later/call_at is called. If validations fail error is triggered immediately and no job is scheduled.
 # 2. When background job starts. If validations fail - job is cancelled.
 
-class BaseCommand < Dry::Struct
+class BaseCommand
+  extend Dry::Initializer
+
   module Types
     include Dry::Types(default: :params)
   end
@@ -164,16 +156,8 @@ class BaseCommand < Dry::Struct
       true
     end
 
-    def strict_attributes_mode?
-      false
-    end
-
     def permit_all_params?
       false
-    end
-
-    def strict_attributes!
-      define_singleton_method(:strict_attributes_mode?) { true }
     end
 
     def permit_all_params!
@@ -184,53 +168,64 @@ class BaseCommand < Dry::Struct
       define_singleton_method(:transactional?) { false }
     end
 
-    alias dry_struct_attribute attribute
+    def attribute(name, type=Types::Any, **options, &)
+      # Convert Dry::Types to proper type for dry-initializer
+      type = type.optional if type.respond_to?(:optional?)
+      options[:optional] = true
 
-    def attribute(name, type, &)
-      unless strict_attributes_mode?
-        original_name = name.to_sym
-        define_method(:"#{original_name}=") do |value|
-          attributes[original_name] = value
-        end
-        name = "#{name}?"
-        type = type.optional
+      # Define the attribute using dry-initializer
+      option(name, type, **options, &)
+
+      # Add setter method for compatibility
+      define_method(:"#{name}=") do |value|
+        instance_variable_set(:"@#{name}", value)
       end
 
-      dry_struct_attribute(name, type, &)
+      # Track attribute names for permitted_attributes
+      @attribute_names ||= []
+      @attribute_names << name
     end
 
-    def call(*)
-      new(*).tap { |obj|
-        yield obj if block_given?
-      }.call
+    def call(attributes=nil, **)
+      instance = new(attributes, **)
+      yield instance if block_given?
+      instance.call
     end
 
-    def call_later(*)
-      new(*).tap do |command|
-        yield command if block_given?
+    def call_later(attributes=nil, **kwargs)
+      instance = new(attributes, **kwargs)
+      yield instance if block_given?
 
-        return command if command.preflight_nok?
+      return instance if instance.preflight_nok?
 
-        DelayedCommandJob.perform_later(self, *)
+      # Combine attributes for the job
+      combined_attributes = {}
+      combined_attributes.merge!(attributes.to_h.symbolize_keys) if attributes.is_a?(Hash)
+      combined_attributes.merge!(kwargs)
 
-        command.broadcast_ok
-      end
+      DelayedCommandJob.perform_later(self, combined_attributes)
+      instance.broadcast_ok
+      instance
     end
 
-    def call_at(delay, *)
-      new(*).tap do |command|
-        yield command if block_given?
+    def call_at(delay, attributes=nil, **kwargs)
+      instance = new(attributes, **kwargs)
+      yield instance if block_given?
 
-        return command if command.preflight_nok?
+      return instance if instance.preflight_nok?
 
-        DelayedCommandJob.set(delay).perform_later(self, *)
+      # Combine attributes for the job
+      combined_attributes = {}
+      combined_attributes.merge!(attributes.to_h.symbolize_keys) if attributes.is_a?(Hash)
+      combined_attributes.merge!(kwargs)
 
-        command.broadcast_ok
-      end
+      DelayedCommandJob.set(delay).perform_later(self, combined_attributes)
+      instance.broadcast_ok
+      instance
     end
 
     def call_for(params, additional_attributes={}, &)
-      call(attributes_from_params(params, additional_attributes), &)
+      call(**attributes_from_params(params, additional_attributes), &)
     end
 
     def attributes_from_params(params, additional_attributes={})
@@ -252,16 +247,38 @@ class BaseCommand < Dry::Struct
     end
 
     def permitted_attributes
-      schema.keys.map { |attr| attr.type == Types::Array.optional ? { attr.name => [] } : attr.name }
+      attribute_names
     end
 
-    # restore method overwritten by Dry::Struct and required by bootstrap_forms
+    def attribute_names
+      @attribute_names || []
+    end
+
+    # restore method for bootstrap_forms compatibility
     def try(...)
       ActiveSupport::Tryable.instance_method(:try).bind_call(self, ...)
     end
 
     def model_name
       ActiveModel::Name.new(adapter || self)
+    end
+
+    # Override new to handle both hash arguments and keyword arguments, including mixed usage
+    def new(attributes=nil, **kwargs)
+      combined_attributes = {}
+
+      # Add hash attributes if provided
+      if attributes.is_a?(Hash)
+        combined_attributes.merge!(attributes.to_h.symbolize_keys)
+      elsif attributes.present?
+        raise ArgumentError, "First argument must be a Hash if provided"
+      end
+
+      # Add keyword arguments
+      combined_attributes.merge!(kwargs)
+
+      # Call parent's new with combined attributes
+      super(**combined_attributes)
     end
   end
 
@@ -350,5 +367,15 @@ class BaseCommand < Dry::Struct
 
   def process
     raise "Interface not implemented"
+  end
+
+  # Helper method to get all attributes as a hash
+  def attributes
+    self.class.dry_initializer.attributes(self)
+  end
+
+  # Compatibility method for code expecting to_h
+  def to_h
+    attributes
   end
 end
