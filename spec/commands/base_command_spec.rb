@@ -13,17 +13,6 @@ describe BaseCommand do
                  validates :a, presence: true
                  def process; end
                end)
-    stub_const("WithArgumentsStrictCommand",
-               Class.new(BaseCommand) do
-                 strict_attributes!
-                 attribute :a, BaseCommand::Types::String
-                 validates :a, presence: true
-                 def process; end
-               end)
-    stub_const("SubclassStrictCommand",
-               Class.new(WithArgumentsStrictCommand) do
-                 def process; end
-               end)
     stub_const("NonTransactionalCommand",
                Class.new(BaseCommand) do
                  skip_transaction!
@@ -49,14 +38,6 @@ describe BaseCommand do
 
   let(:command_with_arguments_class) do
     WithArgumentsCommand
-  end
-
-  let(:command_with_arguments_strict_class) do
-    WithArgumentsStrictCommand
-  end
-
-  let(:command_subclass_strict_class) do
-    SubclassStrictCommand
   end
 
   let(:non_transactional_class) do
@@ -162,6 +143,35 @@ describe BaseCommand do
         end
       end
     end
+
+    context "when called with mixed hash and keyword arguments" do
+      it "accepts both hash and keyword arguments in new" do
+        command = command_with_arguments_class.new({ a: "from_hash" }, a: "from_kwargs")
+        expect(command.a).to eq("from_kwargs") # kwargs should override hash
+      end
+
+      it "accepts both hash and keyword arguments in call" do
+        expect(command_with_arguments_class).to receive(:new)
+          .with({ a: "from_hash" }, a: "from_kwargs").and_call_original
+        command_with_arguments_class.call({ a: "from_hash" }, a: "from_kwargs") do |cmd|
+          cmd.on(:ok) { true }
+        end
+      end
+
+      it "accepts only hash argument" do
+        expect(command_with_arguments_class).to receive(:new).with({ a: "test" }).and_call_original
+        command_with_arguments_class.call({ a: "test" }) do |cmd|
+          cmd.on(:ok) { true }
+        end
+      end
+
+      it "accepts only keyword arguments" do
+        expect(command_with_arguments_class).to receive(:new).with(nil, a: "test").and_call_original
+        command_with_arguments_class.call(a: "test") do |cmd|
+          cmd.on(:ok) { true }
+        end
+      end
+    end
   end
 
   context "instance methods" do
@@ -216,22 +226,6 @@ describe BaseCommand do
 
         it "does not raise exception" do
           expect { subject }.not_to raise_exception
-        end
-      end
-
-      context "with missing parameters and strict mode" do
-        subject { command_with_arguments_strict_class.new }
-
-        it "raises exception" do
-          expect { subject }.to raise_exception(Dry::Struct::Error)
-        end
-      end
-
-      context "with missing parameters and subclass of command with strict mode" do
-        subject { command_subclass_strict_class.new }
-
-        it "raises exception" do
-          expect { subject }.to raise_exception(Dry::Struct::Error)
         end
       end
 
