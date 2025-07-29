@@ -1,5 +1,32 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.3.0 (2025-07-29)
+
+### Major Refactoring
+- **BaseCommand Refactored**: Completely refactored BaseCommand to use Dry::Initializer instead of Dry::Struct
+  - Simpler and more lightweight implementation
+  - Better compatibility with Ruby's keyword arguments
+  - Reduced dependency footprint (removed dry-struct gem)
+  - Maintains full backward compatibility
+
+### New Features
+- **Flexible Argument Handling**: BaseCommand now supports mixed hash and keyword arguments
+  - Can use `Command.new(a: 1)` (keyword args)
+  - Can use `Command.new({a: 1})` (hash args)
+  - Can use `Command.new({a: 1}, b: 2)` (mixed - kwargs override hash)
+  - Same flexibility for `call()`, `call_later()`, and `call_at()` methods
+
+### Breaking Changes
+- **Removed Strict Mode**: Removed `strict_attributes!` functionality (was never used in practice)
+  - All attributes are now optional by default
+  - Use validations to enforce required fields
+
+### Technical Improvements
+- Added `dry-initializer` gem (~> 3.1)
+- Removed `dry-struct` gem (no longer needed)
+- Updated tests to reflect new error types (KeyError instead of Dry::Struct::Error)
+- Added comprehensive tests for mixed argument handling
+
 ## Version 1.2.10 (2025-07-29)
 
 ### Security Updates

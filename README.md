@@ -1,6 +1,6 @@
 ## Rails Blueprint. Basic edition.
 
-**Version:** 1.2.9 (see VERSION_BASIC file)
+**Version:** 1.3.0 (see VERSION_BASIC file)
 
 ### Rationale
 
@@ -48,6 +48,33 @@ Basically you get a ready application you can deploy to your server and start to
 configuration process. And next you can extend it with your own features.
 
 Just check out the demo: https://basic.railsblueprint.com before proceeding.
+
+### Architecture Highlights
+
+#### Command Pattern with Dry::Initializer
+Rails Blueprint uses a powerful Command pattern implementation based on `dry-initializer` for business logic encapsulation:
+
+- **Flexible argument handling** - Commands accept both hash and keyword arguments
+- **Built-in validations** - Using ActiveModel validations
+- **Event broadcasting** - Using Wisper for decoupled event handling
+- **Background job support** - Easy async execution with `call_later` and `call_at`
+- **Transaction support** - Automatic rollback on failures
+
+Example usage:
+```ruby
+# Various ways to call commands
+UserCreateCommand.call(email: "user@example.com", name: "John")
+UserCreateCommand.call({email: "user@example.com"}, name: "John")  # Mixed style
+UserCreateCommand.call_later(email: "user@example.com")  # Background execution
+UserCreateCommand.call_at(5.minutes.from_now, email: "user@example.com")
+
+# With event handling
+UserCreateCommand.call(email: "user@example.com") do |cmd|
+  cmd.on(:ok) { redirect_to users_path }
+  cmd.on(:invalid) { |errors| render :new }
+  cmd.on(:unauthorized) { redirect_to root_path }
+end
+```
 
 ## Documentation
 
