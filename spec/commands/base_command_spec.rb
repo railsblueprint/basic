@@ -29,6 +29,25 @@ describe BaseCommand do
 
                  def second_step; end
                end)
+    stub_const("WithDefaultsCommand",
+               Class.new(BaseCommand) do
+                 attribute :name, BaseCommand::Types::String, default: -> { "John Doe" }
+                 attribute :age, BaseCommand::Types::Integer, default: -> { 25 }
+                 attribute :active, BaseCommand::Types::Bool, default: proc { true }
+                 attribute :metadata, BaseCommand::Types::Hash, default: -> { { status: "pending" } }
+                 attribute :tags, BaseCommand::Types::Array, default: -> { ["default"] }
+                 attribute :created_at, BaseCommand::Types::Time, default: -> { Time.current }
+                 attribute :optional_field, BaseCommand::Types::String
+
+                 def process; end
+               end)
+    stub_const("WithComplexDefaultsCommand",
+               Class.new(BaseCommand) do
+                 attribute :counter, BaseCommand::Types::Integer, default: -> { 0 }
+                 attribute :computed_value, BaseCommand::Types::String, default: proc { "computed-#{SecureRandom.hex(4)}" }
+
+                 def process; end
+               end)
     # rubocop:enable RSpec/DescribedClass
   end
 
@@ -267,6 +286,163 @@ describe BaseCommand do
           expect(subject).not_to receive(:second_step) # rubocop:disable RSpec/SubjectStub
           subject.call
         end
+      end
+    end
+  end
+
+  context "default values in attributes" do
+    let(:command_with_defaults) { WithDefaultsCommand }
+    let(:command_with_complex_defaults) { WithComplexDefaultsCommand }
+
+    describe "simple default values" do
+      it "sets string default value" do
+        command = command_with_defaults.new
+        expect(command.name).to eq("John Doe")
+      end
+
+      it "sets integer default value from proc" do
+        command = command_with_defaults.new
+        expect(command.age).to eq(25)
+      end
+
+      it "sets boolean default value from proc" do
+        command = command_with_defaults.new
+        expect(command.active).to be(true)
+      end
+
+      it "sets hash default value from lambda" do
+        command = command_with_defaults.new
+        expect(command.metadata).to eq({ status: "pending" })
+      end
+
+      it "sets array default value from lambda" do
+        command = command_with_defaults.new
+        expect(command.tags).to eq(["default"])
+      end
+
+      it "sets datetime default value dynamically" do
+        freeze_time do
+          command = command_with_defaults.new
+          expect(command.created_at).to eq(Time.current)
+        end
+      end
+
+      it "leaves optional fields nil when no default provided" do
+        command = command_with_defaults.new
+        expect(command.optional_field).to be_nil
+      end
+    end
+
+    describe "overriding default values" do
+      it "allows overriding default string value" do
+        command = command_with_defaults.new(name: "Jane Smith")
+        expect(command.name).to eq("Jane Smith")
+      end
+
+      it "allows overriding default integer value" do
+        command = command_with_defaults.new(age: 30)
+        expect(command.age).to eq(30)
+      end
+
+      it "allows overriding default boolean value" do
+        command = command_with_defaults.new(active: false)
+        expect(command.active).to be(false)
+      end
+
+      it "allows overriding default hash value" do
+        command = command_with_defaults.new(metadata: { status: "active", priority: "high" })
+        expect(command.metadata).to eq({ status: "active", priority: "high" })
+      end
+
+      it "allows overriding default array value" do
+        command = command_with_defaults.new(tags: %w[custom test])
+        expect(command.tags).to eq(%w[custom test])
+      end
+
+      it "allows partial override with hash arguments" do
+        command = command_with_defaults.new({ name: "Alice" }, age: 35)
+        expect(command.name).to eq("Alice")
+        expect(command.age).to eq(35)
+        expect(command.active).to be(true) # default
+      end
+    end
+
+    describe "complex default values" do
+      it "sets simple numeric default" do
+        command = command_with_complex_defaults.new
+        expect(command.counter).to eq(0)
+      end
+
+      it "computes unique default values each time" do
+        command1 = command_with_complex_defaults.new
+        command2 = command_with_complex_defaults.new
+        expect(command1.computed_value).to match(/^computed-[a-f0-9]{8}$/)
+        expect(command2.computed_value).to match(/^computed-[a-f0-9]{8}$/)
+        expect(command1.computed_value).not_to eq(command2.computed_value)
+      end
+    end
+
+    describe "default value isolation" do
+      it "creates new hash instances for each command" do
+        command1 = command_with_defaults.new
+        command2 = command_with_defaults.new
+
+        command1.metadata[:status] = "modified"
+
+        expect(command1.metadata).to eq({ status: "modified" })
+        expect(command2.metadata).to eq({ status: "pending" })
+      end
+
+      it "creates new array instances for each command" do
+        command1 = command_with_defaults.new
+        command2 = command_with_defaults.new
+
+        command1.tags << "extra"
+
+        expect(command1.tags).to eq(%w[default extra])
+        expect(command2.tags).to eq(["default"])
+      end
+    end
+
+    describe "default values with validations" do
+      before do
+        stub_const("ValidatedDefaultsCommand",
+                   Class.new(BaseCommand) do
+                     attribute :status, BaseCommand::Types::String, default: -> { "draft" }
+                     attribute :priority, BaseCommand::Types::Integer, default: -> { 1 }
+
+                     validates :status, inclusion: { in: %w[draft published archived] }
+                     validates :priority, numericality: { greater_than: 0, less_than_or_equal_to: 5 }
+
+                     def process; end
+                   end)
+      end
+
+      it "passes validation with default values" do
+        command = ValidatedDefaultsCommand.new
+        expect(command).to be_valid
+      end
+
+      it "validates overridden values" do
+        command = ValidatedDefaultsCommand.new(status: "invalid")
+        expect(command).not_to be_valid
+        expect(command.errors[:status]).to include("is not included in the list")
+      end
+    end
+
+    describe "default values in background jobs" do
+      it "preserves default values when called later" do
+        expect(DelayedCommandJob).to receive(:perform_later)
+          .with(command_with_defaults, {})
+
+        command_with_defaults.call_later
+      end
+
+      it "preserves overridden values when called later" do
+        expect(DelayedCommandJob).to receive(:perform_later)
+          .with(command_with_defaults, { name: "Test User", age: 40 })
+
+        command_with_defaults.call_later(name: "Test User", age: 40)
       end
     end
   end
