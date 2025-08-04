@@ -58,6 +58,32 @@
 #   end
 # end
 #
+# Setting default values for attributes:
+# BaseCommand uses Dry::Initializer which requires default values to be wrapped in procs/lambdas:
+#
+# class NotificationCommand < BaseCommand
+#   attribute :priority, Types::String, default: -> { "normal" }
+#   attribute :retry_count, Types::Integer, default: -> { 3 }
+#   attribute :send_at, Types::Time, default: -> { Time.current }
+#   attribute :metadata, Types::Hash, default: -> { {} }
+#   attribute :recipients, Types::Array, default: -> { [] }
+#
+#   def process
+#     # When called without arguments, attributes have default values:
+#     # priority => "normal"
+#     # retry_count => 3
+#     # send_at => <current time when instance is created>
+#     # metadata => {} (new hash for each instance)
+#     # recipients => [] (new array for each instance)
+#   end
+# end
+#
+# IMPORTANT: Default values MUST be procs/lambdas. Simple values will raise TypeError:
+# attribute :name, Types::String, default: "John"  # WRONG! Raises TypeError
+# attribute :name, Types::String, default: -> { "John" }  # Correct
+#
+# This ensures each instance gets its own copy of mutable objects (arrays, hashes)
+#
 # By default BaseCommand permits to omit all attributes. Any mandatory attribute must be checked with validations
 #
 # Use in controller:
