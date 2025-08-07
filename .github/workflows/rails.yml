@@ -125,10 +125,9 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: rbp_blueprint_init_test
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
-          APP_NAME: TestApp
         run: |
-          echo "Testing blueprint:init task with APP_NAME=TestApp"
-          bundle exec rails blueprint:init
+          echo "Testing blueprint:init task with app_name=test_app"
+          bundle exec rails blueprint:init[test_app]
           
           echo "Verifying config files were created correctly"
           test -f config/app_config.rb || { echo "app_config.rb not created"; exit 1; }
@@ -140,8 +139,8 @@ jobs:
           test -f config/importmap.rb || { echo "importmap.rb not created"; exit 1; }
           test -f config/i18n-tasks.yml || { echo "i18n-tasks.yml not created"; exit 1; }
           
-          echo "Checking that APP_NAME was properly set in config files"
-          grep -q "TestApp" config/app.yml || { echo "APP_NAME not found in app.yml"; exit 1; }
+          echo "Checking that app_name was properly set in config files"
+          grep -q "test_app" config/app.yml || { echo "app_name not found in app.yml"; exit 1; }
           
           echo "Creating and migrating database with data migrations"
           bundle exec rails db:create
