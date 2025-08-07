@@ -94,3 +94,60 @@ jobs:
         run: bundle exec bundle-audit
       - name: Audit impormaps for vulnerabilities
         run: bundle exec bin/importmap audit
+
+  blueprint-init:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: rbp_blueprint_init_test
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install Yarn & modules
+        run: |
+          npm install -g yarn
+          yarn install
+      - name: Test blueprint initialization process
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: rbp_blueprint_init_test
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+          APP_NAME: TestApp
+        run: |
+          echo "Testing blueprint:init task with APP_NAME=TestApp"
+          bundle exec rails blueprint:init
+          
+          echo "Verifying config files were created correctly"
+          test -f config/app_config.rb || { echo "app_config.rb not created"; exit 1; }
+          test -f config/app.yml || { echo "app.yml not created"; exit 1; }
+          test -f config/database.yml || { echo "database.yml not created"; exit 1; }
+          test -f config/cable.yml || { echo "cable.yml not created"; exit 1; }
+          test -f config/storage.yml || { echo "storage.yml not created"; exit 1; }
+          test -f package.json || { echo "package.json not created"; exit 1; }
+          test -f config/importmap.rb || { echo "importmap.rb not created"; exit 1; }
+          test -f config/i18n-tasks.yml || { echo "i18n-tasks.yml not created"; exit 1; }
+          
+          echo "Checking that APP_NAME was properly set in config files"
+          grep -q "TestApp" config/app.yml || { echo "APP_NAME not found in app.yml"; exit 1; }
+          
+          echo "Creating and migrating database with data migrations"
+          bundle exec rails db:create
+          bundle exec rails db:migrate:with_data
+          
+          echo "Verifying database setup completed successfully"
+          bundle exec rails runner "puts 'Database connection successful: #{ActiveRecord::Base.connection.active?}'"
+          
+          echo "Blueprint initialization test completed successfully"
