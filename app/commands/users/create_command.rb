@@ -2,6 +2,8 @@ module Users
   class CreateCommand < Crud::CreateCommand
     include Attributes
 
+    private
+
     def resource_attributes
       super.merge(password: SecureRandom.hex(64))
     end
