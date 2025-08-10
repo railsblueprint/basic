@@ -206,10 +206,6 @@ class BaseCommand
       define_method(:"#{name}=") do |value|
         instance_variable_set(:"@#{name}", value)
       end
-
-      # Track attribute names for permitted_attributes
-      @attribute_names ||= []
-      @attribute_names << name
     end
 
     def call(attributes=nil, **)
@@ -273,11 +269,31 @@ class BaseCommand
     end
 
     def permitted_attributes
-      attribute_names
+      attribute_names.map do |name|
+        if array_attribute?(name)
+          { name => [] }
+        else
+          name
+        end
+      end
     end
 
     def attribute_names
-      @attribute_names || []
+      # Get all attribute names from dry-initializer
+      dry_initializer.definitions.keys
+    end
+
+    def array_attribute?(name)
+      # Get the type definition from dry-initializer
+      definition = dry_initializer.definitions[name]
+      return false unless definition
+
+      # Get the type from the definition
+      type = definition.type
+      return false unless type
+
+      # Check if the type is an array type
+      type.to_s.include?("Array")
     end
 
     # restore method for bootstrap_forms compatibility
