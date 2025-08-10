@@ -1,5 +1,27 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.3.2 (2025-08-10)
+
+### Bug Fixes
+- **Fixed User Role Management**: Fixed issue where roles were not being saved in admin panel
+  - Implemented automatic array attribute detection in BaseCommand
+  - Array attributes (like role_ids) are now automatically permitted correctly in strong parameters
+  - Removed need for manual permitted_attributes overrides in user commands
+  - Added comprehensive tests for role management scenarios
+
+### Technical Improvements
+- **BaseCommand Enhancement**: Automatic detection of array-type attributes using dry-initializer metadata
+  - Arrays are automatically formatted as `{ attribute_name: [] }` for Rails strong parameters
+  - Simplified command classes by removing boilerplate code
+  
+### Testing
+- Added locale file duplicate key detection spec to prevent translation conflicts
+- Added CI test for blueprint initialization process
+- Added comprehensive tests for array attribute handling in BaseCommand
+
+### Deployment
+- Added storage directory to shared folders in Mina deployment configuration
+
 ## Version 1.3.1 (2025-08-05)
 
 ### Documentation & Testing
