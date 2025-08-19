@@ -3,6 +3,7 @@ RSpec.describe CrudBase do
 
   controller(ApplicationController) do
     include CrudBase # rubocop:disable RSpec/DescribedClass
+
     def model
       Page
     end

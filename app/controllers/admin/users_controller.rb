@@ -15,7 +15,7 @@ class Admin::UsersController < Admin::CrudController
 
   def lookup
     @resources = model.where("first_name ilike :q or last_name ilike :q",
-                             q: "%#{params[:q]}%").order("first_name, last_name").page(params[:page])
+                             q: "%#{params[:q]}%").order(:first_name, :last_name).page(params[:page])
     render json: {
       results:    @resources.map { |r| { id: r.id, text: r.full_name } },
       pagination: {

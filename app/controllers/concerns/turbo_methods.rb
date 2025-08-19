@@ -1,5 +1,6 @@
 module TurboMethods
   extend ActiveSupport::Concern
+
   included do
     def turbo_frame_breakout?
       flash[:turbo_breakout].present?.tap { flash.delete(:turbo_breakout) }

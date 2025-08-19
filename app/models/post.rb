@@ -11,6 +11,7 @@ class Post < ApplicationRecord
   }
 
   extend FriendlyId
+
   friendly_id :transliterated_title, use: :slugged, routes: :id
 
   belongs_to :user

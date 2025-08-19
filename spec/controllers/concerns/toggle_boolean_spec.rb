@@ -2,6 +2,7 @@ RSpec.describe ToggleBoolean do
   controller(ApplicationController) do
     include CrudBase
     include ToggleBoolean # rubocop:disable RSpec/DescribedClass
+
     toggle_boolean :active
 
     def show; end
