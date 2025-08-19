@@ -1,5 +1,6 @@
 class Admin::PagesController < Admin::CrudController
   include ToggleBoolean
+
   toggle_boolean :active, :show_in_sidebar
 
   def filter_resources

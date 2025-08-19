@@ -9,6 +9,7 @@ class User < ApplicationRecord
   # :timeoutable
 
   include PgSearch::Model
+
   pg_search_scope :search, against: [:id, :first_name, :last_name, :email]
 
   multisearchable against: [:id, :first_name, :last_name, :email]

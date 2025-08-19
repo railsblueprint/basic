@@ -1,5 +1,6 @@
 class Page < ApplicationRecord
   include PgSearch::Model
+
   pg_search_scope :search, against: [:title, :url, :body]
 
   multisearchable against: [:id, :title, :url, :body]

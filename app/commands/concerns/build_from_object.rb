@@ -1,5 +1,6 @@
 module BuildFromObject
   extend ActiveSupport::Concern
+
   class_methods do
     def build_from_object(resource)
       new(attributes_from_object(resource))

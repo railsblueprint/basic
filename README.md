@@ -1,6 +1,6 @@
 ## Rails Blueprint. Basic edition.
 
-**Version:** 1.3.0 (see VERSION_BASIC file)
+**Version:** 1.3.3 (see VERSION_BASIC file)
 
 ### Rationale
 
@@ -22,13 +22,13 @@ what really matters. It includes best practices for rapid development of your Ra
 
 Main features:
 
-- Latest Ruby on Rails (8.0.2)
+- Latest Ruby on Rails (8.0.2.1)
 - Latest Ruby (3.4.4 with YJIT and jemalloc)
 - Hotwire stack (Turbo, Stimulus)
 - Action Cable and Stimulus Reflex for even more reactivity
 - Bootstrap 5.3.7
 - Slim for compact views
-- Awesome livereload
+- Hotwire Spark for live reloading
 - Users and roles.
 - Friendly ids for blog posts
 - Basic blog and static pages editor
