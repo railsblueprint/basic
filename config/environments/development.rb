@@ -88,4 +88,13 @@ Rails.application.configure do
 
   config.web_console.whitelisted_ips = '0.0.0.0'
   config.web_console.development_only = false
+
+  # Hotwire Spark configuration
+  config.hotwire.spark.enabled = true
+  
+  # Watch additional paths that were previously watched by hotwire-livereload
+  config.hotwire.spark.html_paths += %w[ app/commands app/policies ]
+  
+  # Watch Slim template files
+  config.hotwire.spark.html_extensions = %w[ erb slim ]
 end
