@@ -1,5 +1,36 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.3.3 (2025-08-19)
+
+### Security Updates
+- **Rails Security Update**: Updated Rails from 8.0.2 to 8.0.2.1
+  - Fixes CVE-2025-55193: Active Record logging vulnerability to ANSI escape injection
+  - Fixes CVE-2025-24293: Active Storage allowed potentially unsafe transformation methods
+  - All security vulnerabilities resolved (bundle-audit passes)
+
+### Dependency Updates
+- **ViewComponent**: Updated from 3.23.2 to 4.0.2
+  - Fixed compatibility issues with super() calls in component initializers
+  - All components updated to use explicit super() syntax
+- **Hotwire Spark**: Replaced custom hotwire-livereload fork with official Hotwire Spark gem
+  - Better Rails integration and official support
+  - Native support for Slim templates
+  - Cleaner configuration in development environment
+- **AWS SDK**: Updated all AWS SDK gems to latest versions
+- **Other gems**: Updated RSpec Rails, Good Job, and various other dependencies
+
+### Technical Improvements
+- **Live Reloading**: Migrated from hotwire-livereload to Hotwire Spark
+  - Improved performance and reliability
+  - Supports watching Slim templates and custom paths (app/commands, app/policies)
+- **Code Quality**: Applied Rubocop auto-fixes for new cop rules
+  - Fixed Layout/EmptyLinesAfterModuleInclusion violations
+  - Fixed Rails/OrderArguments violations
+
+### Testing
+- All tests pass with 95.41% code coverage
+- Fixed deprecation warnings for :unprocessable_entity status code
+
 ## Version 1.3.2 (2025-08-10)
 
 ### Bug Fixes
