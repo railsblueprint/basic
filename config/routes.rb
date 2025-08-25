@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  get '/faq', to: 'static_pages#faq', as: :faq
   get '/health', to: 'health#show'
 
   draw(:admin)
