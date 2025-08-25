@@ -4,7 +4,8 @@
 @import "blueadmin/all";
 
 
-@import "bootstrap-icons";
+$bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
+@import "bootstrap-icons/font/bootstrap-icons";
 @import 'remixicon';
 @import 'quill.snow';
 @import 'quill.bubble';

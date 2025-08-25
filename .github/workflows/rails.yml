@@ -43,9 +43,9 @@ jobs:
           cp -f config/database.yml.ci config/database.yml
           cp -f config/cable.yml.ci config/cable.yml
           cp -f config/storage.yml.ci config/storage.yml
-          cp package.json.template package.json
-          cp config/importmap.rb.template config/importmap.rb
-          cp config/i18n-tasks.yml.template config/i18n-tasks.yml
+          [ ! -f package.json ] && cp package.json.template package.json || echo "package.json already exists, skipping"
+          [ ! -f config/importmap.rb ] && cp config/importmap.rb.template config/importmap.rb || echo "config/importmap.rb already exists, skipping"
+          [ ! -f config/i18n-tasks.yml ] && cp config/i18n-tasks.yml.template config/i18n-tasks.yml || echo "config/i18n-tasks.yml already exists, skipping"
       - name: Run rubocop
         run: bundle exec rake rubocop:changed
       - name: Setup database

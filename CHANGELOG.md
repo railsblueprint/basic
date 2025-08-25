@@ -5,6 +5,26 @@ All notable changes to Rails Blueprint Basic Edition will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.4] - 2025-08-25
+
+### Added
+- **Automatic Static Page Rendering**: Create static pages without routes or controller actions
+  - File-based routing for views in `app/views/static_pages/`
+  - Support for nested folder structures
+  - Automatic CSS class generation for body tags
+- **Bootstrap Icons Design System Page**: Rake task to regenerate with all 2078 icons
+- **CI Pipeline Guards**: Template files only copied if targets don't exist
+
+### Changed
+- **Bootstrap Icons**: Migrated from Ruby gems to npm package (v1.13.1)
+- **Bootstrap**: Updated all references to version 5.3.7
+- **StaticPagesController**: Simplified implementation without method_missing
+
+### Removed
+- `bootstrap-icons-helper` gem
+- `bootstrap_icons_rubygem` gem
+- Explicit FAQ route (now handled by automatic routing)
+
 ## [1.1.0] - 2025-01-16
 
 ### Updated
@@ -47,3 +67,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test suite with RSpec
 - Deployment configuration with Mina
 - GitHub Actions CI/CD pipeline
+

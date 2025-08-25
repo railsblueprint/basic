@@ -76,6 +76,25 @@ UserCreateCommand.call(email: "user@example.com") do |cmd|
 end
 ```
 
+### Automatic Static Page Rendering
+
+The StaticPagesController supports automatic view rendering without defining routes or controller actions:
+
+- **File-based routing**: Create a view file in `app/views/static_pages/` and it's automatically accessible at the corresponding URL
+- **Nested folders**: Supports nested folder structures (e.g., `/about/team` maps to `app/views/static_pages/about/team.html.slim`)
+- **Database priority**: Database-stored pages take priority over view files
+- **Automatic CSS classes**: Body tag gets proper CSS classes (e.g., `controller-static_pages action-about-team`)
+
+#### Examples:
+```ruby
+# Create app/views/static_pages/pricing.html.slim
+# Access at /pricing
+
+# Create app/views/static_pages/about/mission.html.slim  
+# Access at /about/mission
+# Body classes: "controller-static_pages action-about-mission"
+```
+
 ## Documentation
 
 📚 **[Complete Documentation](docs/index.md)** - Comprehensive guides covering all features

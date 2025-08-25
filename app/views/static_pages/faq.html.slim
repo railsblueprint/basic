@@ -4,142 +4,142 @@ section.section.faq
       .card.basic
         .card-body
           h5.card-title
-            | Basic Questions
+            | Getting Started
           div
             h6
-              | 1. Nisi ut ut exercitationem voluptatem esse sunt rerum?
+              | 1. What is Rails Blueprint?
             p
-              | Saepe perspiciatis ea. Incidunt blanditiis enim mollitia qui voluptates. Id rem nulla tenetur nihil in unde rerum. Quae consequatur placeat qui cumque earum eius omnis quos.
+              | Rails Blueprint is a comprehensive starter template for Ruby on Rails applications. It provides a production-ready foundation with authentication, admin panel, responsive design, and deployment configurations pre-configured, saving you weeks of initial setup time.
             .pt-2
 
             h6
-              | 2. Reiciendis dolores repudiandae?
+              | 2. What are the different editions?
             p
-              | Id ipsam non ut. Placeat doloremque deserunt quia tenetur inventore laboriosam dolores totam odio. Aperiam incidunt et. Totam ut quos sunt atque modi molestiae dolorem.
+              | Rails Blueprint comes in four editions: Basic (core features with authentication and admin panel), Plus (adds advanced reporting and analytics), Pro (includes enterprise features like API support and Stripe integration), and SaaS (complete multi-tenant SaaS platform with billing, subscriptions, and team management).
             .pt-2
 
             h6
-              | 3. Qui qui reprehenderit ut est illo numquam voluptatem?
+              | 3. How do I get started with Rails Blueprint?
             p
-              | Enim inventore in consequuntur ipsam voluptatem consequatur beatae. Nostrum consequuntur voluptates et blanditiis.
+              | Simply clone the repository, run the blueprint initialization command (rails blueprint:init), and you'll have a fully configured Rails application ready for development. The setup includes database configuration, asset compilation, and all necessary dependencies.
       .card
         .card-body
           h5.card-title
-            | Laborum dolorem quam porro
+            | Technical Questions
           #faq-group-1.accordion.accordion-flush
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsOne-1" type="button" data-bs-toggle="collapse"]
-                  |  Debitis adipisci eius?
+                  | What version of Rails and Ruby does it use?
               #faqsOne-1.accordion-collapse.collapse[data-bs-parent="#faq-group-1"]
                 .accordion-body
-                  |  Ut quasi odit odio totam accusamus vero eius. Nostrum asperiores voluptatem eos nulla ab dolores est asperiores iure. Quo est quis praesentium aut maiores. Corrupti sed aut expedita fugit vero dolorem. Nemo rerum sapiente. A quaerat dignissimos.
+                  | Rails Blueprint uses Rails 8.0.2 with Ruby 3.4.4, optimized with YJIT and jemalloc for superior performance. The stack includes Hotwire (Turbo + Stimulus), Bootstrap 5.3.7, PostgreSQL, Redis, and modern JavaScript with Importmap for zero-build asset management.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsOne-2" type="button" data-bs-toggle="collapse"]
-                  |  Omnis fugiat quis repellendus?
+                  | Is it production-ready?
               #faqsOne-2.accordion-collapse.collapse[data-bs-parent="#faq-group-1"]
                 .accordion-body
-                  |  In minus quia impedit est quas deserunt deserunt et. Nulla non quo dolores minima fugiat aut saepe aut inventore. Qui nesciunt odio officia beatae iusto sed voluptatem possimus quas. Officia vitae sit voluptatem nostrum a.
+                  | Yes! Rails Blueprint includes production configurations for nginx, systemd, SSL certificates, database backups, error monitoring, and zero-downtime deployments. It's been battle-tested on numerous production applications and includes security best practices out of the box.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsOne-3" type="button" data-bs-toggle="collapse"]
-                  |  Et occaecati praesentium aliquam modi incidunt?
+                  | What deployment options are supported?
               #faqsOne-3.accordion-collapse.collapse[data-bs-parent="#faq-group-1"]
                 .accordion-body
-                  |  Voluptates magni amet enim perspiciatis atque excepturi itaque est. Sit beatae animi incidunt eum repellat sequi ea saepe inventore. Id et vel et et. Nesciunt itaque corrupti quia ducimus. Consequatur maiores voluptatum fuga quod ut non fuga.
+                  | Rails Blueprint uses Mina for deployment and supports any VPS or dedicated server. Pre-configured for Ubuntu/Debian with nginx and systemd. It includes staging and production configurations, automated database backups, and health checks. Cloud platforms like AWS, DigitalOcean, and Hetzner work perfectly.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsOne-4" type="button" data-bs-toggle="collapse"]
-                  |  Quo unde eaque vero dolor quis ipsam?
+                  | How does the admin panel work?
               #faqsOne-4.accordion-collapse.collapse[data-bs-parent="#faq-group-1"]
                 .accordion-body
-                  |  Numquam ut reiciendis aliquid. Quia veritatis quasi ipsam sed quo ut eligendi et non. Doloremque sed voluptatem at in voluptas aliquid dolorum.
+                  | The admin panel is a custom-built, responsive interface at /admin with role-based access control using Pundit. It includes CRUD operations for all models, a design system showcase, database monitoring via PgHero, background job management with GoodJob, and customizable dashboards with charts and analytics.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsOne-5" type="button" data-bs-toggle="collapse"]
-                  |  Natus sunt quo atque mollitia accusamus?
+                  | Can I customize the template?
               #faqsOne-5.accordion-collapse.collapse[data-bs-parent="#faq-group-1"]
                 .accordion-body
-                  |  Aut necessitatibus maxime quis dolor et. Nihil laboriosam molestiae qui molestias placeat corrupti non quo accusamus. Nemo qui quis harum enim sed. Aliquam molestias pariatur delectus voluptas quidem qui rerum id quisquam. Perspiciatis voluptatem voluptatem eos. Vel aut minus labore at rerum eos.
+                  | Absolutely! Rails Blueprint is designed to be a starting point, not a rigid framework. All code is in your repository and fully customizable. The modular architecture with commands, components, and policies makes it easy to extend. The blueprint_config gem provides flexible configuration management through YAML, environment variables, and database settings.
     .col-lg-6
       .card
         .card-body
           h5.card-title
-            | Deserunt ut unde corporis
+            | Features & Functionality
           #faq-group-2.accordion.accordion-flush
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsTwo-1" type="button" data-bs-toggle="collapse"]
-                  |  Cumque voluptatem recusandae blanditiis?
+                  | What authentication features are included?
             #faqsTwo-1.accordion-collapse.collapse[data-bs-parent="#faq-group-2"]
               .accordion-body
-                |  Ut quasi odit odio totam accusamus vero eius. Nostrum asperiores voluptatem eos nulla ab dolores est asperiores iure. Quo est quis praesentium aut maiores. Corrupti sed aut expedita fugit vero dolorem. Nemo rerum sapiente. A quaerat dignissimos.
+                | Rails Blueprint includes complete authentication with Devise: user registration, login, password reset, email confirmation, remember me, and account locking. It also features role-based authorization with Rolify and Pundit, social login ready configuration, two-factor authentication support, and session management.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsTwo-2" type="button" data-bs-toggle="collapse"]
-                  |  Provident beatae eveniet placeat est aperiam repellat adipisci?
+                  | What real-time features are available?
             #faqsTwo-2.accordion-collapse.collapse[data-bs-parent="#faq-group-2"]
               .accordion-body
-                |  In minus quia impedit est quas deserunt deserunt et. Nulla non quo dolores minima fugiat aut saepe aut inventore. Qui nesciunt odio officia beatae iusto sed voluptatem possimus quas. Officia vitae sit voluptatem nostrum a.
+                | Built with Hotwire (Turbo + Stimulus), Rails Blueprint provides real-time updates via Action Cable, live form validation with Stimulus Reflex, broadcast updates with Cable Ready, WebSocket notifications, and presence tracking. Perfect for building interactive, modern web applications without complex JavaScript frameworks.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsTwo-3" type="button" data-bs-toggle="collapse"]
-                  |  Minus aliquam modi id reprehenderit nihil?
+                  | How does background job processing work?
             #faqsTwo-3.accordion-collapse.collapse[data-bs-parent="#faq-group-2"]
               .accordion-body
-                |  Voluptates magni amet enim perspiciatis atque excepturi itaque est. Sit beatae animi incidunt eum repellat sequi ea saepe inventore. Id et vel et et. Nesciunt itaque corrupti quia ducimus. Consequatur maiores voluptatum fuga quod ut non fuga.
+                | Rails Blueprint uses GoodJob, a PostgreSQL-based job processor that requires no additional infrastructure. It includes a web dashboard for monitoring, automatic retries with exponential backoff, cron-style recurring jobs, job prioritization, and concurrency controls. Perfect for email delivery, report generation, and data processing.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsTwo-4" type="button" data-bs-toggle="collapse"]
-                  |  Quaerat qui est iusto asperiores qui est reiciendis eos et?
+                  | What testing tools are included?
             #faqsTwo-4.accordion-collapse.collapse[data-bs-parent="#faq-group-2"]
               .accordion-body
-                |  Numquam ut reiciendis aliquid. Quia veritatis quasi ipsam sed quo ut eligendi et non. Doloremque sed voluptatem at in voluptas aliquid dolorum.
+                | Comprehensive testing setup with RSpec for unit and integration tests, FactoryBot for test data, Capybara for feature tests, SimpleCov for code coverage reporting, and GitHub Actions CI/CD pipeline. Includes example tests for models, controllers, commands, and components to guide your testing strategy.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsTwo-5" type="button" data-bs-toggle="collapse"]
-                  |  Laboriosam asperiores eum?
+                  | Is there API support?
             #faqsTwo-5.accordion-collapse.collapse[data-bs-parent="#faq-group-2"]
               .accordion-body
-                |  Aut necessitatibus maxime quis dolor et. Nihil laboriosam molestiae qui molestias placeat corrupti non quo accusamus. Nemo qui quis harum enim sed. Aliquam molestias pariatur delectus voluptas quidem qui rerum id quisquam. Perspiciatis voluptatem voluptatem eos. Vel aut minus labore at rerum eos.
+                | Yes! The Pro edition includes full REST API with JWT authentication, versioned endpoints (api/v1), JSON serialization with Blueprinter, API documentation with Rswag/Swagger, rate limiting, and CORS configuration. Perfect for mobile apps, SPAs, or third-party integrations.
       .card
         .card-body
           h5.card-title
-            | Dolore occaecati ducimus quam
+            | Business & Support
           #faq-group-3.accordion.accordion-flush
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsThree-1" type="button" data-bs-toggle="collapse"]
-                  |  Assumenda doloribus est fugiat sint incidunt animi totam nisi?
+                  | What's the pricing model?
             #faqsThree-1.accordion-collapse.collapse[data-bs-parent="#faq-group-3"]
               .accordion-body
-                |  Ut quasi odit odio totam accusamus vero eius. Nostrum asperiores voluptatem eos nulla ab dolores est asperiores iure. Quo est quis praesentium aut maiores. Corrupti sed aut expedita fugit vero dolorem. Nemo rerum sapiente. A quaerat dignissimos.
+                | Rails Blueprint offers one-time purchase licenses with lifetime access to updates. Basic edition starts at an affordable price point, with Plus and Pro editions offering additional features. The SaaS edition includes everything needed to launch your own SaaS business. All editions include source code, documentation, and community support.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsThree-2" type="button" data-bs-toggle="collapse"]
-                  |  Consequatur saepe explicabo odio atque nisi?
+                  | Can I use it for client projects?
             #faqsThree-2.accordion-collapse.collapse[data-bs-parent="#faq-group-3"]
               .accordion-body
-                |  In minus quia impedit est quas deserunt deserunt et. Nulla non quo dolores minima fugiat aut saepe aut inventore. Qui nesciunt odio officia beatae iusto sed voluptatem possimus quas. Officia vitae sit voluptatem nostrum a.
+                | Yes! Your license allows unlimited projects for you and your clients. You can use Rails Blueprint for commercial projects, client work, and your own SaaS products. The only restriction is redistribution of the template itself - you cannot resell Rails Blueprint as a template or starter kit.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsThree-3" type="button" data-bs-toggle="collapse"]
-                  |  Voluptates vel est fugiat molestiae rem sit eos sint?
+                  | How do updates work?
             #faqsThree-3.accordion-collapse.collapse[data-bs-parent="#faq-group-3"]
               .accordion-body
-                |  Voluptates magni amet enim perspiciatis atque excepturi itaque est. Sit beatae animi incidunt eum repellat sequi ea saepe inventore. Id et vel et et. Nesciunt itaque corrupti quia ducimus. Consequatur maiores voluptatum fuga quod ut non fuga.
+                | Rails Blueprint is actively maintained with regular updates for security patches, Rails version updates, and new features. Updates are provided via Git, and our documentation includes detailed upgrade guides. Your purchase includes lifetime access to all future updates for your edition.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsThree-4" type="button" data-bs-toggle="collapse"]
-                  |  Ab ipsa cum autem voluptas doloremque velit?
+                  | What kind of support is available?
             #faqsThree-4.accordion-collapse.collapse[data-bs-parent="#faq-group-3"]
               .accordion-body
-                |  Numquam ut reiciendis aliquid. Quia veritatis quasi ipsam sed quo ut eligendi et non. Doloremque sed voluptatem at in voluptas aliquid dolorum.
+                | All editions include comprehensive documentation, video tutorials, and access to our community Discord. We also maintain an extensive knowledge base with common solutions and best practices. Premium support with direct access to the development team is available for Pro and SaaS editions.
             .accordion-item
               h2.accordion-header
                 button.accordion-button.collapsed[data-bs-target="#faqsThree-5" type="button" data-bs-toggle="collapse"]
-                  |  Aliquam magni ducimus facilis numquam dolorum harum eveniet iusto?
+                  | How much development time does it save?
             #faqsThree-5.accordion-collapse.collapse[data-bs-parent="#faq-group-3"]
               .accordion-body
-                |  Aut necessitatibus maxime quis dolor et. Nihil laboriosam molestiae qui molestias placeat corrupti non quo accusamus. Nemo qui quis harum enim sed. Aliquam molestias pariatur delectus voluptas quidem qui rerum id quisquam. Perspiciatis voluptatem voluptatem eos. Vel aut minus labore at rerum eos.
+                | Rails Blueprint typically saves 3-6 weeks of initial development time. Instead of setting up authentication, admin panels, deployment configs, testing frameworks, and design systems from scratch, you start with a production-ready foundation. This allows you to focus immediately on your unique business logic and features.

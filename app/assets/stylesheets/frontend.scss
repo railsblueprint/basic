@@ -3,7 +3,8 @@
 
 @import "actiontext";
 @import "blueadmin/all";
-@import "bootstrap-icons";
+$bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
+@import "bootstrap-icons/font/bootstrap-icons";
 @import "avatars";
 @import "blueadmin/layout";
 
@@ -58,3 +59,4 @@ body.devise {
 .no-wrap {
   white-space: nowrap;
 }
+
