@@ -11,6 +11,7 @@ html
     = javascript_include_tag "admin", "data-turbo-track": "reload"
     = javascript_importmap_tags "application_admin"
     = component :google_analytics
+    = component :facebook_pixel
   body class=body_class data-controller="sidebar"
     = render "layouts/admin/header"
     = render "layouts/admin/sidebar"
