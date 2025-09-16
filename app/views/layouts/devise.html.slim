@@ -10,7 +10,7 @@ html
     = stylesheet_link_tag "frontend", "data-turbo-track": "reload", "data-stylesheet": "frontend.css"
     = javascript_importmap_tags "application_frontend"
     = action_cable_meta_tag
-    = render GoogleAnalyticsComponent.new
+    = component :google_analytics
   body class=body_class class="devise"
     main.main
       .container
