@@ -13,6 +13,7 @@ require "spec_helper"
 require "wisper/rspec/matchers"
 # require "wisper/rspec/stub_wisper_publisher"
 require "pundit/rspec"
+require "view_component/test_helpers"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -46,6 +47,10 @@ RSpec.configure do |config|
 
   # Include time helpers for freeze_time and travel_to
   config.include ActiveSupport::Testing::TimeHelpers
+
+  # Include ViewComponent test helpers for component specs
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include Capybara::RSpecMatchers, type: :component
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
