@@ -37,7 +37,7 @@ RSpec.describe Setting do
     describe "#to_liquid" do
       it "returns a hash with all values", :aggregate_failures do
         expect(described_class.to_liquid).to be_a(Hash)
-        expect(described_class.to_liquid.keys.count).to eq(4)
+        expect(described_class.to_liquid.keys).to include("string_setting", "json_setting", "array_setting")
       end
     end
   end

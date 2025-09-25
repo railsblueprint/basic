@@ -8,10 +8,10 @@ class GoogleAnalyticsComponent < ViewComponent::Base
   private
 
   def enabled?
-    AppConfig.google_analytics.enabled == true
+    AppConfig.google_analytics&.enabled == true
   end
 
   def google_analytics_id
-    AppConfig.google_analytics.id
+    AppConfig.google_analytics&.id
   end
 end
