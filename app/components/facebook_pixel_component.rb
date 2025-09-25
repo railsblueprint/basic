@@ -8,10 +8,10 @@ class FacebookPixelComponent < ViewComponent::Base
   private
 
   def enabled?
-    AppConfig.facebook_pixel.enabled == true
+    AppConfig.facebook_pixel&.enabled == true
   end
 
   def facebook_pixel_id
-    AppConfig.facebook_pixel.id
+    AppConfig.facebook_pixel&.id
   end
 end
