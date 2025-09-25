@@ -10,6 +10,11 @@ RSpec.describe YandexMetrikaComponent, type: :component do
         AppConfig.set("yandex_metrika.id", "12345678")
       end
 
+      after do
+        AppConfig.delete("yandex_metrika.enabled")
+        AppConfig.delete("yandex_metrika.id")
+      end
+
       it "renders the component" do
         expect(described_class.new.render?).to be true
       end
@@ -22,8 +27,8 @@ RSpec.describe YandexMetrikaComponent, type: :component do
 
       it "includes noscript fallback" do
         rendered = render_inline(described_class.new)
-        expect(rendered.to_html).to include('<noscript>')
-        expect(rendered.to_html).to include('https://mc.yandex.ru/watch/12345678')
+        expect(rendered.to_html).to include("<noscript>")
+        expect(rendered.to_html).to include("https://mc.yandex.ru/watch/12345678")
       end
 
       it "includes all tracking features" do
@@ -35,11 +40,6 @@ RSpec.describe YandexMetrikaComponent, type: :component do
         expect(rendered.to_html).to include("trackLinks:true")
         expect(rendered.to_html).to include('ecommerce:"dataLayer"')
       end
-
-      after do
-        AppConfig.delete("yandex_metrika.enabled")
-        AppConfig.delete("yandex_metrika.id")
-      end
     end
 
     context "when Yandex Metrika is disabled" do
@@ -48,13 +48,13 @@ RSpec.describe YandexMetrikaComponent, type: :component do
         AppConfig.set("yandex_metrika.id", "12345678")
       end
 
-      it "does not render the component" do
-        expect(described_class.new.render?).to be false
-      end
-
       after do
         AppConfig.delete("yandex_metrika.enabled")
         AppConfig.delete("yandex_metrika.id")
+      end
+
+      it "does not render the component" do
+        expect(described_class.new.render?).to be false
       end
     end
 
@@ -64,13 +64,13 @@ RSpec.describe YandexMetrikaComponent, type: :component do
         AppConfig.set("yandex_metrika.id", "")
       end
 
-      it "does not render the component" do
-        expect(described_class.new.render?).to be false
-      end
-
       after do
         AppConfig.delete("yandex_metrika.enabled")
         AppConfig.delete("yandex_metrika.id")
+      end
+
+      it "does not render the component" do
+        expect(described_class.new.render?).to be false
       end
     end
 
