@@ -290,6 +290,155 @@ describe BaseCommand do
     end
   end
 
+  context "ok broadcast with result" do
+    describe "default behavior" do
+      before do
+        stub_const("CommandWithResult",
+                   Class.new(BaseCommand) do
+                     def process
+                       { success: true, data: "test_data" }
+                     end
+                   end)
+        stub_const("CommandReturningNil",
+                   Class.new(BaseCommand) do
+                     def process
+                       nil
+                     end
+                   end)
+        stub_const("CommandReturningString",
+                   Class.new(BaseCommand) do
+                     def process
+                       "Simple string result"
+                     end
+                   end)
+        stub_const("CommandReturningObject",
+                   Class.new(BaseCommand) do
+                     def process
+                       User.new(email: "test@example.com")
+                     end
+                   end)
+      end
+
+      it "broadcasts :ok with the result from process method" do
+        command = CommandWithResult.new
+        expect { command.call }.to broadcast(:ok, { success: true, data: "test_data" })
+      end
+
+      it "broadcasts :ok with nil when process returns nil" do
+        command = CommandReturningNil.new
+        expect { command.call }.to broadcast(:ok, nil)
+      end
+
+      it "broadcasts :ok with string result" do
+        command = CommandReturningString.new
+        expect { command.call }.to broadcast(:ok, "Simple string result")
+      end
+
+      it "broadcasts :ok with object result" do
+        user = User.new(email: "test@example.com")
+        allow(User).to receive(:new).with(email: "test@example.com").and_return(user)
+
+        command = CommandReturningObject.new
+        expect { command.call }.to broadcast(:ok, user)
+      end
+
+      it "allows listeners to access the result" do
+        command = CommandWithResult.new
+        result_received = nil
+
+        command.on(:ok) do |result|
+          result_received = result
+        end
+
+        command.call
+        expect(result_received).to eq({ success: true, data: "test_data" })
+      end
+
+      it "returns the process result from call method" do
+        command = CommandWithResult.new
+        result = command.call
+        expect(result).to eq({ success: true, data: "test_data" })
+      end
+
+      it "preserves backward compatibility when listener expects no arguments" do
+        command = CommandWithResult.new
+        listener_called = false
+
+        command.on(:ok) do
+          listener_called = true
+        end
+
+        expect { command.call }.not_to raise_error
+        expect(listener_called).to be(true)
+      end
+
+      context "when command aborts" do
+        before do
+          stub_const("CommandThatAborts",
+                     Class.new(BaseCommand) do
+                       def process
+                         abort_command
+                         { should_not: "reach_here" }
+                       end
+                     end)
+        end
+
+        it "does not broadcast :ok when command aborts" do
+          command = CommandThatAborts.new
+          command.on(:abort) {} # Add listener to prevent exception
+
+          expect { command.call }.not_to broadcast(:ok)
+          expect { command.call }.to broadcast(:abort)
+        end
+      end
+
+      context "when command is invalid" do
+        before do
+          stub_const("InvalidCommand",
+                     Class.new(BaseCommand) do
+                       attribute :always_fail, BaseCommand::Types::String
+                       validates :always_fail, presence: true
+
+                       def process
+                         { should_not: "reach_here" }
+                       end
+                     end)
+        end
+
+        it "does not broadcast :ok when validation fails" do
+          command = InvalidCommand.new
+          command.on(:invalid) {} # Add listener to prevent exception
+
+          expect { command.call }.not_to broadcast(:ok)
+          expect { command.call }.to broadcast(:invalid)
+        end
+      end
+
+      context "when command is unauthorized" do
+        before do
+          stub_const("UnauthorizedCommand",
+                     Class.new(BaseCommand) do
+                       def authorized?
+                         false
+                       end
+
+                       def process
+                         { should_not: "reach_here" }
+                       end
+                     end)
+        end
+
+        it "does not broadcast :ok when authorization fails" do
+          command = UnauthorizedCommand.new
+          command.on(:unauthorized) {} # Add listener to prevent exception
+
+          expect { command.call }.not_to broadcast(:ok)
+          expect { command.call }.to broadcast(:unauthorized)
+        end
+      end
+    end
+  end
+
   context "default values in attributes" do
     let(:command_with_defaults) { WithDefaultsCommand }
     let(:command_with_complex_defaults) { WithComplexDefaultsCommand }

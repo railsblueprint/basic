@@ -16,7 +16,9 @@
 #   attribute :order_id, Types::Integer
 #
 #   def process
-#     Order.find(order_id).destroy
+#     order = Order.find(order_id)
+#     order.destroy
+#     order  # returned value is passed to :ok listeners
 #   end
 # end
 #
@@ -39,7 +41,8 @@
 #   validate :name_format
 #
 #   def process
-#     Order.create(name: name, owner: user)
+#     order = Order.create(name: name, owner: user)
+#     order  # returned order is passed to :ok listeners
 #   end
 #
 #   memoize def user
@@ -89,8 +92,9 @@
 # Use in controller:
 # def create
 #   CreateOrder.call(user_id: current.user_id, name: params[:name]) do |command|
-#     command.on(:ok) do
-#       render :success
+#     command.on(:ok) do |order|
+#       # order is the result returned by process method
+#       redirect_to order_path(order)
 #     end
 #     command.on(:unauthorized) do
 #       redirect_to :index, flash: {error: "You are not authorized"}
@@ -351,9 +355,9 @@ class BaseCommand
   def call_without_transaction
     return if preflight_nok?
 
-    process.tap {
-      broadcast_ok
-    }
+    @process_result = process
+    broadcast_ok
+    @process_result
   end
 
   def preflight_nok?
@@ -392,7 +396,7 @@ class BaseCommand
   end
 
   def broadcast_ok
-    broadcast(:ok)
+    broadcast(:ok, @process_result)
   end
 
   def authorized?
