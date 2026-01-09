@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.4.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.1.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -116,7 +116,7 @@ gem "sd_notify", "~> 0.1.1"
 gem "simple_xlsx_reader", "~> 1.0"
 gem "slim", "~> 4.1"
 gem "stimulus_reflex", "~> 3.5.pre9"
-gem "uri", "~> 0.13.2"
+gem "uri", "~> 0.13.3"
 gem "view_component"
 gem "view_component_reflex"
 gem "wannabe_bool", "~> 0.7.1"

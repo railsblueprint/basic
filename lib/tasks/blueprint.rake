@@ -29,9 +29,10 @@ class CredentialsGenerator < Rails::Generators::Base
     end
     say "Creating #{key_path}", :green
 
-    encryption_key_file_generator = Rails::Generators::EncryptionKeyFileGenerator.new
-    encryption_key_file_generator.add_key_file_silently(key_path)
-    encryption_key_file_generator.ignore_key_file(key_path)
+    generator = Rails::Generators::EncryptionKeyFileGenerator.new
+    generator.add_key_file_silently(key_path)
+    # ignore_key_file was removed in Rails 8.1 - gitignore is now handled automatically
+    generator.ignore_key_file(key_path) if generator.respond_to?(:ignore_key_file)
   end
 
   def encrypted_file
