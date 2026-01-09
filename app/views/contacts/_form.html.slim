@@ -9,6 +9,9 @@ turbo-frame id="frame_#{dom_id(@command)}"
         = f.text_field :subject, hide_label: true, placeholder: t('.subject')
       .col-md-12
         = f.text_area :message, hide_label: true, placeholder: t('.message'), rows: 6
+      / Honeypot field - hidden from users, bots will fill it
+      .contact-form-hp
+        = f.text_field :website, hide_label: true, placeholder: "Website", tabindex: -1, autocomplete: "off"
       .col-md-12.text-center
         button type="submit" class="btn btn-primary"
           = t('actions.send_message')

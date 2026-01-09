@@ -26,3 +26,12 @@
     margin: 100px 0;
   }
 }
+
+// Honeypot field - hidden from users to catch bots
+.contact-form-hp {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
