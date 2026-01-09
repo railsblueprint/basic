@@ -186,6 +186,5 @@ group :test do
   gem "shoulda-matchers"
   gem "simplecov", require: false
   gem "spring-commands-rspec"
-  gem "webdrivers"
   gem "wisper-rspec"
 end
