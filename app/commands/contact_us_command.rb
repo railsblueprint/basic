@@ -3,11 +3,30 @@ class ContactUsCommand < BaseCommand
   attribute :email, Types::String
   attribute :subject, Types::String
   attribute :message, Types::String
+  # Honeypot field - hidden from users, filled by bots
+  attribute :website, Types::String.optional
 
   validates_presence_of :name, :email, :subject, :message
 
   def process
-    send_notification
+    if bot_submission?
+      log_bot_submission
+    else
+      send_notification
+    end
+  end
+
+  private
+
+  def bot_submission?
+    website.present?
+  end
+
+  def log_bot_submission
+    Rails.logger.warn(
+      "[HONEYPOT] Bot submission detected - " \
+      "name: #{name}, email: #{email}, subject: #{subject}, website: #{website}"
+    )
   end
 
   def send_notification

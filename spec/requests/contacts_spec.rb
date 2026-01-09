@@ -78,6 +78,29 @@ RSpec.describe "Contacts page" do
       end
     end
 
+    context "with honeypot field filled (bot submission)" do
+      let(:honeypot_params) {
+        {
+          contact_us_command: {
+            name:    "Bot",
+            email:   "bot@spam.com",
+            subject: "spam",
+            message: "buy now",
+            website: "http://spam.com"
+          }
+        }
+      }
+
+      it "returns http success" do
+        post "/contacts", params: honeypot_params
+        expect(response).to redirect_to("/contacts")
+      end
+
+      it "does not send email" do
+        expect { post "/contacts", params: honeypot_params }.not_to have_enqueued_mail
+      end
+    end
+
     context "as a trubostream" do
       let(:params) {
         {
