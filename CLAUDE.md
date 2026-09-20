@@ -28,25 +28,32 @@ Plus merges `basic/blueprint-basic-master`. Pro rebases on `origin/blueprint-plu
 syncing the fork. Saas follows pro, and each demo repository follows its edition. A change made
 directly in a lower edition is overwritten or conflicts on the next propagation, so fix it in
 basic unless it only exists in that edition. This file is carried down the chain unchanged, which
-is why nothing in it names a particular edition's branch.
+is why it does not name this edition's default branch.
 
 Commit messages carry the edition prefix: `[RailsBlueprint Basic]`, `[RailsBlueprint Plus]`,
 `[RailsBlueprint Pro]`, `[RailsBlueprint SaaS]`.
 
 ### A bare checkout cannot boot
 
-`rails blueprint:init` renders these from their `*.template` siblings and they are never committed:
-`config/app.yml`, `config/app_config.rb`, `config/cable.yml`, `config/database.yml`,
-`config/storage.yml`, `config/importmap.rb`, `config/i18n-tasks.yml`, `config/newrelic.yml`,
-`config/schedule.rb`, `config/deploy.rb`, `config/deploy/*.rb`, `config/credentials.yml.enc`,
-`config/credentials/{staging,production}.yml.enc`, `package.json` and `.env`. Together with
-`config/master.key`, the credentials keys, `node_modules` and the compiled CSS in
-`app/assets/builds`, none of them reach a worktree cut from the default branch.
+`rails blueprint:init` renders these from their `*.template` siblings, and none of them are
+tracked in the edition repositories: `config/app.yml`, `config/app_config.rb`, `config/cable.yml`,
+`config/database.yml`, `config/storage.yml`, `config/importmap.rb`, `config/i18n-tasks.yml`,
+`config/newrelic.yml`, `config/schedule.rb`, `config/deploy.rb`, `config/deploy/*.rb`,
+`config/credentials.yml.enc`, `config/credentials/{staging,production}.yml.enc`, `package.json`
+and `.env`. Together with `config/master.key`, the credentials keys, `node_modules` and the
+compiled CSS in `app/assets/builds`, none of them reach a worktree cut from the default branch.
 
-The rendered files are kept out of git through the primary checkout's `.git/info/exclude`, not
-through `.gitignore`. Worktrees share that file with the checkout they were cut from. A fresh
-clone has none of those entries, so after `blueprint:init` add each rendered file to
-`.git/info/exclude` yourself, or they show up as untracked. They must never be committed.
+Who commits the rendered files depends on which repository you are in. A project started from
+the template, and each demo repository, commits them: that is what the README's post-init
+`git add . ; git commit -a` step is for, and `.blueprint_templates`, which `blueprint:init` writes
+to track template versions, is committed with them. The edition repositories (basic, plus, pro,
+saas) never commit any of them, because a rendered file in an edition would propagate down the
+chain as somebody's private configuration. `.gitignore` covers only `.env`, `config/master.key`
+and the credentials keys; the rendered files and `.blueprint_templates` are kept out of an
+edition checkout through its `.git/info/exclude`, one line per file, which worktrees share with
+the checkout they were cut from. A fresh clone of an edition has none of those entries, so after
+`blueprint:init` add each rendered file and `.blueprint_templates` to `.git/info/exclude`
+yourself, or they show up as untracked.
 
 Do not run `blueprint:init` in a worktree: it prompts, and it renders new credentials and keys.
 Link the files from the primary checkout instead. From inside any worktree:
@@ -110,7 +117,10 @@ bundle exec rails dartsass:build
 
 `blueprint:init` asks for the short application name when it is not given as the argument, and
 writes the rendered files listed above plus `config/master.key` and the credentials keys. Run it
-once, on a fresh clone. On an existing checkout it skips files that already exist.
+once, on a fresh clone. On an existing checkout it prompts for every rendered file, `.env`
+included, whose content differs from what the template renders now, and pressing Enter at that
+prompt overwrites the file; only `config/master.key`, the credentials keys and the `.yml.enc`
+files are skipped when present.
 
 Check:
 
