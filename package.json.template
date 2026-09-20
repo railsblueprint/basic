@@ -21,6 +21,6 @@
     "simple-datatables": "^9.0.0",
     "simpledotcss": "^2.0.0",
     "stimulus_reflex": "^3.5.0-pre9",
-    "suneditor": "^2.45.1"
+    "suneditor": "^3.3.3"
   }
 }

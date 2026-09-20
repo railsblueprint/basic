@@ -4,6 +4,7 @@ default: &default
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
   host: <%= ENV['POSTGRES_HOST'] %>
+  port: <%= ENV.fetch('POSTGRES_PORT', 5432) %>
   pool: 5
   database: <%= ENV['POSTGRES_DB'] %>
 

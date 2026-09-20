@@ -51,7 +51,7 @@ pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.0/modular/sortable
 pin "fontawesome", to: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/index.js"
 pin "simple-datatables", to: "simple-datatables/dist/module.js"
 
-pin "suneditor", to: "https://ga.jspm.io/npm:suneditor@2.45.1/src/suneditor.js"
-pin "suneditor/plugins", to: "https://ga.jspm.io/npm:suneditor@2.45.1/src/plugins/index.js"
+pin "suneditor", to: "https://ga.jspm.io/npm:suneditor@3.3.3/src/suneditor.js"
+pin "suneditor/plugins", to: "https://ga.jspm.io/npm:suneditor@3.3.3/src/plugins/index.js"
 pin "codemirror5", to: "https://ga.jspm.io/npm:codemirror@5.58.2/lib/codemirror.js"
 pin "codemirror5/mode/htmlmixed", to: "https://ga.jspm.io/npm:codemirror@5.58.2/mode/htmlmixed/htmlmixed.js"

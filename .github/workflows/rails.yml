@@ -9,33 +9,66 @@ name: Ruby on Rails
 
 on:
   push:
+    branches: [ blueprint-basic-master ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ blueprint-basic-master ]
   workflow_dispatch:
-    branches: [ $default-branch ]
 
 permissions:
   contents: read
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ci]
+    timeout-minutes: 30
     services:
       postgres:
-        image: postgres:11
+        image: postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: rbp_basic_test
         ports:
-          - 5432:5432
+          - 5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: false
+          bundler: none
+      - name: Install gems
+        run: |
+          bundle config path "$HOME/.bundle/railsblueprint-basic"
+          bundle install --jobs "$(nproc)" --retry 2
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Set up Chrome
+        id: chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: '152'
+          install-chromedriver: true
+      - name: Point the suite at that Chrome
+        env:
+          CHROME: ${{ steps.chrome.outputs.chrome-path }}
+          CHROMEDRIVER: ${{ steps.chrome.outputs.chromedriver-path }}
+        run: |
+          browser_major=$("$CHROME" --version | grep -oE '[0-9]+' | head -1)
+          driver_major=$("$CHROMEDRIVER" --version | grep -oE '[0-9]+' | head -1)
+          if [ "$browser_major" != "$driver_major" ]; then
+            echo "Chrome $browser_major does not match chromedriver $driver_major"
+            exit 1
+          fi
+          echo "CHROME_BIN=$CHROME" >> $GITHUB_ENV
+          echo "CHROMEDRIVER_BIN=$CHROMEDRIVER" >> $GITHUB_ENV
+          "$CHROME" --version
+          "$CHROMEDRIVER" --version
       - name: Setup config files
         run: |
           cp -f config/app_config.rb.ci config/app_config.rb
@@ -96,23 +129,35 @@ jobs:
         run: bundle exec bin/importmap audit
 
   blueprint-init:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ci]
+    timeout-minutes: 30
     services:
       postgres:
-        image: postgres:11
+        image: postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test_app_test
         ports:
-          - 5432:5432
+          - 5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          bundler-cache: false
+          bundler: none
+      - name: Install gems
+        run: |
+          bundle config path "$HOME/.bundle/railsblueprint-basic"
+          bundle install --jobs "$(nproc)" --retry 2
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
       - name: Install Yarn & modules
         run: |
           npm install -g yarn
