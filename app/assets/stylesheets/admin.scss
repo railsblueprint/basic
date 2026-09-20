@@ -13,7 +13,7 @@ $bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
 @import "simple-datatables/dist/style";
 @import "actiontext";
 @import 'https://ga.jspm.io/npm:codemirror@5.52.2/lib/codemirror.css';
-@import 'suneditor/src/assets/suneditor';
+@import 'suneditor/dist/suneditor.min';
 
 @import "select2/src/scss/core";
 //Next line fixes incompatibility with bootstrap 5.2.3 and later
