@@ -82,14 +82,64 @@ class ConfigGenerator < Rails::Generators::Base
   end
 end
 
+class DefaultBranchRewriter
+  RUBOCOP_TASK = "lib/tasks/rubocop.rake".freeze
+  WORKFLOW = ".github/workflows/rails.yml".freeze
+
+  def initialize(branch, root: Rails.root)
+    @branch = branch
+    @root = Pathname.new(root)
+  end
+
+  def call
+    [
+      rewrite(RUBOCOP_TASK) { |content| rewrite_rubocop(content) },
+      rewrite(WORKFLOW) { |content| rewrite_workflow(content) }
+    ]
+  end
+
+  private
+
+  def rewrite(file)
+    path = @root.join(file)
+    return "#{file}: not found" unless path.exist?
+
+    before = path.read
+    after = yield(before)
+    return "#{file}: unchanged" if before == after
+
+    path.write(after)
+    "#{file}: default branch set to #{@branch}"
+  end
+
+  def rewrite_rubocop(content)
+    content.sub(/^rubocop_dev_branch = ".*"$/, "rubocop_dev_branch = \"#{@branch}\"")
+  end
+
+  def rewrite_workflow(content)
+    in_triggers = false
+    content.lines.map { |line|
+      in_triggers = line.start_with?("on:") if line.match?(/^\S/)
+      next line unless in_triggers
+
+      line.sub(/^(\s+branches: \[ ).*( \]\s*)$/, "\\1#{@branch}\\2")
+    }.join
+  end
+end
+
 # rubocop:disable Rails/RakeEnvironment
 namespace :blueprint do
   desc "Initialise new project"
-  task :init, [:app_name] do |_t, args|
+  task :init, [:app_name, :default_branch] do |_t, args|
     Thor.new.say "Initialising new project", :green
 
     # Set app name from command line argument or environment variable
     ENV["app_prefix"] = args[:app_name].parameterize.underscore if args[:app_name]
+
+    default_branch = args[:default_branch].presence ||
+                     `git branch --show-current`.strip.presence ||
+                     Thor.new.ask("What is the default branch of your repository?", default: "master").presence ||
+                     "master"
 
     [
       %w[config/master.key config/credentials.yml.enc],
@@ -117,6 +167,8 @@ namespace :blueprint do
     ].each do |file|
       ConfigGenerator.new([file]).invoke_all
     end
+
+    DefaultBranchRewriter.new(default_branch).call.each { |line| Thor.new.say line, :green }
 
     # Save template metadata for future updates
     TemplateTracker.new.save_all_templates

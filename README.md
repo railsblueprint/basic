@@ -138,6 +138,23 @@ git remote add origin "Your git repository"
 git push origin master
 ```
 
+#### After forking
+Whichever path you took, your default branch is not `blueprint-basic-master` any more, and two places in the
+code depend on its name: the branch lists in `.github/workflows/rails.yml` that trigger CI, and the branch
+`rake rubocop:changed` diffs against in `lib/tasks/rubocop.rake`. `blueprint:init` points both at your branch:
+
+```
+bundle exec rails blueprint:init[my_app_name,main]
+```
+
+Leave the second argument out and it uses the branch you are on (or asks when it cannot tell). Running it
+again on an initialised project changes nothing there and says so.
+
+CI runs on GitHub-hosted runners unless you set a `CI_RUNNER` repository variable holding a JSON `runs-on`
+value, e.g. `["self-hosted","ci"]`. The `blueprint-init` job in the workflow is the template's own self-test
+of the initialisation process; it is switched on by the `BLUEPRINT_TEMPLATE` variable on the Rails Blueprint
+repositories and stays off in your project.
+
 ### Setting up
 #### Prerequisites
 Rails blueprint relies on Postgresql and Redis. Using rbenv or rvm is recommended. If you are using MacOS, 
