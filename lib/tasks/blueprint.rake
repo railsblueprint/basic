@@ -82,14 +82,64 @@ class ConfigGenerator < Rails::Generators::Base
   end
 end
 
+class DefaultBranchRewriter
+  RUBOCOP_TASK = "lib/tasks/rubocop.rake".freeze
+  WORKFLOW = ".github/workflows/rails.yml".freeze
+
+  def initialize(branch, root: Rails.root)
+    @branch = branch
+    @root = Pathname.new(root)
+  end
+
+  def call
+    [
+      rewrite(RUBOCOP_TASK) { |content| rewrite_rubocop(content) },
+      rewrite(WORKFLOW) { |content| rewrite_workflow(content) }
+    ]
+  end
+
+  private
+
+  def rewrite(file)
+    path = @root.join(file)
+    return "#{file}: not found" unless path.exist?
+
+    before = path.read
+    after = yield(before)
+    return "#{file}: unchanged" if before == after
+
+    path.write(after)
+    "#{file}: default branch set to #{@branch}"
+  end
+
+  def rewrite_rubocop(content)
+    content.sub(/^rubocop_dev_branch = ".*"$/, "rubocop_dev_branch = \"#{@branch}\"")
+  end
+
+  def rewrite_workflow(content)
+    in_triggers = false
+    content.lines.map { |line|
+      in_triggers = line.start_with?("on:") if line.match?(/^\S/)
+      next line unless in_triggers
+
+      line.sub(/^(\s+branches: \[ ).*( \]\s*)$/, "\\1#{@branch}\\2")
+    }.join
+  end
+end
+
 # rubocop:disable Rails/RakeEnvironment
 namespace :blueprint do
   desc "Initialise new project"
-  task :init, [:app_name] do |_t, args|
+  task :init, [:app_name, :default_branch] do |_t, args|
     Thor.new.say "Initialising new project", :green
 
     # Set app name from command line argument or environment variable
     ENV["app_prefix"] = args[:app_name].parameterize.underscore if args[:app_name]
+
+    default_branch = args[:default_branch].presence ||
+                     `git branch --show-current`.strip.presence ||
+                     Thor.new.ask("What is the default branch of your repository?", default: "master").presence ||
+                     "master"
 
     [
       %w[config/master.key config/credentials.yml.enc],
@@ -118,13 +168,15 @@ namespace :blueprint do
       ConfigGenerator.new([file]).invoke_all
     end
 
+    DefaultBranchRewriter.new(default_branch).call.each { |line| Thor.new.say line, :green }
+
     # Save template metadata for future updates
     TemplateTracker.new.save_all_templates
     Thor.new.say "Template tracking initialized for future updates", :green
   end
 
   desc "Check for template updates and optionally apply them"
-  # rubocop:disable Metrics/BlockNesting
+  # rubocop:disable-next Metrics/BlockNesting
   task check_templates: :environment do
     require "digest"
     require "yaml"
@@ -156,7 +208,6 @@ namespace :blueprint do
       Thor.new.say "This will create a baseline for tracking future template changes.", :cyan
     end
   end
-  # rubocop:enable Metrics/BlockNesting
 
   desc "Force update all templates (creates backups)"
   task update_templates: :environment do
@@ -266,7 +317,7 @@ class TemplateTracker
 
   public
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def apply_updates(changes)
     changes.each do |change|
       Thor.new.say "\nProcessing #{change[:file]}...", :cyan
@@ -294,9 +345,8 @@ class TemplateTracker
 
     save_tracking_data
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def force_update_all
     Thor.new.say "WARNING: Force update copies raw template files without processing ERB placeholders!", :red
     Thor.new.say "This command is intended for development use only.", :yellow
@@ -330,7 +380,6 @@ class TemplateTracker
     Thor.new.say "All templates updated. Backups saved to: #{backup_dir}", :green
     Thor.new.say "IMPORTANT: You need to manually process ERB placeholders in the updated files!", :red
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
