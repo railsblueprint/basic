@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   test:
-    runs-on: [self-hosted, ci]
+    runs-on: ${{ fromJSON(vars.CI_RUNNER || '"ubuntu-latest"') }}
     timeout-minutes: 30
     services:
       postgres:
@@ -129,7 +129,8 @@ jobs:
         run: bundle exec bin/importmap audit
 
   blueprint-init:
-    runs-on: [self-hosted, ci]
+    if: ${{ vars.BLUEPRINT_TEMPLATE == 'true' }}
+    runs-on: ${{ fromJSON(vars.CI_RUNNER || '"ubuntu-latest"') }}
     timeout-minutes: 30
     services:
       postgres:
@@ -172,8 +173,8 @@ jobs:
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
           DATABASE_URL: postgresql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/test_app_test
         run: |
-          echo "Testing blueprint:init task with app_name=test_app"
-          bundle exec rails blueprint:init[test_app]
+          echo "Testing blueprint:init task with app_name=test_app and default_branch=main"
+          bundle exec rails blueprint:init[test_app,main]
           
           echo "Verifying config files were created correctly"
           test -f config/app_config.rb || { echo "app_config.rb not created"; exit 1; }
@@ -187,6 +188,14 @@ jobs:
           
           echo "Checking that app_name was properly set in config files"
           grep -q "test_app" config/app.yml || { echo "app_name not found in app.yml"; exit 1; }
+          
+          echo "Checking that the default branch was written into rubocop and the CI triggers"
+          grep -q 'rubocop_dev_branch = "main"' lib/tasks/rubocop.rake || { echo "default branch not set in rubocop.rake"; exit 1; }
+          test "$(grep -c '^    branches: \[ main \]$' .github/workflows/rails.yml)" = 2 || { echo "default branch not set in workflow triggers"; exit 1; }
+          
+          echo "Checking that rubocop:changed resolves the rewritten branch"
+          git branch -f main HEAD
+          GITHUB_BASE_REF= bundle exec rake rubocop:changed || { echo "rubocop:changed cannot diff against main"; exit 1; }
           
           echo "Creating and migrating database with data migrations"
           bundle exec rails db:create

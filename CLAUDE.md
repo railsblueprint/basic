@@ -116,8 +116,11 @@ bundle exec rails dartsass:build
 ```
 
 `blueprint:init` asks for the short application name when it is not given as the argument, and
-writes the rendered files listed above plus `config/master.key` and the credentials keys. Run it
-once, on a fresh clone. On an existing checkout it prompts for every rendered file, `.env`
+writes the rendered files listed above plus `config/master.key` and the credentials keys. Its
+second, optional argument is the repository's default branch (`blueprint:init[name,main]`); when
+it is left out the current branch is used, and the task asks on a detached HEAD. It rewrites the
+`rubocop_dev_branch` literal in `lib/tasks/rubocop.rake` and the `branches` lists under `on:` in
+`.github/workflows/rails.yml` to that name, only when they differ. Run it once, on a fresh clone. On an existing checkout it prompts for every rendered file, `.env`
 included, whose content differs from what the template renders now, and pressing Enter at that
 prompt overwrites the file; only `config/master.key`, the credentials keys and the `.yml.enc`
 files are skipped when present.
@@ -131,13 +134,16 @@ bundle exec rake rubocop:changed
 ```
 
 `rubocop:changed` lints only the files that differ from the merge base with the default branch, so
-it sees committed changes and nothing uncommitted.
+it sees committed changes and nothing uncommitted. The branch it diffs against is `GITHUB_BASE_REF`
+when set, then `RUBOCOP_DEV_BRANCH`, then the literal in `lib/tasks/rubocop.rake`.
 
-CI runs on the self-hosted runner for every push to the default branch and every pull request
-against it. It copies the `config/*.ci` files over the rendered ones, so the suite there runs
+CI runs for every push to the default branch and every pull request against it, on the runner
+named by the `CI_RUNNER` repository variable (a JSON `runs-on` value; the edition repositories
+point it at the self-hosted runner, and a repository without it gets GitHub-hosted runners). It copies the `config/*.ci` files over the rendered ones, so the suite there runs
 against `config/database.yml.ci` and the `POSTGRES_*` variables rather than anything from
 `blueprint:init`. The steps, in order: `rake rubocop:changed`, `db:create` and `db:schema:load`,
 `zeitwerk:check`, `dartsass:build`, the full `rspec` suite, then `bundle-audit` and
-`bin/importmap audit`. A second job runs `blueprint:init[test_app]` on a clean checkout and
-migrates against it, so a change to a template or to `lib/tasks/blueprint.rake` is exercised
-there rather than only in the main job.
+`bin/importmap audit`. A second job, switched on by the `BLUEPRINT_TEMPLATE` repository variable
+that only the edition repositories carry, runs `blueprint:init[test_app,main]` on a clean checkout,
+asserts the branch rewrite and a working `rubocop:changed`, and migrates against it, so a change to
+a template or to `lib/tasks/blueprint.rake` is exercised there rather than only in the main job.

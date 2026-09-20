@@ -56,6 +56,10 @@ Style/SymbolArray:
   Enabled: true
   EnforcedStyle: brackets
 
+Style/OneClassPerFile:
+  Exclude:
+    - lib/tasks/*.rake
+
 # Most readable form.
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
