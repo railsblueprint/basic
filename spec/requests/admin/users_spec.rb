@@ -1,14 +1,20 @@
 RSpec.describe "Admin Users" do
-  options = { resource: :users, model: User, has_filters: true }
   let(:admin) { create(:user, :superadmin) }
 
-  it_behaves_like "admin crud controller", options
-  it_behaves_like "admin crud controller paginated index", options
-  it_behaves_like "admin crud controller show resource", options
+  it_behaves_like "admin crud controller", resource: :users, model: User, has_filters: true
+  it_behaves_like "admin crud controller paginated index", resource: :users, model: User, has_filters: true
+  it_behaves_like "admin crud controller show resource", resource: :users, model: User, has_filters: true
 
   describe "GET /admin/users" do
-    let!(:testuser) { create(:user, first_name: "test") }
-    let!(:otheruser) { create(:user, first_name: "other") }
+    let(:admin) do
+      create(:user, :superadmin, first_name: "Ada", last_name: "Bracegirdle", email: "ada.bracegirdle@example.com")
+    end
+    let!(:testuser) do
+      create(:user, first_name: "test", last_name: "Fitzwilliam", email: "test.fitzwilliam@example.com")
+    end
+    let!(:otheruser) do
+      create(:user, first_name: "other", last_name: "Zimmerling", email: "other.zimmerling@example.com")
+    end
 
     before do
       sign_in admin
@@ -91,7 +97,7 @@ RSpec.describe "Admin Users" do
           attributes[:user][:password_confirmation] = "different"
 
           patch update_password_admin_user_path(user), params: attributes
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
 
           # Verify password was not changed
           user.reload
@@ -106,7 +112,7 @@ RSpec.describe "Admin Users" do
           attributes[:user][:password_confirmation] = "short"
 
           patch update_password_admin_user_path(user), params: attributes
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
 
           # Verify password was not changed
           user.reload
