@@ -7,7 +7,7 @@ describe Users::UpdateCommand, type: :command do
 
   before do
     allow(TemplateDeviseMailer).to receive(:confirmation_instructions)
-      .and_return(instance_double(Mail::Message, deliver: true))
+      .and_return(instance_double(ActionMailer::MessageDelivery, deliver_now: true))
   end
 
   it "broadcasts ok" do

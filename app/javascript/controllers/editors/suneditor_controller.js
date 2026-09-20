@@ -10,30 +10,38 @@ import 'codemirror5/mode/htmlmixed';
 export default class extends Controller {
     connect() {
         this.editor = suneditor.create(this.element, {
-            codeMirror: CodeMirror,
+            externalLibs: {
+                codeMirror: {src: CodeMirror}
+            },
             plugins: plugins,
             buttonList: [
                 ['undo', 'redo'],
-                ['formatBlock'],
+                ['blockStyle'],
                 ['paragraphStyle', 'blockquote'],
                 ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-                ['fontColor', 'hiliteColor', 'textStyle'],
+                ['fontColor', 'backgroundColor', 'textStyle'],
                 ['removeFormat'],
                 ['outdent', 'indent'],
-                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                ['align', 'hr', 'list', 'lineHeight'],
                 ['table', 'link', 'image'],
                 ['fullScreen', 'showBlocks', 'codeView'],
             ],
-            height: 600
+            height: '600px',
+            events: {
+                // Keep the underlying textarea current so a plain form submit carries the content.
+                onChange: ({data}) => {
+                    this.element.value = data;
+                }
+            }
         });
 
         if(this.element.disabled) {
-            this.editor.readOnly(true);
+            this.editor.$.ui.readOnly(true);
         }
+    }
 
-        this.editor.onChange =  (contents, core) =>  {
-            this.editor.save();
-        }
-
+    disconnect() {
+        this.editor?.destroy();
+        this.editor = null;
     }
 }

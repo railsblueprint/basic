@@ -498,10 +498,10 @@ stimulus_reflex@^3.5.0-pre9:
     "@rails/actioncable" ">= 6.0"
     cable_ready ">= 5.0.0-pre9"
 
-suneditor@^2.45.1:
-  version "2.45.1"
-  resolved "https://registry.yarnpkg.com/suneditor/-/suneditor-2.45.1.tgz#5ce56a2d67bfd31e2c21f777cc7f5a522631eb06"
-  integrity sha512-fLxc0nLwd77vaPuf78D+VAFNAgX9hLps6h96JA/LUCpqt4LeYnEaIE1RfJojX+BhSA+krl5qZ8pdgqcoo3dN3g==
+suneditor@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/suneditor/-/suneditor-3.3.3.tgz#d71fcc025543866340337a7db904f76bdc13987d"
+  integrity sha512-p/e8ymutQOVDVfGnVo3kVAltkshQdfIDWoR/akMRGg4s1OUuz3eYQGMwd4HbER/oojXLV6YbRrRSQC6hHKSFvA==
 
 svg.draggable.js@^2.2.2:
   version "2.2.2"
