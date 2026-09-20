@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :load_resource, only: [:edit, :update, :password, :cancel_email_change, :resend_confirmation_email]
   def show
-    @resource = params[:id].present? ? User.find(params[:id]) : current_user
+    @resource = params[:id].present? ? User.find(params.expect(:id)) : current_user
     render_404 unless @resource
   end
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
         @command = command
         @password_command = Users::ChangePasswordCommand.new
         flash.now[:error] = errors[:base].to_sentence.presence || I18n.t("messages.failed_to_update_profile")
-        render "form", status: :unprocessable_entity
+        render "form", status: :unprocessable_content
       end
       command.on(:unauthorized) do
         redirect_to "/", error: I18n.t("admin.common.item_update_unauthorized"), turbo_breakout: true
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
         @command = Users::UpdateCommand.build_from_object(current_user)
 
         flash.now[:error] = I18n.t("messages.failed_to_update_password")
-        render "form", status: :unprocessable_entity
+        render "form", status: :unprocessable_content
       end
     end
   end

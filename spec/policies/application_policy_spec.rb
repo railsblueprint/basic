@@ -1,9 +1,8 @@
 RSpec.describe ApplicationPolicy do
   subject { described_class }
 
-  # rubocop:disable RSpec/VerifiedDoubles
+  # rubocop:disable-next RSpec/VerifiedDoubles
   let(:object) { double("test object", all: "all_objects", class: double("model", name: "Model", all: "all_objects")) }
-  # rubocop:enable RSpec/VerifiedDoubles
 
   context "for guest user" do
     let(:user) { nil }

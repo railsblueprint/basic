@@ -45,7 +45,7 @@ module CrudBase # rubocop:disable Metrics/ModuleLength
             message: I18n.t("admin.common.failed_to_update_item", record: model.model_name),
             details: errors.full_messages
           }
-          render :edit, status: :unprocessable_entity
+          render :edit, status: :unprocessable_content
         end
         command.on(:unauthorized) do
           flash[:error] = I18n.t("admin.common.item_update_unauthorized", record: model.model_name)
@@ -68,7 +68,7 @@ module CrudBase # rubocop:disable Metrics/ModuleLength
             details: errors.full_messages
           }
 
-          render :new, status: :unprocessable_entity
+          render :new, status: :unprocessable_content
         end
         command.on(:unauthorized) do
           flash[:error] = I18n.t("admin.common.item_create_unauthorized", record: model.model_name)
@@ -165,7 +165,7 @@ module CrudBase # rubocop:disable Metrics/ModuleLength
     end
 
     def load_resource
-      @resource = scope.find(params[:id])
+      @resource = scope.find(params.expect(:id))
     end
 
     def params_with_context

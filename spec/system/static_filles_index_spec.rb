@@ -1,7 +1,7 @@
 RSpec.describe "Visit homepage" do
   it "simple visit" do
     visit root_path
-    expect(page).to have_content("Welcome to Rails Blueprint")
+    expect(page).to have_text("Welcome to Rails Blueprint")
   end
 
   it "search" do
@@ -9,6 +9,6 @@ RSpec.describe "Visit homepage" do
     fill_in "q", with: "test\n"
 
     find(".controller-posts.action-index")
-    expect(page).to have_content("Search results for 'test'")
+    expect(page).to have_text("Search results for 'test'")
   end
 end

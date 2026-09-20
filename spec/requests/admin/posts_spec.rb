@@ -3,12 +3,10 @@ RSpec.describe "Admin Posts" do
   let(:moderator) { create(:user, :moderator) }
   let!(:page_size) { Post.default_per_page }
 
-  options = { resource: :posts, model: Post, has_filters: true }
-
-  it_behaves_like "admin crud controller", options
-  it_behaves_like "admin crud controller paginated index", options
-  it_behaves_like "admin crud controller empty search", options
-  it_behaves_like "admin crud controller show resource", options
+  it_behaves_like "admin crud controller", resource: :posts, model: Post, has_filters: true
+  it_behaves_like "admin crud controller paginated index", resource: :posts, model: Post, has_filters: true
+  it_behaves_like "admin crud controller empty search", resource: :posts, model: Post, has_filters: true
+  it_behaves_like "admin crud controller show resource", resource: :posts, model: Post, has_filters: true
 
   describe "GET /admin/posts" do
     before do
@@ -131,7 +129,7 @@ RSpec.describe "Admin Posts" do
 
     it "redirects to edit page", :aggregate_failures do
       expect(response).to redirect_to("/admin/posts/#{post.id}/edit")
-      expect(flash[:success]).to match(/Successfully updated/)
+      expect(flash[:success]).to include("Successfully updated")
     end
 
     it "updates the post" do
@@ -162,7 +160,7 @@ RSpec.describe "Admin Posts" do
       post = user.posts.first
 
       expect(response).to redirect_to("/admin/posts/#{post.id}/edit")
-      expect(flash[:success]).to match(/Successfully created/)
+      expect(flash[:success]).to include("Successfully created")
     end
 
     it "creates a new post" do

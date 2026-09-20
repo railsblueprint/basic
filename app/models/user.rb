@@ -38,12 +38,11 @@ class User < ApplicationRecord
 
   alias rolify_has_role? has_role?
 
-  # rubocop:disable Naming/PredicatePrefix
+  # rubocop:disable-next Naming/PredicatePrefix
   def has_role?(role, resource=nil)
     roles.any? { |r| r.name.to_sym == role.to_sym && r.resource == resource } ||
       roles.any? { |r| r.name.to_sym == :superadmin }
   end
-  # rubocop:enable Naming/PredicatePrefix
   Role::ROLES.each do |role|
     define_method(:"#{role}?") do
       has_role?(role)

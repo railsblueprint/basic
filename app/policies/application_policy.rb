@@ -22,11 +22,10 @@ class ApplicationPolicy
 
   # enable everything for admin and superadmin users
   # disable everything else by default
-  # rubocop:disable Naming/PredicateMethod
+  # rubocop:disable-next Naming/PredicateMethod
   def method_missing(_name)
     @user&.admin? || @user&.superadmin?
   end
-  # rubocop:enable Naming/PredicateMethod
 
   def respond_to_missing?(...)
     true

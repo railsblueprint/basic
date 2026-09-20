@@ -10,8 +10,8 @@ RSpec.describe "Auth" do
       fill_in "Password", with: user.password
 
       click_button "Log in"
-      expect(page).to have_content(user.short_name)
-      expect(page).to have_content("Signed in successfully")
+      expect(page).to have_text(user.short_name)
+      expect(page).to have_text("Signed in successfully")
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe "Auth" do
       expect(user.last_name).to eq("Doe")
       expect(user.email).to eq("johndoe@example.com")
 
-      expect(page).to have_content("A message with a confirmation link has been sent")
+      expect(page).to have_text("A message with a confirmation link has been sent")
     end
   end
 end

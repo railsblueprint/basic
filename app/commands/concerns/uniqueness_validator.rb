@@ -1,7 +1,7 @@
 module UniquenessValidator
   extend ActiveSupport::Concern
 
-  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable-next Metrics/BlockLength
   class_methods do
     # rubocop:disable Lint/ConstantDefinitionInBlock
     # this code is mostly copied from ActiveRecord::Validations::UniquenessValidator
@@ -65,5 +65,4 @@ module UniquenessValidator
 
     # rubocop:enable Lint/ConstantDefinitionInBlock
   end
-  # rubocop:enable Metrics/BlockLength
 end

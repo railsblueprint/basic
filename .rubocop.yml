@@ -171,6 +171,10 @@ Metrics/BlockLength:
     - "**/*.rake"
     - Gemfile
 
+Style/OneClassPerFile:
+  Exclude:
+    - "**/*.rake"
+
 Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: required
 

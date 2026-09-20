@@ -18,11 +18,10 @@ class Setting < BlueprintConfig::Setting
     self.class.type_text type
   end
 
-  # rubocop:disable Style/MissingRespondToMissing
+  # rubocop:disable-next Style/MissingRespondToMissing
   def self.method_missing method, *_args
     self[method]
   end
-  # rubocop:enable Style/MissingRespondToMissing
 
   def self.[] name
     s = find_by(key: name)

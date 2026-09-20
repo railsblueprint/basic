@@ -1,11 +1,11 @@
 RSpec.shared_examples "admin crud controller" do |options|
-  resource_name = options[:resource]
   slug = [options[:prefix], options[:resource]].compact.join("/")
-  model = options[:model]
 
+  let(:model) { options[:model] }
+  let(:base_path) { "/admin/#{[options[:prefix], options[:resource]].compact.join('/')}" }
   let(:initial_count) { model.count }
 
-  let(:factory) { resource_name.to_s.singularize.to_sym }
+  let(:factory) { options[:resource].to_s.singularize.to_sym }
 
   let(:admin) { create(:user, :superadmin) }
   let(:moderator) { create(:user, :moderator) }
@@ -17,12 +17,12 @@ RSpec.shared_examples "admin crud controller" do |options|
     before do
       sign_in admin
 
-      get "/admin/#{slug}/#{resource.id}/edit"
+      get "#{base_path}/#{resource.id}/edit"
     end
 
     it "renders successfully, :aggregate_failures", :aggregate_failures do
       expect(response).to have_http_status(:ok)
-      expect(response.body).to have_form "/admin/#{slug}/#{resource.id}", :post
+      expect(response.body).to have_form "#{base_path}/#{resource.id}", :post
     end
 
     it "renders action buttons", :aggregate_failures do
@@ -38,12 +38,12 @@ RSpec.shared_examples "admin crud controller" do |options|
     before do
       sign_in admin
 
-      get "/admin/#{slug}/new"
+      get "#{base_path}/new"
     end
 
     it "renders successfully", :aggregate_failures do
       expect(response).to have_http_status(:ok)
-      expect(response.body).to have_form "/admin/#{slug}", :post
+      expect(response.body).to have_form base_path, :post
     end
 
     it "renders action buttons", :aggregate_failures do
@@ -58,55 +58,56 @@ RSpec.shared_examples "admin crud controller" do |options|
     before do
       sign_in admin
 
-      delete "/admin/#{slug}/#{resource.id}"
+      delete "#{base_path}/#{resource.id}"
     end
 
     it "renders successfully", :aggregate_failures do
-      expect(response).to redirect_to("/admin/#{slug}")
-      expect(flash[:notice]).to match(/Successfully deleted/)
+      expect(response).to redirect_to(base_path)
+      expect(flash[:notice]).to include("Successfully deleted")
     end
   end
 end
 
 RSpec.shared_examples "admin crud controller empty search" do |options|
-  resource_name = options[:resource]
   slug = [options[:prefix], options[:resource]].compact.join("/")
-  has_filters = options[:has_filters]
-  header_lines = has_filters ? 2 : 1
 
+  let(:base_path) { "/admin/#{[options[:prefix], options[:resource]].compact.join('/')}" }
+  let(:resource_label) { options[:resource].to_s.tr("_", " ") }
+  let(:header_lines) { options[:has_filters] ? 2 : 1 }
   let(:admin) { create(:user, :admin) }
+
   describe "GET /admin/#{slug}" do
     before do
       sign_in admin
 
-      get "/admin/#{slug}"
+      get base_path
     end
 
     context "when there are no #{slug}" do
       it "says there are no #{slug}" do
-        expect(response.body).to include("No #{resource_name.to_s.tr('_', ' ')} found")
+        expect(response.body).to include("No #{resource_label} found")
       end
 
       it "includes a link to create a new #{slug}" do
         expect(response.body).to have_tag("a.btn.btn-primary", seen: "Create")
       end
 
-      it "#{header_lines} header lines" do
+      it "renders only the header lines" do
         expect(response.body).to have_tag("li.item.item-container", count: header_lines)
       end
 
       it "renders search form" do
-        expect(response.body).to have_form "/admin/#{slug}", :get
+        expect(response.body).to have_form base_path, :get
       end
     end
   end
 end
 
 RSpec.shared_examples "admin crud controller show resource" do |options|
-  resource_name = options[:resource]
   slug = [options[:prefix], options[:resource]].compact.join("/")
 
-  let(:factory) { resource_name.to_s.singularize.to_sym }
+  let(:base_path) { "/admin/#{[options[:prefix], options[:resource]].compact.join('/')}" }
+  let(:factory) { options[:resource].to_s.singularize.to_sym }
   let(:admin) { create(:user, :admin) }
 
   describe "GET /admin/#{slug}/:id" do
@@ -115,7 +116,7 @@ RSpec.shared_examples "admin crud controller show resource" do |options|
     before do
       sign_in admin
 
-      get "/admin/#{slug}/#{resource.id}"
+      get "#{base_path}/#{resource.id}"
     end
 
     it "renders successfully" do
@@ -130,15 +131,15 @@ RSpec.shared_examples "admin crud controller show resource" do |options|
 end
 
 RSpec.shared_examples "admin crud controller paginated index" do |options|
-  resource_name = options[:resource]
   slug = [options[:prefix], options[:resource]].compact.join("/")
-  model = options[:model]
-  has_filters = options[:has_filters]
-  header_lines = has_filters ? 2 : 1
 
+  let(:model) { options[:model] }
+  let(:base_path) { "/admin/#{[options[:prefix], options[:resource]].compact.join('/')}" }
+  let(:resource_label) { options[:resource].to_s.tr("_", " ") }
+  let(:header_lines) { options[:has_filters] ? 2 : 1 }
   let(:initial_count) { model.count }
 
-  let(:factory) { resource_name.to_s.singularize.to_sym }
+  let(:factory) { options[:resource].to_s.singularize.to_sym }
 
   let(:admin) { create(:user, :superadmin) }
   let(:moderator) { create(:user, :moderator) }
@@ -148,7 +149,7 @@ RSpec.shared_examples "admin crud controller paginated index" do |options|
     before do
       sign_in admin
 
-      get "/admin/#{slug}"
+      get base_path
     end
 
     it "renders successfully", :aggregate_failures do
@@ -164,7 +165,7 @@ RSpec.shared_examples "admin crud controller paginated index" do |options|
       before do
         sign_out :user
 
-        get "/admin/#{slug}"
+        get base_path
       end
 
       it "redirects to the login page", :aggregate_failures do
@@ -177,12 +178,12 @@ RSpec.shared_examples "admin crud controller paginated index" do |options|
       before do
         sign_in moderator
 
-        get "/admin/#{slug}"
+        get base_path
       end
 
       it "redirects to the home #{slug}", :aggregate_failures do
         expect(response).to redirect_to("/")
-        expect(flash[:error]).to match(/You cannot access this page/)
+        expect(flash[:error]).to include("You cannot access this page")
       end
     end
 
@@ -192,11 +193,11 @@ RSpec.shared_examples "admin crud controller paginated index" do |options|
       before do
         sign_in admin
 
-        get "/admin/#{slug}"
+        get base_path
       end
 
       it "renders all", :aggregate_failures do
-        expect(response.body).to include("Displaying <b>all 10</b> #{resource_name.to_s.tr('_', ' ')}")
+        expect(response.body).to include("Displaying <b>all 10</b> #{resource_label}")
         expect(response.body).to have_tag("ul", class: "pagination")
         expect(response.body).to have_tag("li.item.item-container", count: 10 + header_lines)
       end
@@ -212,11 +213,11 @@ RSpec.shared_examples "admin crud controller paginated index" do |options|
       before do
         sign_in admin
 
-        get "/admin/#{slug}"
+        get base_path
       end
 
       it "renders first page" do
-        expect(response.body).to include("Displaying #{resource_name.to_s.tr('_', ' ')} " \
+        expect(response.body).to include("Displaying #{resource_label} " \
                                          "<b>1&nbsp;-&nbsp;#{page_size}</b> of <b>#{page_size + 15}</b> in total")
         expect(response.body).to have_tag("ul", class: "pagination")
 

@@ -124,7 +124,7 @@ namespace :blueprint do
   end
 
   desc "Check for template updates and optionally apply them"
-  # rubocop:disable Metrics/BlockNesting
+  # rubocop:disable-next Metrics/BlockNesting
   task check_templates: :environment do
     require "digest"
     require "yaml"
@@ -156,7 +156,6 @@ namespace :blueprint do
       Thor.new.say "This will create a baseline for tracking future template changes.", :cyan
     end
   end
-  # rubocop:enable Metrics/BlockNesting
 
   desc "Force update all templates (creates backups)"
   task update_templates: :environment do
@@ -266,7 +265,7 @@ class TemplateTracker
 
   public
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def apply_updates(changes)
     changes.each do |change|
       Thor.new.say "\nProcessing #{change[:file]}...", :cyan
@@ -294,9 +293,8 @@ class TemplateTracker
 
     save_tracking_data
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable-next Metrics/AbcSize, Metrics/MethodLength
   def force_update_all
     Thor.new.say "WARNING: Force update copies raw template files without processing ERB placeholders!", :red
     Thor.new.say "This command is intended for development use only.", :yellow
@@ -330,7 +328,6 @@ class TemplateTracker
     Thor.new.say "All templates updated. Backups saved to: #{backup_dir}", :green
     Thor.new.say "IMPORTANT: You need to manually process ERB placeholders in the updated files!", :red
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 

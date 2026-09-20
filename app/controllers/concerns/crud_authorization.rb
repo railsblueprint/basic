@@ -15,9 +15,8 @@ module CrudAuthorization
       redirect_to path, error: message
     end
 
-    # rubocop:disable Rails/LexicallyScopedActionFilter
+    # rubocop:disable-next Rails/LexicallyScopedActionFilter
     before_action :authorize_model, only: [:index, :new, :create]
-    # rubocop:enable Rails/LexicallyScopedActionFilter
 
     before_action :authorize_resource, if: lambda { |controller|
                                              controller.action_name.to_sym.in?(controller.actions_with_resource)

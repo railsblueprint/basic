@@ -6,15 +6,15 @@ describe ErrorsController do
       get :show, params: { code: "404" }
       expect(response).to have_http_status(:not_found)
       expect(response.body).to match(/The page you were looking for doesn't exist./)
-      expect(response.body).to match(/<!-- ROLLBAR ERROR -->/)
+      expect(response.body).to include("<!-- ROLLBAR ERROR -->")
     end
   end
 
   describe "GET #show error 422" do
     it "renders not found page", :aggregate_failures do
       get :show, params: { code: "422" }
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response.body).to match(/The change you wanted was rejected/)
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.body).to include("The change you wanted was rejected")
     end
   end
 
@@ -22,8 +22,8 @@ describe ErrorsController do
     it "renders not found page", :aggregate_failures do
       get :show, params: { code: "500" }
       expect(response).to have_http_status(:internal_server_error)
-      expect(response.body).to match(/We're sorry, but something went wrong/)
-      expect(response.body).to match(/<!-- ROLLBAR ERROR -->/)
+      expect(response.body).to include("We're sorry, but something went wrong")
+      expect(response.body).to include("<!-- ROLLBAR ERROR -->")
     end
   end
 end

@@ -1,7 +1,7 @@
 class DelayedCommandJob < ApplicationJob
   queue_as :default
 
-  # rubocop:disable Metrics/MethodLength, Metrics/BlockLength
+  # rubocop:disable-next Metrics/MethodLength, Metrics/BlockLength
   def perform(klass, attributes={})
     unless klass.is_a?(Class) && klass < BaseCommand
       log_error("DelayedCommandJob must be used with BaseCommand descendants. called for #{klass.inspect} with " \
@@ -40,7 +40,6 @@ class DelayedCommandJob < ApplicationJob
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/BlockLength
 
   def log_error(message, context={})
     Rails.logger.error(message)
