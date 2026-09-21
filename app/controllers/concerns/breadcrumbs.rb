@@ -4,9 +4,8 @@ module Breadcrumbs
   included do # rubocop:disable Metrics/BlockLength
     helper_method :search_url
 
-    # rubocop:disable Rails/LexicallyScopedActionFilter
+    # rubocop:disable-next Rails/LexicallyScopedActionFilter
     before_action :update_search_url, only: [:index]
-    # rubocop:enable Rails/LexicallyScopedActionFilter
 
     before_action :prepend_breadcrumbs
     before_action :set_index_breadcrumbs

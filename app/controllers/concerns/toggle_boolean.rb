@@ -12,7 +12,7 @@ module ToggleBoolean
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable-next Metrics/AbcSize
   def toggle_boolean_action field
     load_resource
 
@@ -32,5 +32,4 @@ module ToggleBoolean
       format.html { redirect_to(action: :show) }
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

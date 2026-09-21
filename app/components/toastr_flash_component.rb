@@ -6,11 +6,10 @@ class ToastrFlashComponent < ViewComponent::Base
     super()
   end
 
-  # rubocop:disable Style/DocumentDynamicEvalDefinition
+  # rubocop:disable-next Style/DocumentDynamicEvalDefinition
   def capture_to_local(var, &block)
     # sets local variable to caller's context
     set_var = block.binding.eval("lambda {|x| #{var} = x }")
     set_var.call(capture(&block))
   end
-  # rubocop:enable Style/DocumentDynamicEvalDefinition
 end

@@ -17,7 +17,7 @@ class Admin::CrudController < Admin::Controller
     @resources = if params[field] == "nil"
                    @resources.where(field => nil)
                  else
-                   @resources.where(field => params[field].to_b)
+                   @resources.where(field => params.expect(field).to_b)
                  end
   end
 

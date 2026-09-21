@@ -37,8 +37,7 @@ require "view_component/test_helpers"
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
-  puts e.to_s.strip
-  exit 1
+  abort e.to_s.strip
 end
 
 RSpec.configure do |config|

@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::CrudController
     super + [:cancel_email_change, :resend_confirmation_email, :update_password]
   end
 
-  # rubocop:disable Metrics/AbcSize, Style/GuardClause
+  # rubocop:disable-next Metrics/AbcSize, Style/GuardClause
   def filter_resources
     @resources = @resources.with_role(params[:role]) if params[:role].present? && (params[:role][0] != "_")
     if params[:q].present?
@@ -11,7 +11,6 @@ class Admin::UsersController < Admin::CrudController
                                     "or email ilike :q or users.id::text = :id", q: "%#{params[:q]}%", id: params[:q])
     end
   end
-  # rubocop:enable Metrics/AbcSize, Style/GuardClause
 
   def lookup
     @resources = model.where("first_name ilike :q or last_name ilike :q",
@@ -64,7 +63,7 @@ class Admin::UsersController < Admin::CrudController
       message: t("messages.password_change_failed"),
       details: errors.full_messages
     }
-    render :edit, status: :unprocessable_entity
+    render :edit, status: :unprocessable_content
   end
 
   def handle_password_update_unauthorized

@@ -1,16 +1,15 @@
 class Admin::PostsController < Admin::CrudController
   include CableReady::Broadcaster
 
-  # rubocop:disable Style/GuardClause
+  # rubocop:disable-next Style/GuardClause
   def filter_resources
     @resources = @resources.search(params[:q]) if params[:q].present?
 
     if params[:user_id].present?
       @resources = @resources.where(user_id: params[:user_id])
-      @selected_user = User.find(params[:user_id])
+      @selected_user = User.find(params.expect(:user_id))
     end
   end
-  # rubocop:enable Style/GuardClause
 
   def scope
     model.includes(:user)

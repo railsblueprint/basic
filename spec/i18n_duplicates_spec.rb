@@ -79,7 +79,7 @@ RSpec.describe "Locale files" do # rubocop:disable RSpec/DescribeClass
 
         if duplicates.any?
           report = format_duplicate_report(locale_file, duplicates)
-          raise "Duplicate keys found in #{file_name}:\n\n#{report}\n"
+          raise "Duplicate keys found in #{locale_file.basename}:\n\n#{report}\n"
         end
       end
 
@@ -108,7 +108,7 @@ RSpec.describe "Locale files" do # rubocop:disable RSpec/DescribeClass
             report << "  Line #{sk[:line]}: #{sk[:content]}"
           end
 
-          msg = "Symbol-style keys found in #{file_name}:\n\n#{report.join("\n")}\n\n"
+          msg = "Symbol-style keys found in #{locale_file.basename}:\n\n#{report.join("\n")}\n\n"
           msg += "These should be converted to string-style keys to avoid conflicts."
           raise msg
         end

@@ -68,7 +68,7 @@ RSpec.describe CrudBase do
       it "renders error" do
         post :create
         expect(response).to render_template("new")
-        expect(response).to have_http_status :unprocessable_entity
+        expect(response).to have_http_status :unprocessable_content
         expect(flash[:error]).to eq({
           message: "Failed to create Page",
           details: ["Name can't be blank"]
@@ -86,7 +86,7 @@ RSpec.describe CrudBase do
       it "renders error" do
         post :create
         expect(response).to render_template("new")
-        expect(response).to have_http_status :unprocessable_entity
+        expect(response).to have_http_status :unprocessable_content
         expect(flash[:error]).to eq({
           message: "Failed to create Page",
           details: ["Name can't be blank"]
@@ -134,7 +134,7 @@ RSpec.describe CrudBase do
         patch :update, params: { id: 1 }
 
         expect(response).to render_template("edit")
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(flash[:error]).to eq({
           message: "Failed to update Page",
           details: ["Name can't be blank"]
@@ -152,7 +152,7 @@ RSpec.describe CrudBase do
       it "renders error" do
         patch :update, params: { id: 1 }
         expect(response).to render_template("edit")
-        expect(response).to have_http_status :unprocessable_entity
+        expect(response).to have_http_status :unprocessable_content
         expect(flash[:error]).to eq({
           message: "Failed to update Page",
           details: ["Name can't be blank"]

@@ -15,9 +15,8 @@ class TemplateMailer < ApplicationMailer
     body = template.body
     subject = template.subject
 
-    # rubocop:disable Rails/RenderInline, Rails/OutputSafety
+    # rubocop:disable-next Rails/RenderInline, Rails/OutputSafety
     body = render inline: body.html_safe, layout: "layouts/mail/#{template.layout}"
-    # rubocop:enable Rails/RenderInline, Rails/OutputSafety
 
     template_body = Liquid::Template.parse(body)
 
