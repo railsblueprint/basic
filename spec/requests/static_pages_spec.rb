@@ -150,22 +150,26 @@ RSpec.describe "Static pages" do
     end
 
     context "when accessing nested path with view file" do
-      before do
-        # Create a nested view file for testing
-        FileUtils.mkdir_p(Rails.root.join("app/views/static_pages/nested"))
-        content = ".container\n  h1 Nested Page\n  p This is a nested page"
-        Rails.root.join("app/views/static_pages/nested/page.html.slim").write(content)
+      let!(:application_controller) { ApplicationController }
 
-        get "/nested/page"
+      around do |example|
+        view_paths = StaticPagesController.view_paths
+        StaticPagesController.prepend_view_path(Rails.root.join("spec/fixtures/views"))
+        example.run
+      ensure
+        StaticPagesController.view_paths = view_paths
       end
 
-      after do
-        # Clean up the test file
-        FileUtils.rm_rf(Rails.root.join("app/views/static_pages/nested"))
+      before do
+        get "/nested/page"
       end
 
       it "returns http success" do
         expect(response).to have_http_status(:success)
+      end
+
+      it "does not reload application classes" do
+        expect(ApplicationController).to equal(application_controller)
       end
 
       it "renders the nested view template" do
