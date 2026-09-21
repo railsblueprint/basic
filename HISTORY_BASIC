@@ -1,5 +1,44 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.4.0 (2026-09-21)
+
+### Framework and Dependencies
+- **Rails 8.1**: Upgraded from 8.0.2.1 to 8.1.3.1
+- **Devise 5**: Upgraded from 4.9; mailer deliveries always go through `deliver_now`
+- **Dependency refresh**: puma 8.0, good_job 4.19, nokogiri 1.19, dartsass-rails 0.5, rubocop 1.91, roo 3.0 with rubyzip 3
+  - `json` pinned to 2.x - json 3.0 breaks `ActiveSupport::JSON.decode` on Rails 8.1 and with it every signed-cookie read
+- **suneditor 3.3.3**: Upgraded from 2.45.1 to clear the embed-plugin XSS advisory
+  - Importmap pins, `package.json`, the Stimulus controller and the stylesheet import follow the 3.x API
+- **Removed** the deprecated `webdrivers` gem
+
+### Security
+- rack 3.2.0 → 3.2.4 (five high-severity CVEs), aws-sdk-s3 (CVE-2025-14762), uri 0.13.3 (CVE-2025-61594)
+- `bundle-audit` and `bin/importmap audit` both clean
+
+### Features
+- **Fork-safe initialisation**: `rails blueprint:init[app_name,default_branch]` points the CI triggers and `rake rubocop:changed` at the fork's default branch; re-running it changes nothing
+- **Contact form honeypot**: a hidden field that bots fill and people never see; such submissions are logged, not emailed
+- **README "After forking"** section and a **CLAUDE.md** describing how to boot the app from a fresh worktree
+
+### CI and Tooling
+- Runner selected by the `CI_RUNNER` repository variable (GitHub-hosted when unset); the `blueprint-init` self-test job runs only where `BLUEPRINT_TEMPLATE=true`
+- Postgres on a dynamic port so two jobs can share one host
+- `rake rubocop:changed` resolves its base from `GITHUB_BASE_REF`, then `RUBOCOP_DEV_BRANCH`, then the literal `blueprint:init` wrote
+- All rubocop 1.91 offenses cleared
+
+### Bug Fixes
+- Admin editor toolbar rendered unstyled: `admin.scss` now imports `suneditor/dist/suneditor.min`
+- Intermittent failure in `spec/requests/admin/users_spec.rb` when Faker put "test" into another user's email
+- `spec/requests/static_pages_spec.rb` no longer writes a view at runtime, which reloaded the app mid-suite and broke the anonymous-controller specs after it
+
+## Version 1.3.5 (2025-09-29)
+
+### Features
+- **Analytics**: Google Analytics and Yandex Metrika tracking, resilient to either script failing to load
+
+### Improvements
+- **BaseCommand** broadcasts `ok` with the process result
+
 ## Version 1.3.4 (2025-08-25)
 
 ### Features
