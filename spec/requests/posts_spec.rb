@@ -62,6 +62,53 @@ RSpec.describe "Posts page" do
         expect(response.body).to have_tag(".card.post a", text: /Delete/, count: 5)
       end
     end
+
+    context "with a long post" do
+      let!(:resource) { create(:post, body: "#{'word ' * 100}needle-at-the-end") }
+
+      before { get "/blog" }
+
+      it "truncates the body" do
+        expect(response.body).not_to include("needle-at-the-end")
+      end
+
+      it "shows a read more link" do
+        expect(response.body).to have_tag(".card.post a[href='/blog/#{resource.slug}']", text: /Read more/)
+      end
+    end
+
+    context "with a short post" do
+      let!(:resource) { create(:post, body: "Short and sweet") }
+
+      before { get "/blog" }
+
+      it "shows the whole body" do
+        expect(response.body).to include("Short and sweet")
+      end
+
+      it "does not show a read more link" do
+        expect(response.body).not_to have_tag(".card.post a", text: /Read more/)
+      end
+    end
+
+    context "with a post that has a cutline" do
+      let(:hr_attachment) do
+        '<action-text-attachment sgid="horizontal-rule" ' \
+          'content-type="application/vnd.trix.horizontal-rule.html"></action-text-attachment>'
+      end
+      let!(:resource) { create(:post, body: "<div>Above the fold</div>#{hr_attachment}<div>Below the fold</div>") }
+
+      before { get "/blog" }
+
+      it "shows the teaser only", :aggregate_failures do
+        expect(response.body).to include("Above the fold")
+        expect(response.body).not_to include("Below the fold")
+      end
+
+      it "shows a read more link" do
+        expect(response.body).to have_tag(".card.post a[href='/blog/#{resource.slug}']", text: /Read more/)
+      end
+    end
   end
 
   describe "GET /blog/new" do
