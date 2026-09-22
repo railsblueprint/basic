@@ -62,6 +62,100 @@ RSpec.describe "Posts page" do
         expect(response.body).to have_tag(".card.post a", text: /Delete/, count: 5)
       end
     end
+
+    context "with a long post" do
+      let!(:resource) { create(:post, body: "#{'word ' * 100}needle-at-the-end") }
+
+      before { get "/blog" }
+
+      it "truncates the body" do
+        expect(response.body).not_to include("needle-at-the-end")
+      end
+
+      it "shows a read more link" do
+        expect(response.body).to have_tag(".card.post a[href='/blog/#{resource.slug}']", text: /Read more/)
+      end
+    end
+
+    context "with a short post" do
+      let!(:resource) { create(:post, body: "Short and sweet") }
+
+      before { get "/blog" }
+
+      it "shows the whole body" do
+        expect(response.body).to include("Short and sweet")
+      end
+
+      it "does not show a read more link" do
+        expect(response.body).not_to have_tag(".card.post a", text: /Read more/)
+      end
+    end
+
+    context "with a long post containing html entities" do
+      let(:entities) { "R&amp;D at Rails &amp; Ruby: 5 &lt; 6." }
+      let!(:resource) { create(:post, body: "<div>#{entities}</div><div>#{'tail ' * 80}</div>") }
+
+      before { get "/blog" }
+
+      it "escapes the entities exactly once", :aggregate_failures do
+        expect(response.body).to have_tag(".card.post", text: /R&D at Rails & Ruby: 5 < 6\./)
+        expect(response.body).not_to include("&amp;amp;")
+      end
+    end
+
+    context "with a post whose text fits but whose markup does not" do
+      let!(:resource) { create(:post, body: "<div>#{'a' * 125}</div><div>#{'b' * 125}</div>") }
+
+      before { get "/blog" }
+
+      it "shows the whole body", :aggregate_failures do
+        expect(response.body).to include("a" * 125)
+        expect(response.body).to include("b" * 125)
+      end
+
+      it "does not show a read more link" do
+        expect(response.body).not_to have_tag(".card.post a", text: /Read more/)
+      end
+    end
+
+    context "with a post that has a cutline" do
+      let(:hr_attachment) do
+        '<action-text-attachment sgid="horizontal-rule" ' \
+          'content-type="application/vnd.trix.horizontal-rule.html"></action-text-attachment>'
+      end
+      let!(:resource) { create(:post, body: "<div>Above the fold</div>#{hr_attachment}<div>Below the fold</div>") }
+
+      before { get "/blog" }
+
+      it "shows the teaser only", :aggregate_failures do
+        expect(response.body).to include("Above the fold")
+        expect(response.body).not_to include("Below the fold")
+      end
+
+      it "shows a read more link" do
+        expect(response.body).to have_tag(".card.post a[href='/blog/#{resource.slug}']", text: /Read more/)
+      end
+    end
+
+    context "with a post whose teaser carries executable markup" do
+      let(:hr_attachment) do
+        '<action-text-attachment sgid="horizontal-rule" ' \
+          'content-type="application/vnd.trix.horizontal-rule.html"></action-text-attachment>'
+      end
+      let!(:resource) do
+        create(:post, body: "<div><script>alert(1)</script>" \
+                            '<img src=x onerror="xssProbe()">Above the fold</div>' \
+                            "#{hr_attachment}<div>Below the fold</div>")
+      end
+
+      before { get "/blog" }
+
+      it "strips it before rendering the card", :aggregate_failures do
+        expect(response.body).not_to have_tag(".card.post script")
+        expect(response.body).not_to include("xssProbe")
+        expect(response.body).to include("Above the fold")
+      end
+    end
   end
 
   describe "GET /blog/new" do
