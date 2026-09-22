@@ -11,8 +11,9 @@ div data-controller="post" data-post-id-value=post.id
             p.text-muted.small.mt-2
               = link_to t(".read_more"), post_path(id: post.slug), class: "text-decoration-none"
           - else
-            = truncate(strip_tags(post.body.to_s), length: 300)
-            - if post.body.to_s.length > 300
+            - preview = post.body.to_plain_text
+            = truncate(preview, length: 300)
+            - if preview.length > 300
               p.text-muted.small.mt-2
                 = link_to t(".read_more"), post_path(id: post.slug), class: "text-decoration-none"
 

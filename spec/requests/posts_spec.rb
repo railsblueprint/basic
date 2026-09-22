@@ -91,6 +91,33 @@ RSpec.describe "Posts page" do
       end
     end
 
+    context "with a long post containing html entities" do
+      let(:entities) { "R&amp;D at Rails &amp; Ruby: 5 &lt; 6." }
+      let!(:resource) { create(:post, body: "<div>#{entities}</div><div>#{'tail ' * 80}</div>") }
+
+      before { get "/blog" }
+
+      it "escapes the entities exactly once", :aggregate_failures do
+        expect(response.body).to have_tag(".card.post", text: /R&D at Rails & Ruby: 5 < 6\./)
+        expect(response.body).not_to include("&amp;amp;")
+      end
+    end
+
+    context "with a post whose text fits but whose markup does not" do
+      let!(:resource) { create(:post, body: "<div>#{'a' * 125}</div><div>#{'b' * 125}</div>") }
+
+      before { get "/blog" }
+
+      it "shows the whole body", :aggregate_failures do
+        expect(response.body).to include("a" * 125)
+        expect(response.body).to include("b" * 125)
+      end
+
+      it "does not show a read more link" do
+        expect(response.body).not_to have_tag(".card.post a", text: /Read more/)
+      end
+    end
+
     context "with a post that has a cutline" do
       let(:hr_attachment) do
         '<action-text-attachment sgid="horizontal-rule" ' \
