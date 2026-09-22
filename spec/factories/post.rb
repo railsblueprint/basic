@@ -3,8 +3,8 @@ FactoryBot.define do
     title { Faker::Hacker.say_something_smart }
 
     body {
-      Array.new(rand(10)) {
-        Faker::Lorem.paragraph(sentence_count: rand(10), supplemental: true)
+      Array.new(rand(1..10)) {
+        Faker::Lorem.paragraph(sentence_count: rand(1..10), supplemental: true)
       }.join("<br/>")
     }
 
