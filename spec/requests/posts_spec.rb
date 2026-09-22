@@ -109,6 +109,26 @@ RSpec.describe "Posts page" do
         expect(response.body).to have_tag(".card.post a[href='/blog/#{resource.slug}']", text: /Read more/)
       end
     end
+
+    context "with a post whose teaser carries executable markup" do
+      let(:hr_attachment) do
+        '<action-text-attachment sgid="horizontal-rule" ' \
+          'content-type="application/vnd.trix.horizontal-rule.html"></action-text-attachment>'
+      end
+      let!(:resource) do
+        create(:post, body: "<div><script>alert(1)</script>" \
+                            '<img src=x onerror="xssProbe()">Above the fold</div>' \
+                            "#{hr_attachment}<div>Below the fold</div>")
+      end
+
+      before { get "/blog" }
+
+      it "strips it before rendering the card", :aggregate_failures do
+        expect(response.body).not_to have_tag(".card.post script")
+        expect(response.body).not_to include("xssProbe")
+        expect(response.body).to include("Above the fold")
+      end
+    end
   end
 
   describe "GET /blog/new" do

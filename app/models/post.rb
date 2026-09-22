@@ -41,7 +41,6 @@ class Post < ApplicationRecord
     opening_tag_index = raw_html[0...cutline_index].rindex("<action-text-attachment")
     return body unless opening_tag_index
 
-    fragment = Nokogiri::HTML::DocumentFragment.parse(raw_html[0...opening_tag_index])
-    %(<div class="trix-content">#{fragment.to_html}</div>).html_safe # rubocop:disable Rails/OutputSafety
+    ActionText::Content.new(raw_html[0...opening_tag_index]).to_s
   end
 end

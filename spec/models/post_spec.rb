@@ -83,5 +83,19 @@ RSpec.describe Post do
         expect(post.teaser).to be_html_safe
       end
     end
+
+    context "when the content above the cutline carries executable markup" do
+      before do
+        post.body = "<div><script>alert(1)</script>" \
+                    '<img src=x onerror="xssProbe()">Above the fold</div>' \
+                    "#{hr_attachment}<div>Below the fold</div>"
+      end
+
+      it "strips it", :aggregate_failures do
+        expect(post.teaser).not_to include("<script")
+        expect(post.teaser).not_to include("onerror")
+        expect(post.teaser).to include("Above the fold")
+      end
+    end
   end
 end
