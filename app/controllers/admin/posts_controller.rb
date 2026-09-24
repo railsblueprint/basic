@@ -27,9 +27,15 @@ class Admin::PostsController < Admin::CrudController
   end
 
   def after_update(resource)
-    cable_ready[PostChannel].morph(
-      selector: "#{dom_id(resource)}_body",
-      html:     render_to_string(partial: "posts/post_body", locals: { post: resource })
-    ).broadcast_to(resource)
+    cable_ready[PostChannel]
+      .morph(
+        selector: "#{dom_id(resource)}_body",
+        html:     render_to_string(partial: "posts/post_body", locals: { post: resource, show_full: true })
+      )
+      .morph(
+        selector: "#{dom_id(resource)}_preview",
+        html:     render_to_string(partial: "posts/post_body", locals: { post: resource })
+      )
+      .broadcast_to(resource)
   end
 end

@@ -75,6 +75,11 @@ RSpec.describe "Posts page" do
       it "shows a read more link" do
         expect(response.body).to have_tag(".card.post a[href='/blog/#{resource.slug}']", text: /Read more/)
       end
+
+      it "wraps the card in a preview element, not the show page's body element", :aggregate_failures do
+        expect(response.body).to have_tag("div", with: { id: "post_#{resource.id}_preview" })
+        expect(response.body).not_to have_tag("div", with: { id: "post_#{resource.id}_body" })
+      end
     end
 
     context "with a short post" do
@@ -245,6 +250,11 @@ RSpec.describe "Posts page" do
         expect(response.body).to include(post.body.to_s)
       end
 
+      it "wraps the post in a body element, not the index card's preview element", :aggregate_failures do
+        expect(response.body).to have_tag("div", with: { id: "post_#{post.id}_body" })
+        expect(response.body).not_to have_tag("div", with: { id: "post_#{post.id}_preview" })
+      end
+
       it "does not show control buttons", :aggregate_failures do
         expect(response.body).not_to have_tag(".card.post a", text: /Edit/, count: 1)
         expect(response.body).not_to have_tag(".card.post a", text: /Delete/, count: 1)
@@ -316,6 +326,46 @@ RSpec.describe "Posts page" do
         expect(response.body).to have_tag(".card.post a", text: /Edit/, count: 1)
         expect(response.body).to have_tag(".card.post a", text: /Delete/, count: 1)
       end
+    end
+  end
+
+  describe "PATCH /blog/:id" do
+    let!(:user) { create(:user) }
+    let!(:post) { create(:post, user:) }
+    let(:long_body) { "<div>#{'word ' * 100}needle-at-the-end</div>" }
+    let(:morphs) do
+      ActionCable.server.pubsub
+                 .broadcasts(PostChannel.broadcasting_for(post))
+                 .flat_map { |message| JSON.parse(message)["operations"] }
+                 .select { |operation| operation["operation"] == "morph" }
+                 .index_by { |operation| operation["selector"] }
+    end
+
+    before do
+      sign_in user
+      patch "/blog/#{post.id}", params: { post: { title: post.title, body: long_body } }
+    end
+
+    it "updates the post" do
+      expect(post.reload.body.to_s).to include("needle-at-the-end")
+    end
+
+    it "morphs both the preview and the full body" do
+      expect(morphs.keys).to contain_exactly("#post_#{post.id}_preview", "#post_#{post.id}_body")
+    end
+
+    it "sends the truncated preview to the index card", :aggregate_failures do
+      preview = morphs["#post_#{post.id}_preview"]["html"]
+
+      expect(preview).not_to include("needle-at-the-end")
+      expect(preview).to include("Read more")
+    end
+
+    it "sends the full body to the show page", :aggregate_failures do
+      body = morphs["#post_#{post.id}_body"]["html"]
+
+      expect(body).to include("needle-at-the-end")
+      expect(body).not_to include("Read more")
     end
   end
 
