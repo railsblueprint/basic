@@ -8,7 +8,7 @@ test:
 
 staging:
   adapter: redis
-  urll: <%%= AppConfig.redis.url %>
+  url: <%%= AppConfig.redis.url %>
   channel_prefix: <%= app_prefix %>_staging
 
 production:
