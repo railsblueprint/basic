@@ -5,6 +5,14 @@ All notable changes to Rails Blueprint Basic Edition will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-11-22
+
+### Security
+- **Ruby** 3.4.4 → 3.4.13: fixes CVE-2026-132825 (heap buffer overflow in String case conversion) and the related Regexp and String vulnerabilities disclosed on 2026-11-18. Existing servers need Ruby 3.4.13 and bundler 2.6.7 installed before deploying.
+- **Rails** 8.1.3.1 → 8.1.4.1: fixes the critical Active Storage arbitrary file read/write (CVE-2026-122006) and the Action Pack, Action View and Active Support advisories released with it.
+- **rack** 3.2.9, **puma** 8.1.2, **nokogiri** 1.19.7, **loofah** 2.25.3, **rails-html-sanitizer** 1.7.2, **addressable** 2.9.2, **crass** 1.0.8, **css_parser** 3.4.0, **msgpack** 1.8.7: bundle-audit is clean again.
+- **pghero** 3.8 → 4.1 (Gemfile constraint `~> 4.1`) for its IDOR advisory.
+
 ## [1.4.0] - 2026-09-21
 
 ### Added

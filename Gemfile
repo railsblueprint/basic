@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.4.4"
+ruby "3.4.13"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.0"
@@ -62,7 +62,7 @@ gem "groupdate", "~> 6.0"
 gem "inline_svg", "~> 1.8"
 gem "meta-tags", "~> 2.16"
 gem "pg", "~> 1.2"
-gem "pghero", "~> 3.1"
+gem "pghero", "~> 4.1"
 gem "whenever", "~> 1.0", require: false
 
 gem "faker", "~> 2.19"

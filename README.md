@@ -23,7 +23,7 @@ what really matters. It includes best practices for rapid development of your Ra
 Main features:
 
 - Latest Ruby on Rails (8.0.2.1)
-- Latest Ruby (3.4.4 with YJIT and jemalloc)
+- Latest Ruby (3.4.13 with YJIT and jemalloc)
 - Hotwire stack (Turbo, Stimulus)
 - Action Cable and Stimulus Reflex for even more reactivity
 - Bootstrap 5.3.7
@@ -161,7 +161,7 @@ Rails blueprint relies on Postgresql and Redis. Using rbenv or rvm is recommende
 use homebrew for installing dependencies.
 
 ##### Installing Ruby with Performance Optimizations
-Rails Blueprint uses Ruby 3.4.4 with YJIT and jemalloc for optimal performance. These optimizations can provide:
+Rails Blueprint uses Ruby 3.4.13 with YJIT and jemalloc for optimal performance. These optimizations can provide:
 - **YJIT**: 15-30% performance improvement through Just-In-Time compilation
 - **jemalloc**: Better memory management, reducing memory usage by 10-20%
 
@@ -176,7 +176,7 @@ brew install jemalloc
 brew install rust
 
 # Install Ruby with optimizations
-RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc=$(brew --prefix jemalloc)" rbenv install 3.4.4
+RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc=$(brew --prefix jemalloc)" rbenv install 3.4.13
 ```
 
 **On Ubuntu/Debian:**
@@ -186,14 +186,14 @@ sudo apt-get update
 sudo apt-get install -y libjemalloc-dev rustc
 
 # Install Ruby with optimizations
-RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc" rbenv install 3.4.4
+RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc" rbenv install 3.4.13
 ```
 
 **Verify the installation:**
 ```bash
 # Check Ruby version
 ruby --version
-# Should show: ruby 3.4.4 (2025-05-14 revision a38531fd3f) +PRISM [x86_64-...]
+# Should show: ruby 3.4.13 (2026-11-19 revision 48857d6f2e) +PRISM [x86_64-...]
 
 # Verify YJIT is available
 ruby --yjit -e "puts RubyVM::YJIT.enabled?"

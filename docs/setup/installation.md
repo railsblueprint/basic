@@ -5,7 +5,7 @@ This guide covers the installation process for Rails Blueprint.
 ## System Requirements
 
 ### Required Software
-- **Ruby**: 3.4.4 (recommended with YJIT and jemalloc)
+- **Ruby**: 3.4.13 (recommended with YJIT and jemalloc)
 - **Rails**: 8.0.2
 - **PostgreSQL**: 14 or higher
 - **Redis**: 6.0 or higher
@@ -35,7 +35,7 @@ git init
 
 ### 2. Install Ruby with Performance Optimizations
 
-Rails Blueprint uses Ruby 3.4.4 with YJIT and jemalloc for optimal performance.
+Rails Blueprint uses Ruby 3.4.13 with YJIT and jemalloc for optimal performance.
 
 #### On macOS:
 ```bash
@@ -43,8 +43,8 @@ Rails Blueprint uses Ruby 3.4.4 with YJIT and jemalloc for optimal performance.
 brew install jemalloc rust
 
 # Install Ruby with optimizations
-RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc=$(brew --prefix jemalloc)" rbenv install 3.4.4
-rbenv local 3.4.4
+RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc=$(brew --prefix jemalloc)" rbenv install 3.4.13
+rbenv local 3.4.13
 ```
 
 #### On Ubuntu/Debian:
@@ -54,15 +54,15 @@ sudo apt-get update
 sudo apt-get install -y libjemalloc-dev rustc
 
 # Install Ruby with optimizations
-RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc" rbenv install 3.4.4
-rbenv local 3.4.4
+RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc" rbenv install 3.4.13
+rbenv local 3.4.13
 ```
 
 #### Verify Installation:
 ```bash
 # Check Ruby version
 ruby --version
-# Should show: ruby 3.4.4 ... +YJIT
+# Should show: ruby 3.4.13 ... +YJIT
 
 # Verify YJIT
 ruby --yjit -e "puts RubyVM::YJIT.enabled?"
