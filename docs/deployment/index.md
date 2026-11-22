@@ -17,7 +17,7 @@ The deployment system provides:
 ### Server Requirements
 
 - Ubuntu 20.04+ or similar Linux distribution
-- Ruby 3.4.4 (with YJIT and jemalloc)
+- Ruby 3.4.13 (with YJIT and jemalloc)
 - PostgreSQL 14+
 - Redis 6+
 - Nginx

@@ -1,5 +1,11 @@
 # Rails Blueprint Basic Edition - Change History
 
+## Version 1.4.1 (2026-11-22)
+
+### Security
+- **Ruby 3.4.13**: Upgraded from 3.4.4 to fix CVE-2026-132825 (heap buffer overflow in String case conversion) and the related Regexp and String vulnerabilities disclosed on 2026-11-18
+  - Existing servers need `rbenv install 3.4.13` (with the YJIT/jemalloc options from the README) and `gem install bundler -v 2.6.7` before deploying
+
 ## Version 1.4.0 (2026-09-21)
 
 ### Framework and Dependencies

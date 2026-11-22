@@ -6,7 +6,7 @@ This guide will help you get Rails Blueprint up and running on your local develo
 
 Before you begin, ensure you have the following installed:
 
-- Ruby 3.4.4 (with YJIT and jemalloc for optimal performance)
+- Ruby 3.4.13 (with YJIT and jemalloc for optimal performance)
 - PostgreSQL 14+
 - Redis 6+
 - Node.js 18+ and Yarn

@@ -8,7 +8,7 @@ Rails Blueprint is a comprehensive Rails application template that provides a pr
 
 ### What versions does Rails Blueprint use?
 
-- **Ruby**: 3.4.4 (with YJIT and jemalloc optimizations)
+- **Ruby**: 3.4.13 (with YJIT and jemalloc optimizations)
 - **Rails**: 8.0.2
 - **PostgreSQL**: 14+
 - **Redis**: 6+

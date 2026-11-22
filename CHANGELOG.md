@@ -5,6 +5,11 @@ All notable changes to Rails Blueprint Basic Edition will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-11-22
+
+### Security
+- **Ruby** 3.4.4 → 3.4.13: fixes CVE-2026-132825 (heap buffer overflow in String case conversion) and the related Regexp and String vulnerabilities disclosed on 2026-11-18. Existing servers need Ruby 3.4.13 and bundler 2.6.7 installed before deploying.
+
 ## [1.4.0] - 2026-09-21
 
 ### Added

@@ -76,9 +76,9 @@ sudo apt install -y rustc libjemalloc-dev
 ### Install Ruby with Optimizations
 
 ```bash
-# Install Ruby 3.4.4 with performance optimizations
-RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc" rbenv install 3.4.4
-rbenv global 3.4.4
+# Install Ruby 3.4.13 with performance optimizations
+RUBY_CONFIGURE_OPTS="--enable-yjit --with-jemalloc" rbenv install 3.4.13
+rbenv global 3.4.13
 
 # Verify installation
 ruby --version

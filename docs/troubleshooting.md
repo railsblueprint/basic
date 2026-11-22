@@ -31,8 +31,8 @@ Common issues and solutions for Rails Blueprint applications.
 
 3. **Wrong Ruby version**:
    ```bash
-   rbenv install 3.4.4
-   rbenv local 3.4.4
+   rbenv install 3.4.13
+   rbenv local 3.4.13
    gem install bundler
    ```
 
